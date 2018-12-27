@@ -1,9 +1,9 @@
 <?php
 global $dbHost,$dbUsername,$dbPassword,$dbName;
 
-$dbHost 	= "localhost";
-$dbUsername = "root";
-$dbPassword = "";
-$dbName 	= "genta";
+$dbHost 	= "spectre.beon.co.id";
+$dbUsername = "imajingg_genta";
+$dbPassword = "Inikatasandi2908;";
+$dbName 	= "imajingg_genta";
 
 ?>

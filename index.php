@@ -106,8 +106,8 @@
 				<div class="bagian">
 					<h2>Recent Posts</h2>
 					<hr size="1" color="#ddd">
-					<div class="recentPost">
-						<a href="./read.php">
+					<div class="recentPost" id="loadPost">
+						<!-- <a href="./read.php">
 							<div class="pos">
 								<div class="bag bag-7">
 									<h3>OVO Bakal Hadirkan Layanan Paylater dan Pinjaman Modal Usaha</h3>
@@ -126,87 +126,7 @@
 									<img src="aset/img/bg.png" class="cover">
 								</div>
 							</div>
-						</a>
-						<a href="./read.php">
-							<div class="pos">
-								<div class="bag bag-7">
-									<h3>OVO Bakal Hadirkan Layanan Paylater dan Pinjaman Modal Usaha</h3>
-									<p>OVO berencana memperluas cakupan layanan keuangan yang mereka berikan dengan menambah daftar fiturnya secara bertahap, mulai kuartal pertama 2019. OVO berencana memperluas cakupan layanan keuangan yang mereka berikan dengan menambah daftar fiturnya secara bertahap, mulai kuartal pertama 2019.</p>
-									<div class="author">
-										<img src="aset/img/riyan.jpg">
-										<div class="name">Riyan Satria</div>
-										<span id="timeStamp">- 2d ago</span>
-										<div class="ke-kanan komentar">
-											<i class="fas fa-comment"></i>
-											3 Komentar
-										</div>
-									</div>
-								</div>
-								<div class="bag bag-3">
-									<img src="aset/img/bg.png" class="cover">
-								</div>
-							</div>
-						</a>
-						<a href="./read.php">
-							<div class="pos">
-								<div class="bag bag-7">
-									<h3>OVO Bakal Hadirkan Layanan Paylater dan Pinjaman Modal Usaha</h3>
-									<p>OVO berencana memperluas cakupan layanan keuangan yang mereka berikan dengan menambah daftar fiturnya secara bertahap, mulai kuartal pertama 2019. OVO berencana memperluas cakupan layanan keuangan yang mereka berikan dengan menambah daftar fiturnya secara bertahap, mulai kuartal pertama 2019.</p>
-									<div class="author">
-										<img src="aset/img/riyan.jpg">
-										<div class="name">Riyan Satria</div>
-										<span id="timeStamp">- 2d ago</span>
-										<div class="ke-kanan komentar">
-											<i class="fas fa-comment"></i>
-											3 Komentar
-										</div>
-									</div>
-								</div>
-								<div class="bag bag-3">
-									<img src="aset/img/bg.png" class="cover">
-								</div>
-							</div>
-						</a>
-						<a href="./read.php">
-							<div class="pos">
-								<div class="bag bag-7">
-									<h3>OVO Bakal Hadirkan Layanan Paylater dan Pinjaman Modal Usaha</h3>
-									<p>OVO berencana memperluas cakupan layanan keuangan yang mereka berikan dengan menambah daftar fiturnya secara bertahap, mulai kuartal pertama 2019. OVO berencana memperluas cakupan layanan keuangan yang mereka berikan dengan menambah daftar fiturnya secara bertahap, mulai kuartal pertama 2019.</p>
-									<div class="author">
-										<img src="aset/img/riyan.jpg">
-										<div class="name">Riyan Satria</div>
-										<span id="timeStamp">- 2d ago</span>
-										<div class="ke-kanan komentar">
-											<i class="fas fa-comment"></i>
-											3 Komentar
-										</div>
-									</div>
-								</div>
-								<div class="bag bag-3">
-									<img src="aset/img/bg.png" class="cover">
-								</div>
-							</div>
-						</a>
-						<a href="./read.php">
-							<div class="pos">
-								<div class="bag bag-7">
-									<h3>OVO Bakal Hadirkan Layanan Paylater dan Pinjaman Modal Usaha</h3>
-									<p>OVO berencana memperluas cakupan layanan keuangan yang mereka berikan dengan menambah daftar fiturnya secara bertahap, mulai kuartal pertama 2019. OVO berencana memperluas cakupan layanan keuangan yang mereka berikan dengan menambah daftar fiturnya secara bertahap, mulai kuartal pertama 2019.</p>
-									<div class="author">
-										<img src="aset/img/riyan.jpg">
-										<div class="name">Riyan Satria</div>
-										<span id="timeStamp">- 2d ago</span>
-										<div class="ke-kanan komentar">
-											<i class="fas fa-comment"></i>
-											3 Komentar
-										</div>
-									</div>
-								</div>
-								<div class="bag bag-3">
-									<img src="aset/img/bg.png" class="cover">
-								</div>
-							</div>
-						</a>
+						</a> -->
 					</div>
 				</div>
 			</div>
@@ -281,6 +201,12 @@
 	function tblSearch() {
 		munculPopup("#bagSearch")
 	}
+	function loadPost() {
+		ambil('./posts/index', (res) => {
+			$("#loadPost").tulis(res)
+		})
+	}
+	loadPost()
 	tekan('Escape', () => {
 		hilangPopup("#bagSearch")
 	})

@@ -1,8 +1,8 @@
 <?php
-include 'controller.php';
+include 'users.php';
 
 date_default_timezone_set('Asia/Jakarta');
-class posts extends EMBO {
+class posts extends users {
 	public function convertTitle($title) {
 		$cek = strpos($title, "-");
 		if($cek != 0) {
@@ -22,6 +22,68 @@ class posts extends EMBO {
 	public function delete() {
 		$id = EMBO::pos('idpost');
 		$del = EMBO::tabel('post')->hapus()->dimana(['idpost' => $id])->eksekusi();
+	}
+	public function timeAgo($datetime, $full = false) {
+	    $now = new DateTime;
+	    $ago = new DateTime($datetime);
+	    $diff = $now->diff($ago);
+
+	    $diff->w = floor($diff->d / 7);
+	    $diff->d -= $diff->w * 7;
+
+	    $string = array(
+	        'y' => 'year',
+	        'm' => 'month',
+	        'w' => 'week',
+	        'd' => 'day',
+	        'h' => 'hour',
+	        'i' => 'minute',
+	        's' => 'second',
+	    );
+	    foreach ($string as $k => &$v) {
+	        if ($diff->$k) {
+	            $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+	        } else {
+	            unset($string[$k]);
+	        }
+	    }
+
+	    if (!$full) $string = array_slice($string, 0, 1);
+	    return $string ? implode(', ', $string) . ' ago' : 'just now';
+	}
+	public function totComment($id) {
+		$q = EMBO::tabel('comment')->pilih()->dimana(['idpost' => $id])->eksekusi();
+		return EMBO::hitung($q);
+	}
+
+	public function index() {
+		$q = EMBO::tabel('post')->pilih()->eksekusi();
+		if(EMBO::hitung($q) == 0) {
+			echo "Tidak ada artikel";
+		}else {
+			while($r = EMBO::ambil($q)) {
+				$authorsPhoto = $this->me($r['iduser'], 'photo');
+				$authorsName = $this->me($r['iduser'], 'name');
+				$totComment = $this->totComment($r['idpost']);
+				echo "<a href='./".$this->convertTitle($r['title'])."'>".
+						"<div class='pos'>".
+							"<div class='bag bag-7'>".
+								"<h3>".$r['title']."</h3>".
+								"<p>".substr($r['content'], 0,350)."...</p>".
+								"<div class='author'>".
+									"<img src='aset/img/".$authorsPhoto."'>".
+									"<div class='name'>".$authorsName."</div>".
+									"<span id='timeStamp'> - ".$this->timeAgo($r['date_posted'])."</span>".
+									"<div class='ke-kanan komentar'>".
+										"<i class='fas fa-comment'></i>".
+										$totComment." comment(s)".
+									"</div>".
+								"</div>".
+							"</div>".
+						"</div>".
+					 "</a>";
+			}
+		}
 	}
 
 	// For admin
@@ -47,6 +109,7 @@ class posts extends EMBO {
 		}
 	}
 	public function create() {
+		session_start();
 		$title = EMBO::pos('title');
 		$content = EMBO::pos('content');
 		$category = EMBO::pos('category');
@@ -57,7 +120,7 @@ class posts extends EMBO {
 		$create = EMBO::tabel('post')
 						->tambah([
 							'idpost'		=> rand(1, 999),
-							'iduser'		=> '1',
+							'iduser'		=> $_SESSION['admingenta'],
 							'category'		=> $category,
 							'title'			=> $title,
 							'content'		=> $content,

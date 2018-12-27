@@ -3,7 +3,12 @@ global $dbHost,$dbUsername,$dbPassword,$dbName;
 
 $dbHost 	= "spectre.beon.co.id";
 $dbUsername = "imajingg_genta";
-$dbPassword = "Inikatasandi2908;";
+$dbPassword = "inikatasandi";
 $dbName 	= "imajingg_genta";
+
+// $dbHost 	= "localhost";
+// $dbUsername = "root";
+// $dbPassword = "";
+// $dbName 	= "genta";
 
 ?>

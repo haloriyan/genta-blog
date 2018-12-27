@@ -31,39 +31,42 @@ if($titles == "") {
 	<h1 class="title">Agendakota</h1>
 	<div id="tblMenu" aksi="bkMenu"><i class="fas fa-bars"></i></div>
 	<nav class="menu">
-		<a href="#"><li>Home &nbsp; <i class="fas fa-angle-down"></i>
+		<a href="#"><li>Events News &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
-				<a href="#"><li>Sub Home</li></a>
-				<a href="#"><li>Sub Home</li></a>
+				<a href="#"><li>Arts &amp; Culture</li></a>
+				<a href="#"><li>Music</li></a>
+				<a href="#"><li>Festival</li></a>
+				<a href="#"><li>Technology</li></a>
+				<a href="#"><li>Education</li></a>
+				<a href="#"><li>Sport</li></a>
+				<a href="#"><li>Travel</li></a>
 			</ul>
 		</li></a>
-		<a href="#"><li>Post Formats &nbsp; <i class="fas fa-angle-down"></i>
+		<a href="#"><li>MICE &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
-				<a href="#"><li>Sub Post</li></a>
-				<a href="#"><li>Sub Post</li></a>
+				<a href="#"><li>Meeting</li></a>
+				<a href="#"><li>Incentive</li></a>
+				<a href="#"><li>Conference</li></a>
+				<a href="#"><li>Exhibition</li></a>
 			</ul>
 		</li></a>
-		<a href="#"><li>Pages &nbsp; <i class="fas fa-angle-down"></i>
+		<a href="#"><li>Tips &nbsp; <i class="fas fa-angle-down"></i>
+			<ul class="sub">
+				<a href="#"><li>Event Planning &amp; Promotion</li></a>
+				<a href="#"><li>Business &amp; Professional</li></a>
+				<a href="#"><li>Marketing &amp; Communication</li></a>
+			</ul>
+		</li></a>
+		<a href="#"><li>More Info &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
 				<a href="#"><li>About Us</li></a>
-				<a href="#"><li>Contact</li></a>
-				<a href="#"><li>404</li></a>
-				<a href="#"><li>Privacy Policy</li></a>
+				<a href="#"><li>Business Partnership</li></a>
+				<a href="#"><li>Hubungi Kami</li></a>
 			</ul>
 		</li></a>
-		<a href="#"><li>Shop &nbsp; <i class="fas fa-angle-down"></i>
-			<ul class="sub">
-				<a href="#"><li>Catalog</li></a>
-				<a href="#"><li>Single Product</li></a>
-				<a href="#"><li>Cart</li></a>
-				<a href="#"><li>Checkout</li></a>
-				<a href="#"><li>My Account</li></a>
-			</ul>
-		</li></a>
-		<a href="#"><li>Elements</li></a>
+		<a href="https://agendakota.id" target="_blank"><button id="cta">Go to Agendakota.id</button></a>
 	</nav>
 	<nav class="nav">
-		<div id="cart"><i class="fas fa-shopping-bag"></i></div>
 		<div id="tblSearch" onclick="tblSearch()"><i class="fas fa-search"></i></div>
 	</nav>
 	<nav class="sosmed">

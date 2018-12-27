@@ -67,7 +67,7 @@ class posts extends users {
 				$totComment = $this->totComment($r['idpost']);
 				echo "<a href='./".$this->convertTitle($r['title'])."'>".
 						"<div class='pos'>".
-							"<div class='bag bag-7'>".
+							"<div class='bag bag-7' style='width: 67%'>".
 								"<h3>".$r['title']."</h3>".
 								"<p>".substr($r['content'], 0,350)."...</p>".
 								"<div class='author'>".
@@ -79,6 +79,9 @@ class posts extends users {
 										$totComment." comment(s)".
 									"</div>".
 								"</div>".
+							"</div>".
+							"<div class='bag bag-3' style='margin-left: 22px;'>".
+								"<img src='aset/img/".$r['cover']."' class='cover'>".
 							"</div>".
 						"</div>".
 					 "</a>";

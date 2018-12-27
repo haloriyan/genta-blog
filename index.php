@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale = 1">
-	<title>Title</title>
+	<title>Agendakota Blog</title>
 	<link href="aset/fw/build/fw.css" rel="stylesheet">
 	<link href="aset/fw/build/fontawesome-all.min.css" rel="stylesheet">
 	<link href="aset/css/style.css" rel="stylesheet">
@@ -47,7 +47,7 @@
 				<a href="#"><li>Hubungi Kami</li></a>
 			</ul>
 		</li></a>
-		<a href="https://agendakota.id" style="color: #27ae60;"><button id="cta">Go to Agendakota.id</button></a>
+		<a href="https://agendakota.id" target="_blank"><button id="cta">Go to Agendakota.id</button></a>
 	</nav>
 	<nav class="nav">
 		<div id="cart"><i class="fas fa-shopping-bag"></i></div>

@@ -1,0 +1,53 @@
+{
+	"tabel": {
+		"user": [
+			"iduser int(11)",
+			"name varchar(50)",
+			"email varchar(50)",
+			"password varchar(50)",
+			"photo varchar(155)",
+			"role int(1)",
+			"registered int(11)"
+		],
+		"post": [
+			"idpost int(11)",
+			"iduser int(11)",
+			"category varchar(155)",
+			"title varchar(155)",
+			"content text",
+			"cover varchar(155)",
+			"date_posted datetime",
+			"premium int(1)",
+			"hit int(11)",
+			"created int(11)"
+		],
+		"comment": [
+			"idcomment int(11)",
+			"idpost int(11)",
+			"name varchar(55)",
+			"email varchar(75)",
+			"website varchar(55)",
+			"comment text",
+			"date_comment datetime",
+			"added int(11)"
+		],
+		"statistik": [
+			"idhit int(11)",
+			"ip varchar(25)",
+			"tgl date",
+			"hint int(11)",
+			"added int(11)"
+		]
+	},
+	"atribut": {
+		"primary key": [
+			"user.iduser",
+			"post.idpost",
+			"comment.idcomment"
+		],
+		"unique key": [
+			"user.email",
+			"post.title"
+		]	
+	}
+}

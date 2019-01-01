@@ -8,6 +8,8 @@ $content = $posts->read($title, "content");
 $category = $posts->read($title, "category");
 $cover = $posts->read($title, "cover");
 
+$linkNow = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
 setcookie('idpost', $idpost, time() + 4300, '/');
 
 if($titles == "") {
@@ -122,35 +124,9 @@ if($titles == "") {
 			<div id="bagKomen">
 				<h2>Comments</h2>
 				<hr size="2" color="#ddd">
-				<!-- <div class="komentar">
-					<div class="wrap">
-						<h3><a href="#"><span>Riyan Satria</span></a> said :</h3>
-						<p>Keren sekali gan</p>
-					</div>
-				</div> -->
-				<div id="loadComment"></div>
+				<!-- <div id="loadComment"></div> -->
+				<div id="disqus_thread"></div>
 			</div>
-			<h2>Leave a Reply</h2>
-			<hr size="2" color="#ddd">
-			<form id="formReply">
-				<div class="comment">
-					<div>Comment</div>
-					<textarea class="box" id="comment"></textarea>
-				</div>
-				<div class="bag bag-3">
-					Name
-					<input type="text" class="box" id="name">
-				</div>
-				<div class="bag bag-3">
-					Email
-					<input type="text" class="box" id="email">
-				</div>
-				<div class="bag bag-3">
-					Website
-					<input type="text" class="box" id="website">
-				</div>
-				<button class="hijau" id="postComment">Post Coment</button>
-			</form>
 			<div class="navPost">
 				<div class="pos">
 					<div class="bag bag-4">
@@ -249,29 +225,24 @@ if($titles == "") {
 	function tblSearch() {
 		munculPopup("#bagSearch")
 	}
-	function loadComment() {
-		ambil('./comments/load', (res) => {
-			$("#loadComment").tulis(res)
-		})
-	}
-	loadComment()
+	// function loadComment() {
+	// 	ambil('./comments/load', (res) => {
+	// 		$("#loadComment").tulis(res)
+	// 	})
+	// }
+	// loadComment()
+	
+	var disqus_config = function () {
+	this.page.url = '<?php echo $linkNow; ?>';  // Replace PAGE_URL with your page's canonical URL variable
+	this.page.identifier = '<?php echo $title; ?>'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	};
 
-	submit('#formReply', () => {
-		let name = encodeURIComponent($("#name").isi())
-		let email = encodeURIComponent($("#email").isi())
-		let website = encodeURIComponent($("#website").isi())
-		let comment = encodeURIComponent($("#comment").isi())
-		let post = "name="+name+"&email="+email+"&website="+website+"&comment="+comment
-		pos("./comments/post", post, () => {
-			$("#name").isi('')
-			$("#email").isi('')
-			$("#website").isi('')
-			$("#comment").isi('')
-			scrollKe('#bagKomen')
-			loadComment()
-		})
-		return false
-	})
+	(function() { // DON'T EDIT BELOW THIS LINE
+	var d = document, s = d.createElement('script');
+	s.src = 'https://agendakota-1.disqus.com/embed.js';
+	s.setAttribute('data-timestamp', +new Date());
+	(d.head || d.body).appendChild(s);
+	})();
 
 	tekan('Escape', () => {
 		hilangPopup("#bagSearch")
@@ -294,6 +265,7 @@ if($titles == "") {
 		}
 	})
 </script>
+<script id="dsq-count-scr" src="//agendakota-1.disqus.com/count.js" async></script>
 
 </body>
 </html>

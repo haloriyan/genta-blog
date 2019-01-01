@@ -134,6 +134,46 @@ class posts extends users {
 						])
 						->eksekusi();
 	}
+	public function search() {
+		$kw = $_COOKIE['kw'];
+		$q = EMBO::query("SELECT * FROM post WHERE title LIKE '%$kw%' OR content LIKE '%$kw%' OR category LIKE '%$kw%'");
+		if(EMBO::hitung($q) == 0) {
+			return "null";
+		}else {
+			while($r = EMBO::ambil($q)) {
+				$res[] = $r;
+			}
+			return $res;
+		}
+	}
+	public function cari() {
+		$res = $this->search();
+		foreach ($res as $r) {
+			$authorsPhoto = $this->me($r['iduser'], 'photo');
+			$authorsName = $this->me($r['iduser'], 'name');
+			$totComment = $this->totComment($r['idpost']);
+			echo "<a href='./".$this->convertTitle($r['title'])."'>".
+					"<div class='pos'>".
+						"<div class='bag bag-7' style='width: 67%'>".
+							"<h3>".$r['title']."</h3>".
+							"<p>".substr($r['content'], 0,350)."...</p>".
+							"<div class='author'>".
+								"<img src='aset/img/".$authorsPhoto."'>".
+								"<div class='name'>".$authorsName."</div>".
+								"<span id='timeStamp'> - ".$this->timeAgo($r['date_posted'])."</span>".
+								"<div class='ke-kanan komentar'>".
+									"<i class='fas fa-comment'></i>".
+									$totComment." comment(s)".
+								"</div>".
+							"</div>".
+						"</div>".
+						"<div class='bag bag-3' style='margin-left: 22px;'>".
+							"<img src='aset/img/".$r['cover']."' class='cover'>".
+						"</div>".
+					"</div>".
+				 "</a>";
+		}
+	}
 }
 
 $posts = new posts();

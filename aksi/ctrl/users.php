@@ -33,6 +33,30 @@ class users extends EMBO {
 		$id = EMBO::pos('iduser');
 		$del = EMBO::tabel('user')->hapus()->dimana(['iduser' => $id])->eksekusi();
 	}
+	public function change($id, $kolom, $value) {
+		return EMBO::tabel('user')->ubah([$kolom => $value])->dimana(['iduser' => $id])->eksekusi();
+	}
+	public function test() {
+		$a = "1";
+		$res = $a === 1 ? "ya" : "tidak";
+		echo $res;
+	}
+	public function edit() {
+		$sesi = $this->sesi();
+		$iduser = $this->me($sesi, 'iduser');
+		$name = EMBO::pos('name');
+		$email = EMBO::pos('email');
+		$photo = EMBO::pos('photo');
+
+		$newPhoto = $photo == "" ? $this->me($sesi, 'photo') : $photo;
+
+		$k = ['name','email','photo'];
+		$v = [$name,$email,$newPhoto];
+		for($i = 0; $i < count($v); $i++) {
+			$this->change($iduser, $k[$i], $v[$i]);
+		}
+		$_SESSION['admingenta']=$email;
+	}
 	public function login() {
 		$e = EMBO::pos('email');
 		$p = EMBO::pos('pwd');
@@ -56,6 +80,47 @@ class users extends EMBO {
 			}
 		}
 		return $this->sesi;
+	}
+	public function totArtikel($id) {
+		$q = EMBO::tabel('post')->pilih()->dimana(['iduser' => $id])->eksekusi();
+		return EMBO::hitung($q);
+	}
+	public function convertTitle($title) {
+		$cek = strpos($title, "-");
+		if($cek != 0) {
+			$res = implode(" ", explode("-", $title));
+		}else {
+			$res = implode("-", explode(" ", $title));
+			$res = strtolower($res);
+		}
+		return $res;
+	}
+	public function myTopArticle() {
+		$sesi = $this->sesi();
+		$iduser = $this->me($sesi, 'iduser');
+		$q = EMBO::tabel('post')->pilih()->dimana(['iduser' => $iduser])->urutkan('hit', 'DESC')->batas(10)->eksekusi();
+		while($r = EMBO::ambil($q)) {
+			echo "<li>".
+					"<a href='./".$this->convertTitle($r['title'])."' target='_blank'>".$r['title']."</a>".
+				 "</li>";
+		}
+	}
+	public function loadProfile() {
+		$sesi = $this->sesi();
+		$iduser = $this->me($sesi, 'iduser');
+		$name = $this->me($sesi, 'name');
+		$photo = $this->me($sesi, 'photo');
+		?>
+		<div class="cover"></div>
+		<div class="ket">
+			<div class="wrap">
+				<img src="aset/img/<?php echo $photo; ?>">
+				<h3><?php echo $name; ?></h3>
+				<p><?php echo $this->totArtikel($iduser); ?> writing</p>
+				<button id="editProfile" onclick="editProfile()">EDIT PROFILE</button>
+			</div>
+		</div>
+		<?php
 	}
 }
 

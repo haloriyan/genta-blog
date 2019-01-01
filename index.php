@@ -50,7 +50,6 @@
 		<a href="https://agendakota.id" target="_blank"><button id="cta">Go to Agendakota.id</button></a>
 	</nav>
 	<nav class="nav">
-		<div id="cart"><i class="fas fa-shopping-bag"></i></div>
 		<div id="tblSearch" onclick="tblSearch()"><i class="fas fa-search"></i></div>
 	</nav>
 	<nav class="sosmed">
@@ -190,7 +189,7 @@
 			<h2 class="rata-kanan" id="xSearch"><i class="fas fa-times"></i></h2>
 			<form id="formCari">
 				<p>Search</p>
-				<input type="text" class="box" placeholder="Type and Hit Enter">
+				<input type="text" class="box" placeholder="Type and Hit Enter" id="kw">
 			</form>
 		</div>
 	</div>
@@ -201,6 +200,7 @@
 	function tblSearch() {
 		munculPopup("#bagSearch")
 	}
+	munculPopup("#bagSearch")
 	function loadPost() {
 		ambil('./posts/index', (res) => {
 			$("#loadPost").tulis(res)
@@ -212,6 +212,13 @@
 	})
 	$("#xSearch").klik(() => {
 		hilangPopup("#bagSearch")
+	})
+	submit('#formCari', () => {
+		let kw = $("#kw").isi()
+		pos("./aksi/setCookie.php", kw, () => {
+			mengarahkan('./cari&tentang='+kw)
+		})
+		return false;
 	})
 	$("#tblMenu").klik(function() {
 		let aksi = this.atribut('aksi')

@@ -169,6 +169,7 @@ class EMBO {
 			return $res;
 		}else {
 			return mysqli_query($this->konek, $query);
+			// return $query;
 		}
 		// return $query;
 	}

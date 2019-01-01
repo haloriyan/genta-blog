@@ -28,7 +28,7 @@ $users->sesi(1);
 		</li></a> -->
 		<a href="./post"><li><div class="icon"><i class="fas fa-edit"></i></div> <span>Post</span></li></a>
 		<a href="./comment"><li><div class="icon"><i class="fas fa-comment"></i></div> <span>Comment</span></li></a>
-		<a href="./setting"><li><div class="icon"><i class="fas fa-cogs"></i></div> <span>Settings</span></li></a>
+		<a href="./account"><li><div class="icon"><i class="fas fa-user"></i></div> <span>Account Settings</span></li></a>
 		<a href="./logout"><li><div class="icon"><i class="fas fa-sign-out-alt"></i></div> <span>Sign Out</span></li></a>
 	</div>
 </div>

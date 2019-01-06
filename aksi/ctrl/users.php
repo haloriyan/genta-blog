@@ -122,6 +122,12 @@ class users extends EMBO {
 		</div>
 		<?php
 	}
+	public function mamama() {
+		// echo base64_decode('PHA+SGVsbG88L3A+');
+		for($i = 0; $i < 57; $i++) {
+			echo "<li>Hello</li>";
+		}
+	}
 }
 
 $users = new users();

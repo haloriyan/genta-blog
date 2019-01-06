@@ -3,15 +3,16 @@ body {
 }
 .container {
 	position: absolute;
-	top: 100px;left: 35%;right: 35%;
+	top: 60px;left: 35%;right: 35%;
 	background-color: #fff;
 	box-shadow: 1px 1px 10px 1px #ddd;
 }
 .container .wrap {
 	margin: 7.5%;
 }
-.container .wrap > img {
-	width: 100%;
+.container .wrap img {
+	width: 40%;
+	margin: 20px 0px 20px 0px;
 }
 .box {
 	width: 99%;

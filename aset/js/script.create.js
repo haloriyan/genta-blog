@@ -6,18 +6,6 @@ ClassicEditor.create($("#content")).then(myEditor => {
 	// console.log(error)
 })
 
-function post() {
-	let title = $("#title").isi()
-	let content = editor.getData()
-	alert(content)
-	let cover = $("#cover").isi()
-	let category = encodeURIComponent($("#category").isi())
-	let premium = $("#premium").isi()
-	let send = "title="+title+"&content="+content+"&cover="+cover+"&category="+category+"&premium="+premium
-	pos("./posts/create", send, () => {
-		mengarahkan("./post")
-	})
-}
 function getExt(val) {
 	let re =/(?:\.([^.]+))?$/
 	let ext = re.exec(val)[1]

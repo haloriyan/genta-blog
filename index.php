@@ -1,3 +1,8 @@
+<?php
+
+setcookie('position', '0', time() + 3555, '/');
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +12,9 @@
 	<link href="aset/fw/build/fw.css" rel="stylesheet">
 	<link href="aset/fw/build/fontawesome-all.min.css" rel="stylesheet">
 	<link href="aset/css/style.css" rel="stylesheet">
+	<style>
+		body { background-color: #efefef; }
+	</style>
 </head>
 <body>
 
@@ -16,13 +24,13 @@
 	<nav class="menu">
 		<a href="#"><li>Events News &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
-				<a href="#"><li>Arts &amp; Culture</li></a>
-				<a href="#"><li>Music</li></a>
-				<a href="#"><li>Festival</li></a>
-				<a href="#"><li>Technology</li></a>
-				<a href="#"><li>Education</li></a>
-				<a href="#"><li>Sport</li></a>
-				<a href="#"><li>Travel</li></a>
+				<a href="./cari&tentang=Arts%26Culture"><li>Arts &amp; Culture</li></a>
+				<a href="./cari&tentang=Music"><li>Music</li></a>
+				<a href="./cari&tentang=Festival"><li>Festival</li></a>
+				<a href="./cari&tentang=Technology"><li>Technology</li></a>
+				<a href="./cari&tentang=Education"><li>Education</li></a>
+				<a href="./cari&tentang=Sport"><li>Sport</li></a>
+				<a href="./cari&tentang=Travel"><li>Travel</li></a>
 			</ul>
 		</li></a>
 		<a href="#"><li>MICE &nbsp; <i class="fas fa-angle-down"></i>
@@ -61,7 +69,7 @@
 
 <div class="container">
 	<div class="wrap">
-		<div id="primaryPosts">
+		<!-- <div id="primaryPosts">
 			<div class="primary">
 				<a href="./read.php">
 					<div class="post">
@@ -99,84 +107,81 @@
 					</div>
 				</a>
 			</div>
-		</div>
-		<div class="bawah">
-			<div class="kiri">
-				<div class="bagian">
-					<h2>Recent Posts</h2>
-					<hr size="1" color="#ddd">
-					<div class="recentPost" id="loadPost">
-						<!-- <a href="./read.php">
-							<div class="pos">
-								<div class="bag bag-7">
-									<h3>OVO Bakal Hadirkan Layanan Paylater dan Pinjaman Modal Usaha</h3>
-									<p>OVO berencana memperluas cakupan layanan keuangan yang mereka berikan dengan menambah daftar fiturnya secara bertahap, mulai kuartal pertama 2019. OVO berencana memperluas cakupan layanan keuangan yang mereka berikan dengan menambah daftar fiturnya secara bertahap, mulai kuartal pertama 2019.</p>
-									<div class="author">
-										<img src="aset/img/riyan.jpg">
-										<div class="name">Riyan Satria</div>
-										<span id="timeStamp">- 2d ago</span>
-										<div class="ke-kanan komentar">
-											<i class="fas fa-comment"></i>
-											3 Komentar
-										</div>
-									</div>
-								</div>
-								<div class="bag bag-3">
-									<img src="aset/img/bg.png" class="cover">
-								</div>
+		</div> -->
+		<div class="featuredPost">
+			<div class="list">
+				<div class="kiri bag bag-5">
+					<div class="pos">
+						<img src="http://localhost/genta/aset/img/Menolak-Lamaran-Kerja-Karyawan-Featured.jpg">
+						<div class="ket">
+							<div class="wrap">
+								<h3>Membangun Platform Pencari Kerja Efisien Sesuai dengan Keinginan Pengusaha</h3>
 							</div>
-						</a> -->
+						</div>
+					</div>
+				</div>
+				<div class="kanan bag bag-5">
+					<div class="pos">
+						<img src="http://localhost/genta/aset/img/Menolak-Lamaran-Kerja-Karyawan-Featured.jpg">
+						<div class="ket">
+							<div class="wrap">
+								<div class="tag">TEKNOLOGI</div>
+								<h3>Membangun Platform Pencari Kerja Efisien Sesuai dengan Keinginan Pengusaha</h3>
+							</div>
+						</div>
+					</div>
+					<div class="pos">
+						<img src="http://localhost/genta/aset/img/Menolak-Lamaran-Kerja-Karyawan-Featured.jpg">
+						<div class="ket">
+							<div class="wrap">
+								<div class="tag">TEKNOLOGI</div>
+								<h3>Membangun Platform Pencari Kerja Efisien Sesuai dengan Keinginan Pengusaha</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="kanan bag bag-5" style="margin-left: 0px;margin-right: 25px;">
+					<div class="pos">
+						<img src="http://localhost/genta/aset/img/Menolak-Lamaran-Kerja-Karyawan-Featured.jpg">
+						<div class="ket">
+							<div class="wrap">
+								<div class="tag">TEKNOLOGI</div>
+								<h3>Membangun Platform Pencari Kerja Efisien Sesuai dengan Keinginan Pengusaha</h3>
+							</div>
+						</div>
+					</div>
+					<div class="pos">
+						<img src="http://localhost/genta/aset/img/Menolak-Lamaran-Kerja-Karyawan-Featured.jpg">
+						<div class="ket">
+							<div class="wrap">
+								<div class="tag">TEKNOLOGI</div>
+								<h3>Membangun Platform Pencari Kerja Efisien Sesuai dengan Keinginan Pengusaha</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="kiri bag bag-5">
+					<div class="pos">
+						<img src="http://localhost/genta/aset/img/Menolak-Lamaran-Kerja-Karyawan-Featured.jpg">
+						<div class="ket">
+							<div class="wrap">
+								<h3>Membangun Platform Pencari Kerja Efisien Sesuai dengan Keinginan Pengusaha</h3>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="moreIg rata-tengah">
-		<h3>Agendakota @ Instagram</h3>
-		<div id="moreIg">
-			<img src="aset/img/swissBelCover.jpg" class="moreIgPhoto">
-			<img src="aset/img/bg.png" class="moreIgPhoto">
-			<img src="aset/img/swissBelCover.jpg" class="moreIgPhoto">
-			<img src="aset/img/bg.png" class="moreIgPhoto">
-			<img src="aset/img/swissBelCover.jpg" class="moreIgPhoto">
-		</div>
-		<div class="ket">
-			<button>Follow @agendakota</button>
-		</div>
-	</div>
-	<div class="footer">
-		<div class="wrap">
-			<div class="bagFoot">
-				<h2>Agendakota</h2>
-				<p>
-					<i class="fas fa-copyright"></i> 2018 Agendakota, made with <i class="fas fa-heart"></i>
-				</p>
-			</div>
-			<div class="bagFoot">
-				<h3>NAVIGATION</h3>
-				<a href="#"><li>Shop</li></a>
-				<a href="#"><li>Home</li></a>
-				<a href="#"><li>Home2</li></a>
-				<a href="#"><li>Home3</li></a>
-			</div>
-			<div class="bagFoot">
-				<h3>USEFUL LINKS</h3>
-				<a href="#"><li>Shop</li></a>
-				<a href="#"><li>Privacy Policy</li></a>
-				<a href="#"><li>Advertise</li></a>
-				<a href="#"><li>FAQ</li></a>
-			</div>
-			<div class="bagFoot">
-				<h3>TAGS</h3>
-				<a href="#"><div class="tag">blog</div></a>
-				<a href="#"><div class="tag">sport</div></a>
-				<a href="#"><div class="tag">festival</div></a>
-				<a href="#"><div class="tag">concert</div></a>
-				<a href="#"><div class="tag">store</div></a>
-				<a href="#"><div class="tag">workshop</div></a>
-				<a href="#"><div class="tag">exhibition</div></a>
-				<a href="#"><div class="tag">attraction</div></a>
-				<a href="#"><div class="tag">conference</div></a>
+		<div class="bawah">
+			<div class="kiri">
+				<div class="bagian" id="recentPost">
+					<div class="wrap">
+						<div class="recentPost">
+							<div id="loadPost"></div>
+							<div id="toLoad0"></div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -197,14 +202,63 @@
 
 <script src="aset/js/embo.js"></script>
 <script>
+	let toLoad = 0
+	let posisi = 0
+	let allowLoad = 1
+	let documentHeight
+	let totalScroll
+	
 	function tblSearch() {
 		munculPopup("#bagSearch")
 	}
-	munculPopup("#bagSearch")
+	function getDocHeight() {
+		var body = document.body,
+		    html = document.documentElement;
+
+		// documentHeight = Math.max( body.scrollHeight, body.offsetHeight, 
+		//                        html.clientHeight, html.scrollHeight, html.offsetHeight );
+		documentHeight = html.offsetHeight + html.scrollHeight
+	}
 	function loadPost() {
 		ambil('./posts/index', (res) => {
 			$("#loadPost").tulis(res)
 		})
+	}
+
+// documentHeight = 4738
+	getDocHeight()
+	window.addEventListener('scroll', (scr) => {
+		let scroll = this.pageYOffset
+		// totalScroll = parseInt(window.innerHeight) + parseInt(window.pageYOffset)
+		if(scroll >= documentHeight) {
+			loadMore()
+		}
+	})
+	function loadMore(that) {
+		toLoad = parseInt(toLoad) + 1
+		posisi = parseInt(posisi) + 5
+		if(allowLoad == 1) {
+			magicElement()
+		}else {
+			return false
+		}
+		pos('./aksi/setCookie.php', 'namakuki=position&value='+posisi+'&durasi=3666', () => {
+			ambil('./posts/index', (res) => {
+				if(res == 'habis') {
+						$("#toLoad"+toLoad).tulis('No more article :(')
+					allowLoad = 0
+				}else {
+					$("#toLoad"+toLoad).tulis(res)
+				}
+			})
+		})
+		// refresh variable documentHeight
+		getDocHeight()
+	}
+	function magicElement() {
+		let div = document.createElement('div')
+		div.setAttribute('id', 'toLoad'+toLoad)
+		$('.recentPost').appendChild(div)
 	}
 	loadPost()
 	tekan('Escape', () => {

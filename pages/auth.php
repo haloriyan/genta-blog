@@ -16,7 +16,9 @@ $kuki = $_COOKIE['kukiLogin'];
 
 <div class="container">
 	<div class="wrap">
-		<img src="aset/img/AK.png">
+		<div class="rata-tengah">
+			<img src="aset/img/AKO.png">
+		</div>
 		<form id="formLogin">
 			<div class="bagForm">
 				<input type="text" class="box" id="email" required>

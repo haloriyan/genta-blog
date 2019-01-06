@@ -5,7 +5,7 @@ date_default_timezone_set('Asia/Jakarta');
 class posts extends users {
 	public function convertTitle($title) {
 		$cek = strpos($title, "-");
-		if($cek != 0) {
+		if($cek > 0) {
 			$res = implode(" ", explode("-", $title));
 		}else {
 			$res = implode("-", explode(" ", $title));
@@ -16,6 +16,9 @@ class posts extends users {
 	public function read($title, $kolom) {
 		$title = $this->convertTitle($title);
 		$q = EMBO::tabel('post')->pilih($kolom)->dimana(['title' => $title], 'like')->eksekusi();
+		if(EMBO::hitung($q) == 0) {
+			$q = EMBO::tabel('post')->pilih($kolom)->dimana(['idpost' => $title])->eksekusi();
+		}
 		$r = EMBO::ambil($q);
 		return $r[$kolom];
 	}
@@ -55,11 +58,28 @@ class posts extends users {
 		$q = EMBO::tabel('comment')->pilih()->dimana(['idpost' => $id])->eksekusi();
 		return EMBO::hitung($q);
 	}
+	public function clearHTML($str = NULL) {
+		return preg_replace('#<[^>]+>#', ' ', $str);
+	}
+	public function limit($str, $lim) {
+		$a = explode(' ', $str);
+		for($i = 0; $i <= $lim; $i++) {
+			$res[] = $a[$i];
+		}
+		$result = implode(' ', $res);
+		$result = $this->clearHTML($result);
+		return $result;
+		// echo $result;
+		// return $res;
+	}
 
 	public function index() {
-		$q = EMBO::tabel('post')->pilih()->eksekusi();
+		// $q = EMBO::tabel('post')->pilih()->urutkan('created', 'DESC')->eksekusi();
+		$pos = $_COOKIE['position'] == '' ? 0 : $_COOKIE['position'];
+		$batas = 5;
+		$q = EMBO::query("SELECT * FROM post ORDER BY created DESC LIMIT $pos,$batas");
 		if(EMBO::hitung($q) == 0) {
-			echo "Tidak ada artikel";
+			echo "habis";
 		}else {
 			while($r = EMBO::ambil($q)) {
 				$authorsPhoto = $this->me($r['iduser'], 'photo');
@@ -69,7 +89,7 @@ class posts extends users {
 						"<div class='pos'>".
 							"<div class='bag bag-7' style='width: 67%'>".
 								"<h3>".$r['title']."</h3>".
-								"<p>".substr($r['content'], 0,350)."...</p>".
+								"<p>".$this->limit($r['content'], 20)."...</p>".
 								"<div class='author'>".
 									"<img src='aset/img/".$authorsPhoto."'>".
 									"<div class='name'>".$authorsName."</div>".
@@ -88,12 +108,30 @@ class posts extends users {
 			}
 		}
 	}
+	public function indexx() {
+		$q = EMBO::query("SELECT * FROM post ORDER BY created DESC");
+		while($r = EMBO::ambil($q)) {
+			$authorsPhoto = $this->me($r['iduser'], 'photo');
+			$authorsName = $this->me($r['iduser'], 'name');
+			$totComment = $this->totComment($r['idpost']);
+			echo "<a href='#'>".
+					"<div class='pos'>".
+						"<div class='bag bag-7' style='width: 67%;'>".
+							"<h3>".$r['title']."</h3>".
+							"<p>".substr($r['content'], 0,200)."...</p>".
+						"</div>".
+					"</div>".
+				 "</a>";
+		}
+	}
 
 	// For admin
 	public function all() {
-		$q = EMBO::tabel('post')->pilih()->eksekusi();
+		$cat = $_COOKIE['catAdmin'];
+		$title = $_COOKIE['titleAdmin'];
+		$q = EMBO::query("SELECT * FROM post WHERE category LIKE '%$cat%' AND title LIKE '%$title%' ORDER BY created DESC");
 		if(EMBO::hitung($q) == 0) {
-			echo "Tidak ada artikel";
+			echo "No article found";
 		}
 
 		while($r = EMBO::ambil($q)) {
@@ -104,7 +142,7 @@ class posts extends users {
 						"</div>".
 						"<div class='nav ke-kiri'>".
 							"<a href='./".$this->convertTitle($r['title'])."' target='_blank'><button class='tblView'><i class='fas fa-eye'></i></button></a>".
-							"<button class='tblEdit'><i class='fas fa-edit'></i></button>".
+							"<a href='./create&id=".$r['idpost']."'><button class='tblEdit'><i class='fas fa-edit'></i></button></a>".
 							"<button class='tblDelete' onclick='hapus(this.value)' value='".$r['idpost']."'><i class='fas fa-times'></i></button>".
 						"</div>".
 					"</td>".
@@ -112,9 +150,10 @@ class posts extends users {
 		}
 	}
 	public function create() {
-		session_start();
+		
+		$iduser = users::me(users::sesi(), 'iduser');
 		$title = EMBO::pos('title');
-		$content = EMBO::pos('content');
+		$content = base64_decode(EMBO::pos('content'));
 		$category = EMBO::pos('category');
 		$cover = EMBO::pos('cover');
 		$datePosted = date('Y-m-d H:i:s');
@@ -123,7 +162,7 @@ class posts extends users {
 		$create = EMBO::tabel('post')
 						->tambah([
 							'idpost'		=> rand(1, 999),
-							'iduser'		=> $_SESSION['admingenta'],
+							'iduser'		=> $iduser,
 							'category'		=> $category,
 							'title'			=> $title,
 							'content'		=> $content,
@@ -133,6 +172,26 @@ class posts extends users {
 							'created'		=> time()
 						])
 						->eksekusi();
+	}
+	public function change($id, $kolom, $value) {
+		return EMBO::tabel('post')->ubah([$kolom => $value])->dimana(['idpost' => $id])->eksekusi();
+	}
+	public function edit() {
+		$id = $_COOKIE['idpost'];
+		$title = EMBO::pos('title');
+		$content = base64_decode(EMBO::pos('content'));
+		$cover = EMBO::pos('cover');
+		$category = EMBO::pos('category');
+		$premium = EMBO::pos('premium');
+
+		$changeCover = ($cover == '') ? $this->read($id, 'cover') : $cover;
+
+		$k = ['title','content','cover','category','premium'];
+		$v = [$title,$content,$changeCover,$category,$premium];
+
+		for($i = 0; $i < count($k); $i++) {
+			$this->change($id, $k[$i], $v[$i]);
+		}
 	}
 	public function search() {
 		$kw = $_COOKIE['kw'];
@@ -173,6 +232,10 @@ class posts extends users {
 					"</div>".
 				 "</a>";
 		}
+	}
+	public function hit($title) {
+		$t = $this->convertTitle($title);
+		return EMBO::query("UPDATE post SET hit = hit + 1 WHERE title = '$t'");
 	}
 }
 

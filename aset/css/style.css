@@ -13,6 +13,7 @@
 	float: left;
 	margin-left: 5%;
 	width: 15%;
+	cursor: pointer;
 }
 .atas .title img {
 	position: relative;
@@ -122,12 +123,66 @@
 	height: 480px;
 	border-radius: 12px;
 }
-#primaryPosts {
+/*#primaryPosts {
 	height: 480px;
 }
 #primaryPosts .primary {
 	float: left;
 	width: 62.3%;
+}*/
+.featuredPost {
+	width: 90%;
+	margin-left: 5%;
+	margin-top: 75px;
+}
+.featuredPost .kiri .pos .ket {
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 1));
+	height: 280px;
+	margin-top: -285px;
+	position: relative;
+	color: #fff;
+}
+.featuredPost .kanan {
+	width: 48.5%;
+	margin-left: 25px;
+}
+.featuredPost .kanan .pos {
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 1px 1px 1px 1px #ddd;
+	height: 120px;
+	color: #555;
+}
+.featuredPost .tag {
+	font-family: ProReg;
+	color: rgba(13,196,175,1);
+	margin: -2px;
+	margin-right: 10px;
+	margin: 4% 10px 10px 0px;
+	display: inline-block;
+}
+.featuredPost .pos:hover { box-shadow: 5px 10px 15px 1px #ddd; }
+.featuredPost .kiri .pos .ket .wrap { margin: 0% 5%;padding-top: 175px; }
+.featuredPost .kanan .pos .ket .wrap {
+	margin: 2% 5%;
+}
+.featuredPost .kanan .pos .ket { float: left;width: 69%; }
+.featuredPost .kiri .pos .ket h3,.featuredPost .kanan .pos .ket h3 {
+	margin-top: 0px;
+	font-family: ProReg;
+	line-height: 36px;
+}
+.featuredPost .kanan .pos .ket h3 { line-height: 25px;font-size: 17px; }
+.featuredPost .kiri .pos img {
+	width: 100%;
+	height: 280px;
+}
+.featuredPost .kanan .pos img {
+	width: 30%;
+	height: 100%;
+	float: left;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
 }
 .post .ket {
 	background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.6));
@@ -159,7 +214,7 @@
 	line-height: 45px;
 }
 
-#primaryPosts .secondary {
+/*#primaryPosts .secondary {
 	width: 35%;
 	margin-left: 2.5%;
 	float: left;
@@ -176,12 +231,11 @@
 	height: 225px;
 	margin-top: -230px;
 }
-#primaryPosts .secondary .post .ket .wrap { margin-top: 70px; }
+#primaryPosts .secondary .post .ket .wrap { margin-top: 70px; }*/
 
 .bawah {
 	margin-top: 50px;
 	margin-bottom: 55px;
-	background-color: #fff;
 	color: #454545;
 }
 .bawah .kiri,.bawah .kanan {
@@ -202,6 +256,12 @@
 	color: #353535;
 	font-family: ProBold;
 }
+#recentPost {
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+#recentPost > .wrap { margin: 5%; }
 .recentPost .pos {
 	width: 100%;
 	margin: 35px 0px 35px 0px;
@@ -212,7 +272,7 @@
 	height: 200px;
 }
 .recentPost .pos .bag-3 {
-	width: 31%;
+	width: 30%;
 	margin-right: 0px;
 }
 .recentPost .pos h3 {
@@ -404,21 +464,14 @@
 	font-family: ProBold;
 	font-size: 16px;
 }
-.tag {
-	padding: 5px 15px;
-	border: 1px solid #ddd;
-	border-radius: 200px;
-	display: inline-block;
-	margin: 5px 5px;
-}
 .footer { margin-bottom: 55px; }
 #tblMenu { display: none; }
 
 @media (max-width: 480px) {
-	#primaryPosts .primary {
+	/*#primaryPosts .primary {
 		float: none;
 		width: 100%;
-	}
+	}*/
 	.atas .title {
 		width: 80%;
 		display: inline-block;
@@ -468,7 +521,7 @@
 	.pos .cover {
 		height: 150px !important;
 	}
-	#primaryPosts .secondary {
+	/*#primaryPosts .secondary {
 		width: 100%;
 		margin-left: 0px;
 		margin-top: 15px;
@@ -485,5 +538,5 @@
 		font-size: 20px;
 		line-height: 34px;
 	}
-	#primaryPosts .primary .ket .wrap { margin-top: 90px; }
+	#primaryPosts .primary .ket .wrap { margin-top: 90px; }*/
 }

@@ -22,6 +22,7 @@
 	padding: 1px 30px;
 	z-index: 1;
 	background-color: #fff;
+	transition: 0.4s;
 }
 #formCari .box {
 	width: 92%;

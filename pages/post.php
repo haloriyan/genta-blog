@@ -1,6 +1,13 @@
 <?php
 include 'aksi/ctrl/users.php';
 $users->sesi(1);
+
+$allCat = ["Arts & Culture","Music","Festival","Technology","Education","Sport","Travel"];
+
+// clear cookie
+setcookie('catAdmin', '', time() + 2, '/');
+setcookie('titleAdmin', '', time() + 2, '/');
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,6 +32,7 @@ $users->sesi(1);
 			cursor: pointer;
 		}
 		#createPost:hover { background-color: #252c41; }
+		.box { font-size: 16px; }
 	</style>
 </head>
 <body>
@@ -53,6 +61,27 @@ $users->sesi(1);
 </div>
 
 <div class="container">
+	<div class="bag bag-10">
+		<div class="bag bag-5">
+			<div class="wrap">
+				Sort by category :
+				<select class="box" id="cat" onchange="chooseCat(this.value)">
+					<option value="">All categories</option>
+					<?php
+					foreach ($allCat as $key => $value) {
+						echo "<option>".$value."</option>";
+					}
+					?>
+				</select>
+			</div>
+		</div>
+		<div class="bag bag-5">
+			<div class="wrap">
+				Search title :
+				<input type="text" class="box" id="searcPost" oninput="searchInput(this.value)">
+			</div>
+		</div>
+	</div>
 	<div class="bag bag-10">
 		<div class="wrap">
 			<table id="tablePosts">
@@ -110,12 +139,28 @@ $users->sesi(1);
 		}
 	})
 
+	function setCookie(name, value, callback) {
+		let set = "namakuki="+name+"&value="+value+"&durasi=3665"
+		pos("./aksi/setCookie.php", set, () => {
+			callback()
+		})
+	}
 	function load() {
 		ambil("./posts/all", (res) => {
 			$("#load").tulis(res)
 		})
 	}
 	load()
+	function chooseCat(cat) {
+		setCookie('catAdmin', cat, () => {
+			load()
+		})
+	}
+	function searchInput(val) {
+		setCookie('titleAdmin', val, () => {
+			load()
+		})
+	}
 
 	function hapus(val) {
 		$("#idpost").isi(val)

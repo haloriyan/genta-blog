@@ -1,8 +1,8 @@
 <?php
 $kw = $_COOKIE['kw'];
-if($_GET['tentang'] != "") {
+if($kw != $_GET['tentang']) {
 	setcookie('kw', $_GET['tentang'], time() + 3655, '/');
-	header("Refresh: 0");
+	header("location: ./cari&tentang=".$_GET['tentang']);
 }
 ?>
 <!DOCTYPE html>
@@ -10,7 +10,7 @@ if($_GET['tentang'] != "") {
 <head>
 	<meta charset='UTF-8'>
 	<meta name='viewport' content='width=device-width, initial-scale = 1'>
-	<title>cari</title>
+	<title>Mencari <?php echo $kw; ?> | Agendakota Blog</title>
 	<link href='aset/fw/build/fw.css' rel='stylesheet'>
 	<link href='aset/fw/build/fontawesome-all.min.css' rel='stylesheet'>
 	<link href='aset/css/style.css' rel='stylesheet'>
@@ -81,6 +81,9 @@ if($_GET['tentang'] != "") {
 
 <script src='aset/js/embo.js'></script>
 <script>
+	$('.title').klik(() => {
+		mengarahkan('./')
+	})
 	function load() {
 		ambil('./posts/cari', (res) => {
 			$("#result").tulis(res)
@@ -95,11 +98,17 @@ if($_GET['tentang'] != "") {
 			history.replaceState("s", "pageExplore", "./cari&tentang="+encodeURIComponent(val))
 		})
 	}
+	function blinkSearchBox() {
+		$('#formCari').pengaya('border: 1px solid rgba(13,196,175,1);box-shadow: 1px 1px 5px 1px rgba(13,196,175,1);')
+		setTimeout(() => {
+			$('#formCari').pengaya('border: none;box-shadow: 1px 1px 5px 1px #ddd')
+		}, 1000)
+	}
 	function tblSearch() {
+		blinkSearchBox()
 		scrollKe('#formCari')
 	}
 </script>
-<script src='aset/js/script.cari.js'></script>
 
 </body>
 </html>

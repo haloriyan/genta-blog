@@ -2,6 +2,7 @@
 include 'aksi/ctrl/posts.php';
 
 $title = $bag;
+$posts->hit($title);
 $idpost = $posts->read($title, "idpost");
 $titles = $posts->read($title, "title");
 $content = $posts->read($title, "content");
@@ -22,7 +23,7 @@ if($titles == "") {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale = 1">
-	<title>Title</title>
+	<title><?php echo $titles; ?></title>
 	<link href="aset/fw/build/fw.css" rel="stylesheet">
 	<link href="aset/fw/build/fontawesome-all.min.css" rel="stylesheet">
 	<link href="aset/css/read.css" rel="stylesheet">
@@ -30,18 +31,18 @@ if($titles == "") {
 <body>
 
 <div class="atas">
-	<h1 class="title">Agendakota</h1>
+	<h1 class="title"><img src="aset/img/AK.png"></h1>
 	<div id="tblMenu" aksi="bkMenu"><i class="fas fa-bars"></i></div>
 	<nav class="menu">
 		<a href="#"><li>Events News &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
-				<a href="#"><li>Arts &amp; Culture</li></a>
-				<a href="#"><li>Music</li></a>
-				<a href="#"><li>Festival</li></a>
-				<a href="#"><li>Technology</li></a>
-				<a href="#"><li>Education</li></a>
-				<a href="#"><li>Sport</li></a>
-				<a href="#"><li>Travel</li></a>
+				<a href="./cari&tentang=Arts%26Culture"><li>Arts &amp; Culture</li></a>
+				<a href="./cari&tentang=Music"><li>Music</li></a>
+				<a href="./cari&tentang=Festival"><li>Festival</li></a>
+				<a href="./cari&tentang=Technology"><li>Technology</li></a>
+				<a href="./cari&tentang=Education"><li>Education</li></a>
+				<a href="./cari&tentang=Sport"><li>Sport</li></a>
+				<a href="./cari&tentang=Travel"><li>Travel</li></a>
 			</ul>
 		</li></a>
 		<a href="#"><li>MICE &nbsp; <i class="fas fa-angle-down"></i>
@@ -85,7 +86,7 @@ if($titles == "") {
 			<div class="info">
 				<?php
 				foreach (explode(",", $category) as $key => $value) {
-					echo "<div class='cat'>".$value."</div>";
+					echo "<div class='cat'><a href='./cari&tentang=".$value."'>".$value."</a></div>";
 				}
 				?>
 				<div class="time">3 MONTSH AGO</div>
@@ -102,24 +103,36 @@ if($titles == "") {
 			<p>
 				<?php echo $content; ?>
 			</p>
-			Tags : <div class="tag">business</div><div class="tag">ecommerce</div><div class="tag">lifestyle</div>
+			Tags :
+			<?php
+			$queryForRecent = "SELECT * FROM post WHERE ";
+			$i = 0;
+			foreach (explode(",", $category) as $key => $value) {
+				if($i++ == count(explode(",", $category)) - 1) {
+					$queryForRecent .= "category LIKE '%".$value."%' ";
+				}else {
+					$queryForRecent .= "category LIKE '%".$value."%' OR ";
+				}
+				echo "<div class='tag'><a href='./cari&tentang=".$value."'>".$value."</a></div>";
+			}
+			$queryForRecent .= " AND title != '$titles' LIMIT 3";
+			?>
 		</div>
 		<div>
 			<h2>You Might Like</h2>
 			<hr size="2" color="#ddd">
 			<div id="recentPost">
-				<div class="pos">
-					<img src="aset/img/idea.jpg">
-					<h3>Keeping Your Ideas Organized</h3>
-				</div>
-				<div class="pos">
-					<img src="aset/img/idea.jpg">
-					<h3>Keeping Your Ideas Organized</h3>
-				</div>
-				<div class="pos">
-					<img src="aset/img/idea.jpg">
-					<h3>Keeping Your Ideas Organized</h3>
-				</div>
+				<?php
+				$recentPost = $embo->query($queryForRecent);
+				while ($row = $embo->ambil($recentPost)) {
+					echo "<a href='./".$posts->convertTitle($row['title'])."'>".
+							"<div class='pos'>".
+								"<img src='aset/img/".$row['cover']."'>".
+								"<h3>".$row['title']."</h3>".
+						 	"</div>".
+						 "</a>";
+				}
+				?>
 			</div>
 			<div id="bagKomen">
 				<h2>Comments</h2>
@@ -157,7 +170,7 @@ if($titles == "") {
 		<div class="img" style="background: url(aset/img/imac.jpg) center center;background-size: cover;"></div>
 		<div class="ket">
 			<h3>Agendakota Newsletter</h3>
-			<p>Subscribe for Furosa news and receive daily updates. For those who want to keep in touch with us.</p>
+			<p>Subscribe for Agendakota news and receive daily updates. For those who want to keep in touch with us.</p>
 			<br />
 			<form id="formSubscribe">
 				<input type="text" class="box" placeholder="Your email address">
@@ -193,15 +206,13 @@ if($titles == "") {
 			</div>
 			<div class="bagFoot">
 				<h3>TAGS</h3>
-				<a href="#"><div class="tag">blog</div></a>
-				<a href="#"><div class="tag">sport</div></a>
-				<a href="#"><div class="tag">festival</div></a>
-				<a href="#"><div class="tag">concert</div></a>
-				<a href="#"><div class="tag">store</div></a>
-				<a href="#"><div class="tag">workshop</div></a>
-				<a href="#"><div class="tag">exhibition</div></a>
-				<a href="#"><div class="tag">attraction</div></a>
-				<a href="#"><div class="tag">conference</div></a>
+				<a href="./cari&tentang=Arts%26Culture"><div class="tag">Arts &amp; Culture</div></a>
+				<a href="./cari&tentang=Music"><div class="tag">Music</div></a>
+				<a href="./cari&tentang=Festival"><div class="tag">Festival</div></a>
+				<a href="./cari&tentang=Technology"><div class="tag">Technology</div></a>
+				<a href="./cari&tentang=Education"><div class="tag">Education</div></a>
+				<a href="./cari&tentang=Sport"><div class="tag">Sport</div></a>
+				<a href="./cari&tentang=Travel"><div class="tag">Travel</div></a>
 			</div>
 		</div>
 	</div>
@@ -214,7 +225,7 @@ if($titles == "") {
 			<h2 class="rata-kanan" id="xSearch"><i class="fas fa-times"></i></h2>
 			<form id="formCari">
 				<p>Search</p>
-				<input type="text" class="box" placeholder="Type and Hit Enter">
+				<input type="text" class="box" placeholder="Type and Hit Enter" id="q">
 			</form>
 		</div>
 	</div>
@@ -222,6 +233,9 @@ if($titles == "") {
 
 <script src="aset/js/embo.js"></script>
 <script>
+	$(".title").klik(() => {
+		mengarahkan('./')
+	})
 	function tblSearch() {
 		munculPopup("#bagSearch")
 	}
@@ -263,6 +277,11 @@ if($titles == "") {
 			$(".menu").hilang()
 			this.atribut('aksi', 'bkMenu')
 		}
+	})
+	submit('#formCari', () => {
+		let q = $("#q").isi()
+		mengarahkan('./cari&tentang='+q)
+		return false
 	})
 </script>
 <script id="dsq-count-scr" src="//agendakota-1.disqus.com/count.js" async></script>

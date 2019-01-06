@@ -97,10 +97,14 @@ class EMBO {
 			$query .= " SET $key = '".$val."'";
 		}else {
 			$query .= " SET ";
+			$a = 0;
 			foreach ($opt as $key => $value) {
-				$query .= $key . " = '".$value."', ";
+				if($a++ == count($opt) - 1) {
+					$query .= $key . " = '".$value."'";
+				}else {
+					$query .= $key . " = '".$value."', ";
+				}
 			}
-			$query .= "dummy = dummy";
 		}
 		return $this;
 	}

@@ -67,10 +67,11 @@ input[readonly],textarea[readonly],select[readonly] { background: #ecf0f1; }
 .merah-2 { background-color: #cb0023;color: #fff; }
 .kuning { background-color: #ffc400;color: #555; }
 .hijau { background-color: #2ecc71;color: #fff; }
-.hijau-2 { background-color: #009e87;color: #fff; }
+.hijau-2 { background-color: rgba(13,196,175,1);color: #fff; }
 .biru { background-color: #2196f3;color: #fff; }
 .ungu { background-color: #9c27b0;color: #fff; }
 .ungu-2 { background-color: #673ab7;color: #fff; }
+.dark { background-color: #485273;color: #fff; }
 
 .tbl {
 	font-size: 18px;
@@ -84,11 +85,12 @@ input[readonly],textarea[readonly],select[readonly] { background: #ecf0f1; }
 button.merah:hover { background-color: #c0392b; }
 button.merah-2:hover { background-color: #444; }
 button.hijau:hover { background-color: #27ae60; }
-button.hijau-2:hover { background-color: #00806c; }
+button.hijau-2:hover { background-color: #0ba895; }
 button.biru:hover { background-color: #1976D2; }
 button.kuning:hover { background-color: #c9a503; }
 button.ungu:hover { background-color: #7b1fa2; }
 button.ungu-2:hover { background-color: #512da8; }
+button.dark:hover { background-color: #252c41; }
 .box {
 	width: 88%;
 	height: 45px;

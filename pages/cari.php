@@ -1,9 +1,12 @@
 <?php
+include 'aksi/ctrl/pages.php';
+
 $kw = $_COOKIE['kw'];
 if($kw != $_GET['tentang']) {
 	setcookie('kw', $_GET['tentang'], time() + 3655, '/');
 	header("location: ./cari&tentang=".$_GET['tentang']);
 }
+setcookie('position', 0, time() + 1, '/');
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,6 +18,7 @@ if($kw != $_GET['tentang']) {
 	<link href='aset/fw/build/fontawesome-all.min.css' rel='stylesheet'>
 	<link href='aset/css/style.css' rel='stylesheet'>
 	<link href='aset/css/style.cari.css' rel='stylesheet'>
+	<link href="aset/img/favicon.ico" rel="icon">
 </head>
 <body>
 
@@ -22,7 +26,7 @@ if($kw != $_GET['tentang']) {
 	<h1 class="title"><img src="aset/img/AK.png"></h1>
 	<div id="tblMenu" aksi="bkMenu"><i class="fas fa-bars"></i></div>
 	<nav class="menu">
-		<a href="#"><li>Events News &nbsp; <i class="fas fa-angle-down"></i>
+		<a href="#"><li>EVENTS NEWS &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
 				<a href="./cari&tentang=Arts%26Culture"><li>Arts &amp; Culture</li></a>
 				<a href="#"><li>Music</li></a>
@@ -41,21 +45,19 @@ if($kw != $_GET['tentang']) {
 				<a href="#"><li>Exhibition</li></a>
 			</ul>
 		</li></a>
-		<a href="#"><li>Tips &nbsp; <i class="fas fa-angle-down"></i>
+		<a href="#"><li>TIPS &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
 				<a href="#"><li>Event Planning &amp; Promotion</li></a>
 				<a href="#"><li>Business &amp; Professional</li></a>
 				<a href="#"><li>Marketing &amp; Communication</li></a>
 			</ul>
 		</li></a>
-		<a href="#"><li>More Info &nbsp; <i class="fas fa-angle-down"></i>
+		<a href="#"><li>MORE INFO &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
-				<a href="#"><li>About Us</li></a>
-				<a href="#"><li>Business Partnership</li></a>
-				<a href="#"><li>Hubungi Kami</li></a>
+				<?php $pages->show(); ?>
 			</ul>
 		</li></a>
-		<a href="https://agendakota.id" target="_blank"><button id="cta">Go to Agendakota.id</button></a>
+		<a href="https://agendakota.id" target="_blank"><button id="cta">GO TO AGENDAKOTA.ID</button></a>
 	</nav>
 	<nav class="nav">
 		<div id="tblSearch" onclick="tblSearch()"><i class="fas fa-search"></i></div>
@@ -80,16 +82,31 @@ if($kw != $_GET['tentang']) {
 </div>
 
 <script src='aset/js/embo.js'></script>
+<script src='aset/js/riload.js'></script>
 <script>
 	$('.title').klik(() => {
 		mengarahkan('./')
 	})
+	
+	function setCookie(name, value) {
+		let set = "namakuki="+name+"&value="+value+"&durasi=3666"
+		pos('./aksi/setCookie.php', set, (res) => {
+			console.log(res)
+		})
+	}
 	function load() {
-		ambil('./posts/cari', (res) => {
+		ambil('./posts/golek', (res) => {
 			$("#result").tulis(res)
 		})
 	}
 	load()
+	// let loads = new Riload({
+	// 	el: '#result',
+	// 	url: './posts/golek',
+	// 	sukses: () => {
+	// 		//
+	// 	}
+	// })
 	function search(val) {
 		let set = 'namakuki=kw&value='+val+'&durasi=3655'
 		pos('./aksi/setCookie.php', set, () => {
@@ -102,7 +119,7 @@ if($kw != $_GET['tentang']) {
 		$('#formCari').pengaya('border: 1px solid rgba(13,196,175,1);box-shadow: 1px 1px 5px 1px rgba(13,196,175,1);')
 		setTimeout(() => {
 			$('#formCari').pengaya('border: none;box-shadow: 1px 1px 5px 1px #ddd')
-		}, 1000)
+		}, 1500)
 	}
 	function tblSearch() {
 		blinkSearchBox()

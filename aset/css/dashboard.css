@@ -1,5 +1,6 @@
 /* 
 	* CTA => rgba(13,196,175,1);
+	* DARKEN CTA => #0ba895
 	* DARK => #485273
 	* DARKEN => #252c41
 */
@@ -9,7 +10,7 @@ body {
 .popup {
 	border-radius: 6px;
 }
-.popup button {
+.popup button,.bag button {
 	background: none;
 	border: none;
 	font-family: ProBold;
@@ -19,10 +20,10 @@ body {
 	cursor: pointer;
 	outline: none;
 }
-.popup .ya {
+button.ya {
 	color: rgba(13,196,175,1);
 }
-.popup .ya:hover {
+button.ya:hover {
 	background-color: rgba(13,196,175, 0.1);
 }
 .popup .tidak {

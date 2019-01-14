@@ -1,3 +1,8 @@
+<?php
+include 'aksi/ctrl/users.php';
+$sesi = $users->sesi(1);
+$role = $users->me($sesi, "role");
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,60 +10,72 @@
 	<meta name="viewport" content="width=device-width, initial-scale = 1">
 	<title>Pages</title>
 	<link href="aset/fw/build/fw.css" rel="stylesheet">
-	<link href="aset/fw/build/font-awesome.min.css" rel="stylesheet">
-	<link href="aset/css/style.controller.css" rel="stylesheet">
-	<script src="aset/js/jquery-3.1.1.js"></script>
+	<link href="aset/fw/build/fontawesome-all.min.css" rel="stylesheet">
+	<link href="aset/css/dashboard.css" rel="stylesheet">
+	<link href="aset/img/favicon.ico" rel="icon">
+	<style>
+		#createPost {
+			width: 65px;
+			line-height: 65px;
+			color: #fff;
+			font-size: 20px;
+			border-radius: 60px;
+			background-color: #485273;
+			position: fixed;
+			bottom: 50px;right: 5%;
+			text-align: center;
+			cursor: pointer;
+		}
+		#createPost:hover { background-color: #252c41; }
+	</style>
 </head>
 <body>
 
-<div class="atas merah-2">
-	<h1 class="judul">Control your pages</h1>
+<div class="kiri">
+	<div class="logo">
+		<img src="aset/img/AK-putih.png">
+	</div>
+	<div class="wrap">
+		<a href="./dashboard"><li><div class="icon"><i class="fas fa-home"></i></div> <span>Dashboard</span></li></a>
+		<a href="./post"><li><div class="icon"><i class="fas fa-edit"></i></div> <span>Post</span></li></a>
+		<a href="./account"><li><div class="icon"><i class="fas fa-user"></i></div> <span>Account</span></li></a>
+		<?php if($role == 1) { ?>
+		<a href="#"><li aktif='ya'><div class="icon"><i class="fas fa-file"></i></div> <span>Pages</span></li></a>
+		<a href="./user"><li><div class="icon"><i class="fas fa-users"></i></div> <span>Users</span></li></a>
+		<a href="./settings"><li><div class="icon"><i class="fas fa-cogs"></i></div> <span>Settings</span></li></a>
+		<?php } ?>
+		<a href="./logout"><li><div class="icon"><i class="fas fa-sign-out-alt"></i></div> <span>Sign Out</span></li></a>
+	</div>
+</div>
+<div class="atas">
+	<div id="tblMenu" aksi='xMenu'><i class="fas fa-bars"></i></div>
+	<h1 class="title">Pages</h1>
 </div>
 
 <div class="container">
-	<div class="wrap">
-		<h2>List of your pages
-			<div class="ke-kanan">
-				<button id="newPage" class="tbl merah-2"><i class="fa fa-plus"></i> &nbsp; New Page</button>
-			</div>
-		</h2>
-		<div id="listPage"></div>
-		<div class="rata-tengah" style="margin-top: 35px;">
-			<a href='./controller'>wanna create controller ?</a>
+	<div class="bag bag-10">
+		<div class="wrap">
+			<table id="tablePosts">
+				<tbody id="load"></tbody>
+			</table>
 		</div>
 	</div>
 </div>
+
+<div id="createPost" onclick="mengarahkan('./pages/create')"><i class="fas fa-pencil-alt"></i></div>
 
 <div class="bg"></div>
-<div class="popupWrapper" id="createPage">
+<div class="popupWrapper" id="bagHapus">
 	<div class="popup">
 		<div class="wrap">
-			<h3>Create new page
-				<div id="xCreate" class="ke-kanan"><i class="fa fa-close"></i></div>
+			<h3>Hapus Laman
+				<div class="ke-kanan" id="xDel"><i class="fas fa-times"></i></div>
 			</h3>
-			<form id="formCreate">
-				<input type="text" class="box" id="pageName" placeholder="Page name">
-				<input type="checkbox" id="generate" data="1" checked="checked" onchange="check()"> <label for="generate">generate css and js file?</label>
-				<div class="bag-tombol">
-					<button class="merah-2" id="create">CREATE</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-
-<div class="popupWrapper" id="delPage">
-	<div class="popup">
-		<div class="wrap">
-			<h3>Delete page</h3>
-			<form id="formDelPage">
-				<input type="hidden" id="pageWillDel">
-				<p>
-					Sure you want delete this page?
-				</p>
-				<div class="bag-tombol">
-					<button class="merah-2" id="yaDelPage">Yes, delete this!</button>
-				</div>
+			<form id="formDelete">
+				<input type="hidden" id="idpage">
+				<p>Ingin menghapus Laman ini?</p>
+				<button class="ya">Ya</button>
+				<button class="tidak" id="tdkHapus" type="button">Tidak</button>
 			</form>
 		</div>
 	</div>
@@ -66,61 +83,49 @@
 
 <script src="aset/js/embo.js"></script>
 <script>
+	$("#tblMenu").klik(function() {
+		let aksi = this.atribut('aksi')
+		if(aksi == 'xMenu') {
+			$(".kiri").pengaya("left: -100%")
+			$(".atas").pengaya("left: 0%")
+			$(".container").pengaya("left: 5%")
+			this.atribut('aksi', 'bkMenu')
+		}else {
+			$(".kiri").pengaya("left: 0%")
+			$(".atas").pengaya("left: 20%")
+			$(".container").pengaya("left: 24%")
+			this.atribut('aksi', 'xMenu')
+		}
+	})
 	function load() {
-		ambil("aksi/page/load.php", function(res) {
-			$("#listPage").tulis(res)
+		ambil('./pages/all', (res) => {
+			$("#load").tulis(res)
 		})
+	}
+	function hapus(id) {
+		$("#idpage").isi(id)
+		munculPopup("#bagHapus", $("#bagHapus").pengaya("top: 200px"))
 	}
 	load()
-
-	function del(val) {
-		$('#pageWillDel').isi(val)
-		munculPopup('#delPage')
-	}
-
-	function check() {
-		let checkBox = $("#generate")
-		if(checkBox.checked) {
-			checkBox.setAttribute("data", "1")
-		}else {
-			checkBox.setAttribute("data", "0")
-		}
-	}
-
-	$("#newPage").klik(() => {
-		munculPopup("#createPage")
-	})
-	$("#xCreate").klik(() => {
-		hilangPopup("#createPage")
-	})
-	tekan("Escape", function() {
-		hilangPopup("#createPage")
-	})
-
-	submit("#formCreate", function() {
-		let name = $("#pageName")
-		let generate = $("#generate").getAttribute("data")
-		let crt = "name="+name.value+"&generate="+generate
-		if(name == "") {
-			return false
-		}
-		pos("aksi/page/create.php", crt, function() {
-			name.value = ""
-			hilangPopup("#createPage")
-			load()
-		})
-		return false
-	})
-	submit("#formDelPage", function() {
-		let name = $("#pageWillDel").value
-		let del = "name="+name
-		pos("aksi/page/delete.php", del, function() {
-			hilangPopup("#delPage")
+	submit('#formDelete', () => {
+		let del = "idpage="+$("#idpage").isi()
+		pos('./pages/delete', del, () => {
+			hilangPopup("#bagHapus")
 			load()
 		})
 		return false
 	})
 
+	$("#tdkHapus").klik(() => {
+		hilangPopup("#bagHapus")
+	})
+	$("#xDel").klik(() => {
+		hilangPopup("#bagHapus")
+	})
+	tekan('Escape', () => {
+		hilangPopup("#bagHapus")
+	})
 </script>
+
 </body>
 </html>

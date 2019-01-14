@@ -106,6 +106,7 @@
 .container {
 	position: absolute;
 	top: 90px;left: 0px;right: 0px;
+	margin-bottom: 55px;
 }
 .container a {
 	text-decoration: none;
@@ -123,13 +124,6 @@
 	height: 480px;
 	border-radius: 12px;
 }
-/*#primaryPosts {
-	height: 480px;
-}
-#primaryPosts .primary {
-	float: left;
-	width: 62.3%;
-}*/
 .featuredPost {
 	width: 90%;
 	margin-left: 5%;
@@ -177,13 +171,14 @@
 	width: 100%;
 	height: 280px;
 }
-.featuredPost .kanan .pos img {
+.featuredPost .kanan .pos img,.featuredPost .kanan .covers {
 	width: 30%;
 	height: 100%;
 	float: left;
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
 }
+.featuredPost .kanan .covers { display: none; }
 .post .ket {
 	background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.6));
 	height: 480px;
@@ -205,33 +200,14 @@
 	font-family: ProBold;
 	border-radius: 6px;
 }
-.ket .wrap {
+/*.ket .wrap {
 	margin-top: 270px;
-}
+}*/
 .post h3 {
 	font-size: 27px;
 	font-family: ProBold;
 	line-height: 45px;
 }
-
-/*#primaryPosts .secondary {
-	width: 35%;
-	margin-left: 2.5%;
-	float: left;
-}
-#primaryPosts .secondary .post { margin-bottom: 25px; }
-#primaryPosts .secondary .post .cover {
-	height: 225px;
-}
-#primaryPosts .secondary .post h3 {
-	font-size: 20px;
-	line-height: 34px;
-}
-#primaryPosts .secondary .post .ket {
-	height: 225px;
-	margin-top: -230px;
-}
-#primaryPosts .secondary .post .ket .wrap { margin-top: 70px; }*/
 
 .bawah {
 	margin-top: 50px;
@@ -269,7 +245,7 @@
 .recentPost .pos:nth-child(2n) { margin-right: 0px; }
 .recentPost .pos .cover {
 	width: 100%;
-	height: 200px;
+	height: 150px;
 }
 .recentPost .pos .bag-3 {
 	width: 30%;
@@ -467,15 +443,59 @@
 .footer { margin-bottom: 55px; }
 #tblMenu { display: none; }
 
+.fiturPos {
+	margin-bottom: 50px;
+}
+.grid:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+.fiturPos .pos {
+	width: 48.85%;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	height: 120px;
+	color: #454545;
+	border-radius: 5px;
+	float: left;
+	vertical-align: top;
+	margin: -2px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+#fiturPos0 .tag,#fiturPos5 .tag { display: none; }
+.fiturPos .pos:nth-child(even) {
+	margin-right: 0px;
+}
+/*.fiturPos .pos:nth-child(1),.fiturPos .pos:nth-child(4) {
+	height: 300px;
+}*/
+.fiturPos .pos img {
+	width: 30%;
+	float: left;
+	height: 120px;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+.fiturPos .pos .ket {
+	float: right;
+	width: 70%;
+}
+.fiturPos .pos .ket .tag { color: rgba(13,196,175,1);margin-top: 15px; }
+.fiturPos .pos h3 {
+	font-size: 16px;
+	margin-top: 10px;
+}
+
 @media (max-width: 480px) {
-	/*#primaryPosts .primary {
-		float: none;
-		width: 100%;
-	}*/
 	.atas .title {
 		width: 80%;
 		display: inline-block;
 		font-size: 20px;
+	}
+	.atas .title img {
+		width: 60%;
 	}
 	.atas #tblMenu {
 		display: inline-block;
@@ -486,6 +506,7 @@
 		display: none;
 		position: relative;
 		margin: 0;
+		margin-top: 20px;
 		text-align: left;
 	}
 	.atas .sosmed,.atas .nav {
@@ -495,6 +516,7 @@
 		float: none;
 		text-align: left;
 	}
+	.menu button { margin-left: 2.5%; }
 	.sub {
 		position: static;
 		padding: 0;
@@ -502,6 +524,7 @@
 	}
 	.container {
 		display: block;
+		top: 50px;
 	}
 	.bagFoot {
 		display: block;
@@ -521,22 +544,30 @@
 	.pos .cover {
 		height: 150px !important;
 	}
-	/*#primaryPosts .secondary {
+	.featuredPost .kiri,.featuredPost .kanan {
 		width: 100%;
+		margin: 0;
+	}
+	.featuredPost .kiri { margin-bottom: 20px; }
+	.recentPost .bag-7 {
+		/**/
+		width: 62% !important;
+	}
+	.recentPost .pos {
+		margin-bottom: 0px !important;
+		margin-top: 0px;
+	}
+	.recentPost .bag-3 {
 		margin-left: 0px;
+		margin-right: 0px;
+	}
+	.recentPost .bag-3 .cover {
+		height: 100px !important;
+	}
+	.recentPost .author {
+		display: block;
+		border-top: 1px solid #ddd;
+		padding-top: 15px;
 		margin-top: 15px;
 	}
-	#primaryPosts { height: 250px; }
-	#primaryPosts .primary .cover {
-		height: 250px;
-	}
-	#primaryPosts .primary .ket {
-		height: 250px;
-		margin-top: -255px;
-	}
-	#primaryPosts .primary h3 {
-		font-size: 20px;
-		line-height: 34px;
-	}
-	#primaryPosts .primary .ket .wrap { margin-top: 90px; }*/
 }

@@ -1,9 +1,14 @@
+body {
+	background-color: #eee;
+}
 .container {
 	position: absolute;
-	top: 190px;left: 5%;right: 5%;
+	top: 190px;left: 15%;right: 15%;
 	color: #444;
+	background-color: #fff;
 	box-shadow: 1px 1px 10px 1px #ddd;
 	font-family: ProReg;
+	margin-bottom: 50px !important;
 }
 .container .wrap { margin: 5%; }
 .container h2 { font-family: ProLight; }
@@ -40,4 +45,14 @@
 	color: rgba(13,196,175,1);
 	font-size: 20px;
 	margin-left: -35px;
+}
+
+@media (max-width: 480px) {
+	#formCari {
+		left: 5%;right: 5%;
+	}
+	#formCari .box {
+		width: 87%;
+	}
+	.container { left: 5%;right: 5%; }
 }

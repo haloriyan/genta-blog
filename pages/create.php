@@ -25,6 +25,7 @@ if($id != "") {
 	<link href='aset/fw/build/fw.css' rel='stylesheet'>
 	<link href='aset/fw/build/fontawesome-all.min.css' rel='stylesheet'>
 	<link href='aset/css/style.create.css' rel='stylesheet'>
+	<link href="aset/img/favicon.ico" rel="icon">
 	<style>
 		#post {
 			width: 65px;
@@ -45,26 +46,37 @@ if($id != "") {
 			border-radius: 35px;
 			display: inline-block;
 			color: #fff;
+			position: relative;
 			background-color: #485273;
 		}
 		.cat .category {
 			position: absolute;
 			width: 17px;
 			height: 17px;
-			margin: -1px 0px 0px -30px;
+			position: absolute;
+			z-index: 2;
+			left: 0px;
 			opacity: 0;
 		}
 		.cat .checkmark {
-			transition: 1.4s;
+			transition: 0.4s;
 			width: 15px;
 			height: 15px;
 			margin-right: 10px;
 			margin-top: 3px;
-			background-color: #aaa;
+			background-color: #485273;
+			position: absolute;
+			top: -4px;left: 0px;
+			width: 100%;
+			height: 43px;
+			border-radius: 90px;
 			float: left;
 		}
+		.cat .valueCheck {
+			position: relative;
+		}
 		.category:checked ~ .checkmark {
-			background-color: #fff;
+			background-color: rgba(13,196,175,1);;
 			border-radius: 90px;
 		}
 		#kanan {
@@ -103,7 +115,7 @@ if($id != "") {
 						<h4>Category</h4>
 						<input type="hidden" id="category">
 						<?php
-						$cat = ["Arts & Culture","Music","Festival","Technology","Education","Sport","Travel"];
+						$cat = ["Featured","Arts & Culture","Music","Festival","Technology","Education","Sport","Travel","MICE","Event Planning","Business","Marketing"];
 						foreach ($cat as $key => $value) {
 							if(in_array($value, $catPost)) {
 								$check = "checked";
@@ -111,7 +123,7 @@ if($id != "") {
 								$check = "";
 							}
 							echo "<label for='cat".$key."'><div class='cat primer'>".
-									"<input type='checkbox' class='category' onclick='checkCat()' name='category[]' ".$check." value='".$value."' id='cat".$key."'><div class='checkmark'></div>".$value.
+									"<input type='checkbox' class='category' onclick='checkCat()' name='category[]' ".$check." value='".$value."' id='cat".$key."'><div class='checkmark'></div><div class='valueCheck'>".$value."</div>".
 								 "</div></label>";
 						}
 						?>
@@ -137,6 +149,7 @@ if($id != "") {
 </div>
 
 <script src='aset/ckeditor/ckeditor.js'></script>
+<script src='aset/ckfinder/ckfinder.js'></script>
 <script src='aset/js/embo.js'></script>
 <script src='aset/js/upload.js'></script>
 <script>

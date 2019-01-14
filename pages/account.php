@@ -5,7 +5,9 @@ $sesi = $users->sesi(1);
 $iduser = $users->me($sesi, 'iduser');
 $name = $users->me($sesi, 'name');
 $email = $users->me($sesi, 'email');
+$bio = $users->me($sesi, 'bio');
 $photo = $users->me($sesi, 'photo');
+$role = $users->me($sesi, 'role');
 $totArtikel = $users->totArtikel($iduser);
 
 ?>
@@ -18,6 +20,7 @@ $totArtikel = $users->totArtikel($iduser);
 	<link href="aset/fw/build/fw.css" rel="stylesheet">
 	<link href="aset/fw/build/fontawesome-all.min.css" rel="stylesheet">
 	<link href="aset/css/dashboard.css" rel="stylesheet">
+	<link href="aset/img/favicon.ico" rel="icon">
 	<style>
 		#profile {
 			background-color: #485273;
@@ -71,7 +74,8 @@ $totArtikel = $users->totArtikel($iduser);
 		}
 		#myTopArticle li {
 			list-style: none;
-			line-height: 50px;
+			line-height: 28px;
+			padding: 10px 0px;
 			border-bottom: 1px solid #ddd;
 		}
 		#myTopArticle li a { color: #444;text-decoration: none; }
@@ -97,9 +101,13 @@ $totArtikel = $users->totArtikel($iduser);
 	</div>
 	<div class="wrap">
 		<a href="./dashboard"><li><div class="icon"><i class="fas fa-home"></i></div> <span>Dashboard</span></li></a>
-		<a href="./post"><li><div class="icon"><i class="fas fa-edit"></i></div> <span>Post</span></li></a>
-		<a href="./comment"><li><div class="icon"><i class="fas fa-comment"></i></div> <span>Comment</span></li></a>
-		<a href="#"><li aktif='ya'><div class="icon"><i class="fas fa-user"></i></div> <span>Account Settings</span></li></a>
+		<a href="./post"><li><div class="icon"><i class="fas fa-edit"></i></div> <span>Post</span></li></a></a>
+		<a href="#"><li aktif='ya'><div class="icon"><i class="fas fa-user"></i></div> <span>Account</span></li></a>
+		<?php if($role == 1) { ?>
+		<a href="./page"><li><div class="icon"><i class="fas fa-file"></i></div> <span>Pages</span></li></a>
+		<a href="./user"><li><div class="icon"><i class="fas fa-users"></i></div> <span>Users</span></li></a>
+		<a href="./settings"><li><div class="icon"><i class="fas fa-cogs"></i></div> <span>Settings</span></li></a>
+	<?php } ?>
 		<a href="./logout"><li><div class="icon"><i class="fas fa-sign-out-alt"></i></div> <span>Sign Out</span></li></a>
 	</div>
 </div>
@@ -117,6 +125,8 @@ $totArtikel = $users->totArtikel($iduser);
 				<input type="text" class="box" id="nameEdit" value="<?php echo $name; ?>" required>
 				<div>E-Mail :</div>
 				<input type="text" class="box" id="emailEdit" value="<?php echo $email; ?>" required>
+				<div>Bio :</div>
+				<textarea class="box" id="bioEdit" required><?php echo $bio; ?></textarea>
 				<h3>Change Photo</h3>
 				<div>Photo :</div>
 				<input type="hidden" id="photoInput">
@@ -154,7 +164,7 @@ $totArtikel = $users->totArtikel($iduser);
 </div>
 
 <script src="aset/js/embo.js"></script>
-<script src="aset/js/chart.min.js"></script>
+<script src="aset/js/upload.js"></script>
 <script>
 	$("#tblMenu").klik(function() {
 		let aksi = this.atribut('aksi')
@@ -196,13 +206,40 @@ $totArtikel = $users->totArtikel($iduser);
 		let name = $("#nameEdit").isi()
 		let email = $("#emailEdit").isi()
 		let photo = $("#photoInput").isi()
-		let edit = "name="+name+"&email="+email+"&photo="+photo
+		let bio = $("#bioEdit").isi()
+		let edit = "name="+name+"&email="+email+"&photo="+photo+"&bio="+bio
 		pos("./users/edit", edit, () => {
 			cancelEdit()
 			loadProfile()
 		})
 		return false
 	})
+
+	$("#photo").di('ganti', function(the) {
+		let allowed = ["jpg","jpeg","png","bmp"]
+		var file = the.srcElement.files[0]
+		var cover = $("#photo").isi();
+		var c = cover.split("fakepath");
+		var cov = c[1].substr(1, 2599);
+		$("#photoInput").isi(cov);
+		let coverExt = getExt(cov)
+		if(!inArray(coverExt, allowed)) {
+			$("#photoInput").isi('')
+			document.querySelector("#photo").value = ""
+			alert("Image format not allowed")
+			return false
+		}
+		var upload = new Upload(file);
+		upload.doUpload();
+	})
+	function sukses() {
+		console.log('uploaded')
+	}
+	function getExt(val) {
+		let re =/(?:\.([^.]+))?$/
+		let ext = re.exec(val)[1]
+		return ext
+	}
 </script>
 
 </body>

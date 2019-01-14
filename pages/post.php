@@ -1,6 +1,7 @@
 <?php
 include 'aksi/ctrl/users.php';
-$users->sesi(1);
+$sesi = $users->sesi(1);
+$role = $users->me($sesi, "role");
 
 $allCat = ["Arts & Culture","Music","Festival","Technology","Education","Sport","Travel"];
 
@@ -18,6 +19,7 @@ setcookie('titleAdmin', '', time() + 2, '/');
 	<link href="aset/fw/build/fw.css" rel="stylesheet">
 	<link href="aset/fw/build/fontawesome-all.min.css" rel="stylesheet">
 	<link href="aset/css/dashboard.css" rel="stylesheet">
+	<link href="aset/img/favicon.ico" rel="icon">
 	<style>
 		#createPost {
 			width: 65px;
@@ -43,15 +45,13 @@ setcookie('titleAdmin', '', time() + 2, '/');
 	</div>
 	<div class="wrap">
 		<a href="./dashboard"><li><div class="icon"><i class="fas fa-home"></i></div> <span>Dashboard</span></li></a>
-		<!-- <a href="#"><li><div class="icon"><i class="fas fa-home"></i></div> <span>Dashboard</span>
-			<ul class="sub">
-				<a href="#"><li><div class="icon"><i class="fas fa-home"></i></div> <span>SUB MENU</span></li></a>
-				<a href="#"><li><div class="icon"><i class="fas fa-home"></i></div> <span>SUB MENU</span></li></a>
-			</ul>
-		</li></a> -->
 		<a href="#"><li aktif='ya'><div class="icon"><i class="fas fa-edit"></i></div> <span>Post</span></li></a>
-		<a href="./comment"><li><div class="icon"><i class="fas fa-comment"></i></div> <span>Comment</span></li></a>
-		<a href="./account"><li><div class="icon"><i class="fas fa-user"></i></div> <span>Account Settings</span></li></a>
+		<a href="./account"><li><div class="icon"><i class="fas fa-user"></i></div> <span>Account</span></li></a>
+		<?php if($role == 1) { ?>
+		<a href="./page"><li><div class="icon"><i class="fas fa-file"></i></div> <span>Pages</span></li></a>
+		<a href="./user"><li><div class="icon"><i class="fas fa-users"></i></div> <span>Users</span></li></a>
+		<a href="./settings"><li><div class="icon"><i class="fas fa-cogs"></i></div> <span>Settings</span></li></a>
+	<?php } ?>
 		<a href="./logout"><li><div class="icon"><i class="fas fa-sign-out-alt"></i></div> <span>Sign Out</span></li></a>
 	</div>
 </div>
@@ -85,19 +85,7 @@ setcookie('titleAdmin', '', time() + 2, '/');
 	<div class="bag bag-10">
 		<div class="wrap">
 			<table id="tablePosts">
-				<tbody id="load">
-					<!-- <tr>
-						<td>
-							<div class="post ke-kiri">
-								<h4>Tes postingan</h4>
-							</div>
-							<div class="nav ke-kiri">
-								<button class="tblEdit"><i class="fas fa-edit"></i></button>
-								<button class="tblDelete"><i class="fas fa-times"></i></button>
-							</div>
-						</td>
-					</tr> -->
-				</tbody>
+				<tbody id="load"></tbody>
 			</table>
 		</div>
 	</div>

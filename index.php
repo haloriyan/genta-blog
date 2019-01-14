@@ -1,4 +1,10 @@
 <?php
+include 'aksi/ctrl/pages.php';
+
+$fbLink = $configs->get('facebook');
+$twitLink = $configs->get('twitter');
+$igLink = $configs->get('instagram');
+$ytLink = $configs->get('youtube');
 
 setcookie('position', '0', time() + 3555, '/');
 
@@ -12,8 +18,15 @@ setcookie('position', '0', time() + 3555, '/');
 	<link href="aset/fw/build/fw.css" rel="stylesheet">
 	<link href="aset/fw/build/fontawesome-all.min.css" rel="stylesheet">
 	<link href="aset/css/style.css" rel="stylesheet">
+	<link href="aset/img/favicon.ico" rel="icon">
 	<style>
 		body { background-color: #efefef; }
+		.featuredPost .kanan .pos img {
+			display: none;
+		}
+		.featuredPost .kanan .covers {
+			display: block;
+		}
 	</style>
 </head>
 <body>
@@ -22,7 +35,7 @@ setcookie('position', '0', time() + 3555, '/');
 	<h1 class="title"><img src="aset/img/AK.png"></h1>
 	<div id="tblMenu" aksi="bkMenu"><i class="fas fa-bars"></i></div>
 	<nav class="menu">
-		<a href="#"><li>Events News &nbsp; <i class="fas fa-angle-down"></i>
+		<a href="#"><li>EVENTS NEWS &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
 				<a href="./cari&tentang=Arts%26Culture"><li>Arts &amp; Culture</li></a>
 				<a href="./cari&tentang=Music"><li>Music</li></a>
@@ -33,143 +46,50 @@ setcookie('position', '0', time() + 3555, '/');
 				<a href="./cari&tentang=Travel"><li>Travel</li></a>
 			</ul>
 		</li></a>
-		<a href="#"><li>MICE &nbsp; <i class="fas fa-angle-down"></i>
+		<a href="#"><li>MICE</li></a>
+		<a href="#"><li>TIPS &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
-				<a href="#"><li>Meeting</li></a>
-				<a href="#"><li>Incentive</li></a>
-				<a href="#"><li>Conference</li></a>
-				<a href="#"><li>Exhibition</li></a>
+				<a href="./cari&tentang=Event Planning"><li>Event Planning &amp; Promotion</li></a>
+				<a href="./cari&tentang=Business Professional"><li>Business &amp; Professional</li></a>
+				<a href="./cari&tentang=Marketing Communication"><li>Marketing &amp; Communication</li></a>
 			</ul>
 		</li></a>
-		<a href="#"><li>Tips &nbsp; <i class="fas fa-angle-down"></i>
+		<a href="#"><li>MORE INFO &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
-				<a href="#"><li>Event Planning &amp; Promotion</li></a>
-				<a href="#"><li>Business &amp; Professional</li></a>
-				<a href="#"><li>Marketing &amp; Communication</li></a>
+				<?php $pages->show(); ?>
 			</ul>
 		</li></a>
-		<a href="#"><li>More Info &nbsp; <i class="fas fa-angle-down"></i>
-			<ul class="sub">
-				<a href="#"><li>About Us</li></a>
-				<a href="#"><li>Business Partnership</li></a>
-				<a href="#"><li>Hubungi Kami</li></a>
-			</ul>
-		</li></a>
-		<a href="https://agendakota.id" target="_blank"><button id="cta">Go to Agendakota.id</button></a>
+		<a href="https://agendakota.id" target="_blank"><button id="cta">GO TO AGENDAKOTA.ID</button></a>
 	</nav>
 	<nav class="nav">
 		<div id="tblSearch" onclick="tblSearch()"><i class="fas fa-search"></i></div>
 	</nav>
 	<nav class="sosmed">
-		<a href="#"><li class="fb"><i class="fab fa-facebook"></i></li></a>
-		<a href="#"><li class="twitter"><i class="fab fa-twitter"></i></li></a>
-		<a href="#"><li class="yt"><i class="fab fa-youtube"></i></li></a>
+		<a href="<?php echo $fbLink; ?>" target="_blank"><li class="fb"><i class="fab fa-facebook"></i></li></a>
+		<a href="<?php echo $twitLink; ?>" target="_blank"><li class="twitter"><i class="fab fa-twitter"></i></li></a>
+		<a href="<?php echo $ytLink; ?>" target="_blank"><li class="yt"><i class="fab fa-youtube"></i></li></a>
 	</nav>
 </div>
 
 <div class="container">
 	<div class="wrap">
-		<!-- <div id="primaryPosts">
-			<div class="primary">
-				<a href="./read.php">
-					<div class="post">
-						<img src="aset/img/bg.png" class="cover">
-						<div class="ket">
-							<div class="wrap">
-								<div class="tag">LIFESTYLE</div>
-								<h3>Lorem ipsum dolor sit amet consectetur adipisicing elit</h3>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
-			<div class="secondary">
-				<a href="./read.php">
-					<div class="post">
-						<img src="aset/img/bg.png" class="cover">
-						<div class="ket">
-							<div class="wrap">
-								<div class="tag">LIFESTYLE</div>
-								<h3>Lorem ipsum dolor sit amet consectetur adipisicing elit</h3>
-							</div>
-						</div>
-					</div>
-				</a>
-				<a href="./read.php">
-					<div class="post">
-						<img src="aset/img/bg.png" class="cover">
-						<div class="ket">
-							<div class="wrap">
-								<div class="tag">LIFESTYLE</div>
-								<h3>Lorem ipsum dolor sit amet consectetur adipisicing elit</h3>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
-		</div> -->
 		<div class="featuredPost">
 			<div class="list">
 				<div class="kiri bag bag-5">
-					<div class="pos">
-						<img src="http://localhost/genta/aset/img/Menolak-Lamaran-Kerja-Karyawan-Featured.jpg">
-						<div class="ket">
-							<div class="wrap">
-								<h3>Membangun Platform Pencari Kerja Efisien Sesuai dengan Keinginan Pengusaha</h3>
-							</div>
-						</div>
-					</div>
+					<div id="fiturPos0"></div>
 				</div>
 				<div class="kanan bag bag-5">
-					<div class="pos">
-						<img src="http://localhost/genta/aset/img/Menolak-Lamaran-Kerja-Karyawan-Featured.jpg">
-						<div class="ket">
-							<div class="wrap">
-								<div class="tag">TEKNOLOGI</div>
-								<h3>Membangun Platform Pencari Kerja Efisien Sesuai dengan Keinginan Pengusaha</h3>
-							</div>
-						</div>
-					</div>
-					<div class="pos">
-						<img src="http://localhost/genta/aset/img/Menolak-Lamaran-Kerja-Karyawan-Featured.jpg">
-						<div class="ket">
-							<div class="wrap">
-								<div class="tag">TEKNOLOGI</div>
-								<h3>Membangun Platform Pencari Kerja Efisien Sesuai dengan Keinginan Pengusaha</h3>
-							</div>
-						</div>
-					</div>
+					<div id="fiturPos1"></div>
+					<div id="fiturPos2"></div>
 				</div>
 				<div class="kanan bag bag-5" style="margin-left: 0px;margin-right: 25px;">
-					<div class="pos">
-						<img src="http://localhost/genta/aset/img/Menolak-Lamaran-Kerja-Karyawan-Featured.jpg">
-						<div class="ket">
-							<div class="wrap">
-								<div class="tag">TEKNOLOGI</div>
-								<h3>Membangun Platform Pencari Kerja Efisien Sesuai dengan Keinginan Pengusaha</h3>
-							</div>
-						</div>
-					</div>
-					<div class="pos">
-						<img src="http://localhost/genta/aset/img/Menolak-Lamaran-Kerja-Karyawan-Featured.jpg">
-						<div class="ket">
-							<div class="wrap">
-								<div class="tag">TEKNOLOGI</div>
-								<h3>Membangun Platform Pencari Kerja Efisien Sesuai dengan Keinginan Pengusaha</h3>
-							</div>
-						</div>
-					</div>
+					<div id="fiturPos3"></div>
+					<div id="fiturPos4"></div>
 				</div>
 				<div class="kiri bag bag-5">
-					<div class="pos">
-						<img src="http://localhost/genta/aset/img/Menolak-Lamaran-Kerja-Karyawan-Featured.jpg">
-						<div class="ket">
-							<div class="wrap">
-								<h3>Membangun Platform Pencari Kerja Efisien Sesuai dengan Keinginan Pengusaha</h3>
-							</div>
-						</div>
-					</div>
+					<div id="fiturPos5"></div>
 				</div>
+				<div id="loadFeatured"></div>
 			</div>
 		</div>
 		<div class="bawah">
@@ -223,6 +143,7 @@ setcookie('position', '0', time() + 3555, '/');
 		ambil('./posts/index', (res) => {
 			$("#loadPost").tulis(res)
 		})
+		console.log('loaded')
 	}
 
 // documentHeight = 4738
@@ -245,7 +166,8 @@ setcookie('position', '0', time() + 3555, '/');
 		pos('./aksi/setCookie.php', 'namakuki=position&value='+posisi+'&durasi=3666', () => {
 			ambil('./posts/index', (res) => {
 				if(res == 'habis') {
-						$("#toLoad"+toLoad).tulis('No more article :(')
+					$("#toLoad"+toLoad).tulis('No more article :(')
+					$("#toLoad"+toLoad).pengaya("text-align: center;color: #666;")
 					allowLoad = 0
 				}else {
 					$("#toLoad"+toLoad).tulis(res)
@@ -288,6 +210,21 @@ setcookie('position', '0', time() + 3555, '/');
 			this.atribut('aksi', 'bkMenu')
 		}
 	})
+
+	function loadFeatured(position) {
+		pos('./posts/fitur', 'pos='+position, (res) => {
+			$("#fiturPos"+position).tulis(res)
+		})
+	}
+	function allFitur() {
+		loadFeatured(0)
+		loadFeatured(1)
+		loadFeatured(2)
+		loadFeatured(3)
+		loadFeatured(4)
+		loadFeatured(5)
+	}
+	allFitur()
 </script>
 
 </body>

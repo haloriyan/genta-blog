@@ -10,6 +10,7 @@ $kuki = $_COOKIE['kukiLogin'];
 	<link href='aset/fw/build/fw.css' rel='stylesheet'>
 	<link href='aset/fw/build/fontawesome-all.min.css' rel='stylesheet'>
 	<link href='aset/css/style.auth.css' rel='stylesheet'>
+	<link href="aset/img/favicon.ico" rel="icon">
 	<script src='aset/js/embo.js'></script>
 </head>
 <body>

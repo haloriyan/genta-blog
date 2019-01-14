@@ -1,7 +1,7 @@
 <?php
-include 'controller.php';
+include 'configs.php';
 
-class users extends EMBO {
+class users extends configs {
 	public function me($e, $kolom) {
 		$q = EMBO::tabel('user')->pilih($kolom)->dimana(['email' => $e])->eksekusi();
 		if(EMBO::hitung($q) == 0) {
@@ -15,7 +15,7 @@ class users extends EMBO {
 		$email = EMBO::pos('email');
 		$pwd = EMBO::pos('pwd');
 		$role = EMBO::pos('role');
-		$photo = EMBO::pos('photo');
+		$photo = 'default.jpg';
 
 		$add = EMBO::tabel('user')
 					->tambah([
@@ -36,22 +36,18 @@ class users extends EMBO {
 	public function change($id, $kolom, $value) {
 		return EMBO::tabel('user')->ubah([$kolom => $value])->dimana(['iduser' => $id])->eksekusi();
 	}
-	public function test() {
-		$a = "1";
-		$res = $a === 1 ? "ya" : "tidak";
-		echo $res;
-	}
 	public function edit() {
 		$sesi = $this->sesi();
 		$iduser = $this->me($sesi, 'iduser');
 		$name = EMBO::pos('name');
 		$email = EMBO::pos('email');
 		$photo = EMBO::pos('photo');
+		$bio = EMBO::pos('bio');
 
 		$newPhoto = $photo == "" ? $this->me($sesi, 'photo') : $photo;
 
-		$k = ['name','email','photo'];
-		$v = [$name,$email,$newPhoto];
+		$k = ['name','email','photo','bio'];
+		$v = [$name,$email,$newPhoto,$bio];
 		for($i = 0; $i < count($v); $i++) {
 			$this->change($iduser, $k[$i], $v[$i]);
 		}
@@ -122,11 +118,35 @@ class users extends EMBO {
 		</div>
 		<?php
 	}
-	public function mamama() {
-		// echo base64_decode('PHA+SGVsbG88L3A+');
-		for($i = 0; $i < 57; $i++) {
-			echo "<li>Hello</li>";
+	public function all() {
+		$q = EMBO::tabel('user')->pilih()->urutkan('registered', 'DESC')->eksekusi();
+		if(EMBO::hitung($q) == 0) {
+			echo 'No any users';
+		}else {
+			while($r = EMBO::ambil($q)) {
+				$role = $r['role'];
+				$roles = ($role == 1) ? 'Super' : 'Admin';
+				echo "<tr>".
+						"<td>".$r['name']."</td>".
+						"<td>".$r['email']."</td>".
+						"<td>".$roles.
+							"<div class='ke-kanan'>".
+								"<button class='tblView' onclick='edit(this.value)' value='".$r['iduser']."'><i class='fas fa-cog'></i></button>".
+								"<button class='tblDelete' onclick='hapus(this.value)' value='".$r['iduser']."'><i class='fas fa-trash'></i></button>".
+							"</div>".
+						"</td>".
+					 "</tr>";
+			}
 		}
+	}
+	public function setPermission() {
+		$id = EMBO::pos('iduser');
+		$role = EMBO::pos('role');
+		$this->change($id, 'role', $role);
+	}
+	public function myArticle() {
+		$id = EMBO::pos('iduser');
+		$q = EMBO::tabel('post')->pilih()->dimana(['iduser' => $id])->urutkan('created', 'DESC')->eksekusi();
 	}
 }
 

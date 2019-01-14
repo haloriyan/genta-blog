@@ -111,7 +111,7 @@
 .container a {
 	color: #444;
 }
-.top img {
+.top .cover {
 	width: 100%;
 	height: 550px;
 }
@@ -125,7 +125,7 @@
 }
 .top .postTitle {
 	margin: 0;
-	font-family: OBold;
+	font-family: ProBold;
 	font-size: 35px;
 	margin: 25px 5%;
 	line-height: 70px;
@@ -136,8 +136,10 @@
 	padding: 5px 10px;
 	font-size: 14px;
 	margin-top: 130px;
+	color: rgba(13,196,175,1);
+	margin-right: 10px;
 }
-.top .info a { text-decoration: none;color: #fff; }
+.top .info a { text-decoration: none;color: rgba(13,196,175,1); }
 .top .profile {
 	margin-top: 50px;
 }
@@ -154,18 +156,58 @@
 	display: inline-block;
 	font-size: 20px;
 }
-.article {
+.article,.articleTitle {
 	width: 60%;
 	margin-left: 20%;
-	margin-top: 80px;
+	margin-top: 50px;
 	color: #454545;
 }
+.articleTitle { margin-top: 50px; }
 .article p {
-	font-size: 20px;
 	font-family: ProReg;
-	line-height: 38px;
 	margin-bottom: 25px;
 }
+.articleTitle > img {
+	width: 100%;
+}
+.articleTitle .profile { margin-top: 25px;margin-bottom: 15px; }
+.articleTitle .profile img {
+	width: 50px;
+	height: 50px;
+	border-radius: 56px;
+	display: inline-block;
+}
+.articleTitle .profile h4 {
+	display: inline-block;
+	vertical-align: top;
+	height: 50px;
+	margin: 0px 0px 20px 15px;
+	font-size: 14px;
+	font-family: ProLight;
+}
+.articleTitle .profile h4 div {
+	font-family: ProBold;
+	font-size: 18px;
+	margin-top: 5px;
+	color: rgba(13,196,175,1);
+	margin-bottom: 10px;
+}
+.articleTitle .profile h4 div a { color: rgba(13,196,175,1);text-decoration: none; }
+.articleTitle .kategori .cat {
+	display: inline-block;
+	margin: -1px;
+	margin-right: 15px;
+	font-family: OBold;
+}
+.articleTitle .kategori .cat a {
+	text-decoration: none;
+	color: rgba(13,196,175,1);
+}
+.article #read {
+	font-size: 20px;
+	line-height: 30px;
+}
+.article #read img { width: 100%; }
 .tag {
 	padding: 5px 15px;
 	border-radius: 90px;
@@ -254,6 +296,8 @@
 }
 .navPost h4 {
 	margin-top: 10px;
+	font-size: 15px;
+	line-height: 28px;
 }
 .navPost .pos span {
 	position: relative;
@@ -262,14 +306,14 @@
 .navPost .pos span,.navPost .pos i { color: #777;font-size: 15px; }
 #subscribe .img {
 	width: 100%;
-	height: 400px;
+	height: 500px;
 }
 #subscribe .ket {
 	text-align: center;
 	background: rgba(0,0,0,0.4);
 	color: #fff;
-	height: 350px;
-	margin-top: -400px;
+	height: 450px;
+	margin-top: -500px;
 	padding-top: 50px;
 }
 #subscribe .ket h3 {
@@ -297,12 +341,13 @@
 #subscribe #formSubscribe button {
 	height: 50px;
 	font-size: 18px;
-	background-color: #27ae60;
+	background-color: rgba(13,196,175,1);
 	border-radius: 6px;
 	margin-top: 1px;
 	color: #fff;
 	margin-bottom: 15px;
 }
+#subscribe #formSubscribe button:hover { background-color: #0ba895; }
 #subscribe a {
 	color: #fff;
 }
@@ -320,7 +365,7 @@
 .bagFoot h2 {
 	font-size: 25px;
 	font-family: OBold;
-	color: #27ae60;
+	color: #0dc4af;
 }
 .bagFoot li {
 	list-style: none;
@@ -389,6 +434,9 @@
 		display: inline-block;
 		font-size: 20px;
 	}
+	.atas .title img {
+		width: 60%;
+	}
 	.atas #tblMenu {
 		display: inline-block;
 		font-size: 25px;
@@ -443,4 +491,15 @@
 		margin: 25px 0px 20px 0px;
 	}
 	.komentar .wrap { margin: 5%; }
+	.top .ket .info div {
+		margin-top: 50px;
+	}
+	.top .postTitle {
+		margin-top: 50px;
+		font-size: 26px;
+		line-height: 45px;
+	}
+	.menu button {
+		margin-left: 2.5%;
+	}
 }

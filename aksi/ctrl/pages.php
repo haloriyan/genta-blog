@@ -3,7 +3,7 @@ include 'posts.php';
 
 class pages extends posts {
 	public function read($title, $kolom) {
-		$title = posts::convertTitle($title);
+		$title = tools::convertTitle($title);
 		$q = EMBO::tabel('pages')->pilih($kolom)->dimana(['title' => $title], 'like')->eksekusi();
 		if(EMBO::hitung($q) == 0) {
 			$q = EMBO::tabel('pages')->pilih($kolom)->dimana(['idpage' => $title])->eksekusi();
@@ -44,7 +44,7 @@ class pages extends posts {
 		$q = EMBO::tabel('pages')->pilih()->eksekusi();
 		while($r = EMBO::ambil($q)) {
 			$baseUrl = configs::baseUrl();
-			echo "<a href='$baseUrl/pages/".posts::convertTitle($r['title'])."'><li>".$r['title']."</li></a>";
+			echo "<a href='$baseUrl/pages/".tools::convertTitle($r['title'])."'><li>".$r['title']."</li></a>";
 		}
 	}
 
@@ -53,7 +53,7 @@ class pages extends posts {
 		$q = EMBO::tabel('pages')->pilih()->eksekusi();
 		while($r = EMBO::ambil($q)) {
 			echo "<tr>".
-					"<td><a href='./pages/".posts::convertTitle($r['title'])."'>".$r['title']."</a>".
+					"<td><a href='./pages/".tools::convertTitle($r['title'])."'>".$r['title']."</a>".
 						"<div class='ke-kanan'>".
 							"<a href='./pages/create&id=".$r['idpage']."'><button class='tblEdit'><i class='fas fa-edit'></i></button></a>".
 							"<button class='tblDelete' onclick='hapus(this.value)' value='".$r['idpage']."'><i class='fas fa-trash'></i></button>".

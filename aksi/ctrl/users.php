@@ -81,23 +81,13 @@ class users extends configs {
 		$q = EMBO::tabel('post')->pilih()->dimana(['iduser' => $id])->eksekusi();
 		return EMBO::hitung($q);
 	}
-	public function convertTitle($title) {
-		$cek = strpos($title, "-");
-		if($cek != 0) {
-			$res = implode(" ", explode("-", $title));
-		}else {
-			$res = implode("-", explode(" ", $title));
-			$res = strtolower($res);
-		}
-		return $res;
-	}
 	public function myTopArticle() {
 		$sesi = $this->sesi();
 		$iduser = $this->me($sesi, 'iduser');
 		$q = EMBO::tabel('post')->pilih()->dimana(['iduser' => $iduser])->urutkan('hit', 'DESC')->batas(10)->eksekusi();
 		while($r = EMBO::ambil($q)) {
 			echo "<li>".
-					"<a href='./".$this->convertTitle($r['title'])."' target='_blank'>".$r['title']."</a>".
+					"<a href='./".tools::convertTitle($r['title'])."' target='_blank'>".$r['title']."</a>".
 				 "</li>";
 		}
 	}
@@ -145,8 +135,34 @@ class users extends configs {
 		$this->change($id, 'role', $role);
 	}
 	public function myArticle() {
-		$id = EMBO::pos('iduser');
-		$q = EMBO::tabel('post')->pilih()->dimana(['iduser' => $id])->urutkan('created', 'DESC')->eksekusi();
+		$id = $_COOKIE['seeUser'];
+		$myPhoto = $this->me($id, 'photo');
+		$myName = $this->me($id, 'name');
+		$batas = 3;
+		$pos = EMBO::pos('myPos');
+		$q = EMBO::tabel('post')->pilih()->dimana(['iduser' => $id])->urutkan('created', 'DESC')->batas($pos, $batas)->eksekusi();
+		if(EMBO::hitung($q) == 0) {
+			echo "null";
+		}else {
+			while($r = EMBO::ambil($q)) {
+				echo "<a href='#'>".
+						"<div class='pos'>".
+							"<div class='bag bag-7'>".
+								"<h3>".$r['title']."</h3>".
+								"<p>".tools::limit($r['content'], 14)."</p>".
+								"<div class='author'>".
+									"<img src='../aset/img/".$myPhoto."'>".
+									"<div class='name'>".$myName."</div>".
+									"<span id='timeStamp'> ".tools::timeAgo($r['date_posted'])."</span>".
+								"</div>".
+							"</div>".
+							"<div class='bag bag-3' style='margin-left: 7px;'>".
+								"<div class='cover' style='background: url(../aset/img/".$r['cover'].");background-size: cover;'></div>".
+							"</div>".
+						"</div>".
+					 "</a>";
+			}
+		}
 	}
 }
 

@@ -11,13 +11,14 @@ class Riload {
 		this.allowLoad = 1,
 		this.documentHeight,
 		this.url = obj.url,
-		this.totalScroll
+		this.totalScroll,
+		this.myPos = 1
 
 		this.getDocHeight()
 		this.init()
 
 		this.totalScroll = parseInt(this.documentHeight) + parseInt(window.pageYOffset)
-		if(this.totalScroll <= this.documentHeight) {
+		if(this.totalScroll < this.documentHeight) {
 			this.loadMore()
 		}
 
@@ -32,7 +33,7 @@ class Riload {
 	init() {
 		let div = document.createElement('div')
 		div.setAttribute('id', 'toLoad0')
-		pos(this.url, this.data, (res) => {
+		pos(this.url, this.data+"&myPos=0", (res) => {
 			div.innerHTML = res
 		})
 		// ambil(this.url, (res) => {
@@ -53,8 +54,10 @@ class Riload {
 			return false
 		}
 		this.generateElement()
-		pos(this.url, this.data, (res) => {
+		pos(this.url, this.data+"&myPos="+this.myPos, (res) => {
 			$('#toLoad'+this.toLoad).tulis(res)
+			this.myPos = this.myPos + 1
+			console.log(res)
 		})
 		// ambil(this.url, (res) => {
 		// 	$('#toLoad'+this.toLoad).tulis(res)

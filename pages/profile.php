@@ -10,6 +10,9 @@ $fbLink = $configs->get('facebook');
 $twitLink = $configs->get('twitter');
 $ytLink = $configs->get('youtube');
 
+setcookie('myPos', '', time() + 1, '/');
+setcookie('seeUser', $id, time() + 3655, '/');
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -22,7 +25,7 @@ $ytLink = $configs->get('youtube');
 	<meta property="og:url"                content="<?php echo $configs->getUrl(); ?>" />
 	<meta property="og:type"               content="article" />
 	<meta property="og:title"              content="<?php echo $name; ?> | Agendakota Blog" />
-	<meta property="og:description"        content="<?php echo $posts->limit($content, 50); ?>" />
+	<meta property="og:description"        content="<?php echo $tools->limit($content, 50); ?>" />
 	<meta property="og:image"             content="<?php echo $configs->baseUrl(); ?>/aset/img/<?php echo $cover; ?>" />
 	<title><?php echo $name; ?> | Agendakota Blog</title>
 	<link href="../aset/fw/build/fw.css" rel="stylesheet">
@@ -77,7 +80,7 @@ $ytLink = $configs->get('youtube');
 	<div class="profile">
 		<img src="../aset/img/<?php echo $photo; ?>">
 		<h2><?php echo $name; ?></h2>
-		<div id="kontri">3 kontribusi</div>
+		<div id="kontri"><?php echo $users->totArtikel($id); ?> kontribusi</div>
 		<p id="bio"><?php echo $bio; ?></p>
 		<div class="social">
 			<div id="twitter"><a href="#"><i class="fab fa-twitter"></i></a></div>
@@ -85,28 +88,8 @@ $ytLink = $configs->get('youtube');
 		</div>
 	</div>
 	<div class="recentPost">
-		<?php
-		for($i = 0; $i < 5; $i++) {
-		?>
-		<a href="#">
-			<div class="pos">
-				<div class="bag bag-7">
-					<h3>Hello world</h3>
-					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit eiusmod et dolor magna aliqua Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
-					<div class="author">
-						<img src="../aset/img/riyan.jpg">
-						<div class="name">Riyan Satria</div>
-						<span id="timeStamp">2 days ago</span>
-					</div>
-				</div>
-				<div class="bag bag-3" style="margin-left: 7px;">
-					<div class="cover" style="background: url(../aset/img/riyan.jpg);background-size: cover;"></div>
-				</div>
-			</div>
-		</a>
-		<?php
-		}
-		?>
+		<input type="hidden" id="myPos" value="0">
+		<div id="loadMyArticle"></div>
 	</div>
 </div>
 
@@ -124,7 +107,14 @@ $ytLink = $configs->get('youtube');
 </div>
 
 <script src="../aset/js/embo.js"></script>
+<script src="../aset/js/riload.js"></script>
 <script>
+	function setCookie(name, value) {
+		let set = "namakuki="+name+"&value="+value+"&durasi=3666"
+		pos('../aksi/setCookie.php', set, () => {
+			console.log('setted')
+		})
+	}
 	function tblSearch() {
 		munculPopup("#bagSearch")
 	}
@@ -153,6 +143,16 @@ $ytLink = $configs->get('youtube');
 			$(".nav").hilang()
 			$(".menu").hilang()
 			this.atribut('aksi', 'bkMenu')
+		}
+	})
+
+	let load = new Riload({
+		el: '#loadMyArticle',
+		url: '../users/myArticle',
+		data: 'yeye='+myPos,
+		sukses: () => {
+			myPos = myPos + 1
+			// setCookie('myPos', myPos)
 		}
 	})
 </script>

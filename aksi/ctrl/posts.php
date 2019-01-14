@@ -3,18 +3,8 @@ include 'subscribe.php';
 
 date_default_timezone_set('Asia/Jakarta');
 class posts extends subscribe {
-	public function convertTitle($title) {
-		$cek = strpos($title, "-");
-		if($cek > 0) {
-			$res = implode(" ", explode("-", $title));
-		}else {
-			$res = implode("-", explode(" ", $title));
-			$res = strtolower($res);
-		}
-		return $res;
-	}
 	public function read($title, $kolom) {
-		$title = $this->convertTitle($title);
+		$title = tools::convertTitle($title);
 		$q = EMBO::tabel('post')->pilih($kolom)->dimana(['title' => $title], 'like')->eksekusi();
 		if(EMBO::hitung($q) == 0) {
 			$q = EMBO::tabel('post')->pilih($kolom)->dimana(['idpost' => $title])->eksekusi();
@@ -26,55 +16,9 @@ class posts extends subscribe {
 		$id = EMBO::pos('idpost');
 		$del = EMBO::tabel('post')->hapus()->dimana(['idpost' => $id])->eksekusi();
 	}
-	public function testt() {
-		echo md5("inikatasandi");
-	}
-	public function timeAgo($datetime, $full = false) {
-	    $now = new DateTime;
-	    $ago = new DateTime($datetime);
-	    $diff = $now->diff($ago);
-
-	    $diff->w = floor($diff->d / 7);
-	    $diff->d -= $diff->w * 7;
-
-	    $string = array(
-	        'y' => 'year',
-	        'm' => 'month',
-	        'w' => 'week',
-	        'd' => 'day',
-	        'h' => 'hour',
-	        'i' => 'minute',
-	        's' => 'second',
-	    );
-	    foreach ($string as $k => &$v) {
-	        if ($diff->$k) {
-	            $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
-	        } else {
-	            unset($string[$k]);
-	        }
-	    }
-
-	    if (!$full) $string = array_slice($string, 0, 1);
-	    return $string ? implode(', ', $string) . ' ago' : 'just now';
-	}
 	public function totComment($id) {
 		$q = EMBO::tabel('comment')->pilih()->dimana(['idpost' => $id])->eksekusi();
 		return EMBO::hitung($q);
-	}
-	public function clearHTML($str = NULL) {
-		return preg_replace('#<[^>]+>#', ' ', $str);
-	}
-	public function limit($str, $lim) {
-		$a = explode(' ', $str);
-		for($i = 0; $i <= $lim; $i++) {
-			$res[] = $a[$i];
-		}
-		$result = implode(' ', $res);
-		$result = $this->clearHTML($result);
-		$e = explode(" ", $result);
-		$t = count($a);
-		$res = ($lim >= $t) ? $result : $result."...";
-		return $res;
 	}
 
 	public function index() {
@@ -89,15 +33,15 @@ class posts extends subscribe {
 				$authorsPhoto = $this->me($r['iduser'], 'photo');
 				$authorsName = $this->me($r['iduser'], 'name');
 				$totComment = $this->totComment($r['idpost']);
-				echo "<a href='./".$this->convertTitle($r['title'])."'>".
+				echo "<a href='./".tools::convertTitle($r['title'])."'>".
 						"<div class='pos'>".
 							"<div class='bag bag-7' style='width: 67%'>".
 								"<h3>".$r['title']."</h3>".
-								"<p>".$this->limit($r['content'], 14)."</p>".
+								"<p>".tools::limit($r['content'], 14)."</p>".
 								"<div class='author'>".
 									"<img src='aset/img/".$authorsPhoto."'>".
 									"<div class='name'>".$authorsName."</div>".
-									"<span id='timeStamp'> - ".$this->timeAgo($r['date_posted'])."</span>".
+									"<span id='timeStamp'> - ".tools::timeAgo($r['date_posted'])."</span>".
 								"</div>".
 							"</div>".
 							"<div class='bag bag-3' style='margin-left: 22px;'>".
@@ -127,7 +71,7 @@ class posts extends subscribe {
 							"<h4>".$r['title']."</h4>".
 						"</div>".
 						"<div class='nav ke-kiri'>".
-							"<a href='./".$this->convertTitle($r['title'])."' target='_blank'><button class='tblView'><i class='fas fa-eye'></i></button></a>".
+							"<a href='./".tools::convertTitle($r['title'])."' target='_blank'><button class='tblView'><i class='fas fa-eye'></i></button></a>".
 							"<a href='./create&id=".$r['idpost']."'><button class='tblEdit'><i class='fas fa-edit'></i></button></a>".
 							"<button class='tblDelete' onclick='hapus(this.value)' value='".$r['idpost']."'><i class='fas fa-times'></i></button>".
 						"</div>".
@@ -190,15 +134,15 @@ class posts extends subscribe {
 		while($r = EMBO::ambil($q)) {
 			$authorsPhoto = $this->me($r['iduser'], 'photo');
 			$authorsName = $this->me($r['iduser'], 'name');
-			echo "<a href='./".$this->convertTitle($r['title'])."'>".
+			echo "<a href='./".tools::convertTitle($r['title'])."'>".
 					"<div class='pos'>".
 						"<div class='bag bag-7' style='width: 67%;'>".
 							"<h3>".$r['title']."</h3>".
-							"<p>".$this->limit($r['content'], 15)."</p>".
+							"<p>".tools::limit($r['content'], 15)."</p>".
 							"<div class='author'>".
 								"<img src='aset/img/".$authorsPhoto."'>".
 								"<div class='name'>".$authorsName."</div>".
-								"<span id='timeStamp'> - ".$this->timeAgo($r['date_posted'])."</span>".
+								"<span id='timeStamp'> - ".tools::timeAgo($r['date_posted'])."</span>".
 							"</div>".
 						"</div>".
 						"<div class='bag bag-3' style='margin-left: 22px;'>".
@@ -210,7 +154,7 @@ class posts extends subscribe {
 		}
 	}
 	public function hit($title) {
-		$t = $this->convertTitle($title);
+		$t = tools::convertTitle($title);
 		return EMBO::query("UPDATE post SET hit = hit + 1 WHERE title = '$t'");
 	}
 	public function previous($date) {
@@ -239,14 +183,14 @@ class posts extends subscribe {
 		$batas = 1;
 		$q = EMBO::query("SELECT * FROM post WHERE category LIKE '%featured%' ORDER BY created DESC LIMIT $pos,$batas");
 		$r = EMBO::ambil($q);
-		echo "<a href='./".$this->convertTitle($r['title'])."'>".
+		echo "<a href='./".tools::convertTitle($r['title'])."'>".
 				 "<div class='pos'>".
 					"<img src='aset/img/".$r['cover']."'>".
 				 	"<div class='covers' style='background: url(aset/img/".$r['cover'].");background-size: cover;'></div>".
 					"<div class='ket'>".
 						"<div class='wrap'>".
 							"<div class='tag'>".$this->showCat($r['category'], $pos)."</div>".
-							"<h3>".$this->limit($r['title'], 7)."</h3>".
+							"<h3>".tools::limit($r['title'], 7)."</h3>".
 						"</div>".
 					"</div>".
 				 "</div>".

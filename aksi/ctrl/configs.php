@@ -1,7 +1,7 @@
 <?php
-include 'controller.php';
+include 'tools.php';
 
-class configs extends EMBO {
+class configs extends tools {
 	public function baseUrl() {
 		global $baseUrl;
 		return $baseUrl;

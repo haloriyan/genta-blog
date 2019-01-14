@@ -9,7 +9,7 @@ $content = $posts->read($title, "content");
 $category = $posts->read($title, "category");
 $cover = $posts->read($title, "cover");
 $date = $posts->read($title, "date_posted");
-$timeAgo = $posts->timeAgo($date);
+$timeAgo = $tools->timeAgo($date);
 
 $iduser = $posts->read($title, "iduser");
 $photo = $users->me($iduser, "photo");
@@ -40,7 +40,7 @@ if($titles == "") {
 	<meta property="og:url"                content="<?php echo $configs->getUrl(); ?>" />
 	<meta property="og:type"               content="article" />
 	<meta property="og:title"              content="<?php echo $titles; ?>" />
-	<meta property="og:description"        content="<?php echo $posts->limit($content, 50); ?>" />
+	<meta property="og:description"        content="<?php echo $tools->limit($content, 50); ?>" />
 	<meta property="og:image"              content="<?php echo $configs->baseUrl(); ?>/aset/img/<?php echo $cover; ?>" />
 	<title><?php echo $titles; ?></title>
 	<link href="aset/fw/build/fw.css" rel="stylesheet">
@@ -179,7 +179,7 @@ if($titles == "") {
 				<?php
 				$recentPost = $embo->query($queryForRecent);
 				while ($row = $embo->ambil($recentPost)) {
-					echo "<a href='./".$posts->convertTitle($row['title'])."'>".
+					echo "<a href='./".$tools->convertTitle($row['title'])."'>".
 							"<div class='pos'>".
 								"<img src='aset/img/".$row['cover']."'>".
 								"<h3>".$row['title']."</h3>".
@@ -195,7 +195,7 @@ if($titles == "") {
 				<div id="disqus_thread"></div>
 			</div>
 			<div class="navPost">
-				<a href='<?php echo $posts->convertTitle($prev['title']); ?>'>
+				<a href='<?php echo $tools->convertTitle($prev['title']); ?>'>
 					<div class="pos">
 						<div class="bag bag-4">
 							<img src="aset/img/<?php echo $prev['cover']; ?>">
@@ -209,7 +209,7 @@ if($titles == "") {
 					</div>
 				</a>
 				<?php if($next['title'] != "") { ?>
-				<div style="cursor: pointer;" class="pos" onclick="mengarahkan('<?php echo $posts->convertTitle($next['title']); ?>')">
+				<div style="cursor: pointer;" class="pos" onclick="mengarahkan('<?php echo $tools->convertTitle($next['title']); ?>')">
 					<div class="bag bag-4">
 						<img src="aset/img/<?php echo $next['cover']; ?>">
 					</div>

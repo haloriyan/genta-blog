@@ -43,15 +43,28 @@ class users extends configs {
 		$email = EMBO::pos('email');
 		$photo = EMBO::pos('photo');
 		$bio = EMBO::pos('bio');
+		$oldPwd = EMBO::pos('oldPwd');
+		$newPwd = EMBO::pos('newPwd');
 
 		$newPhoto = $photo == "" ? $this->me($sesi, 'photo') : $photo;
+		$myPwd = $this->me($sesi, 'password');
+		if($oldPwd != "") {
+			if($myPwd != $oldPwd) {
+				setcookie('notifUser', 'Wrong old password!', time() + 15, '/');
+				exit();
+			}
+		}
 
-		$k = ['name','email','photo','bio'];
-		$v = [$name,$email,$newPhoto,$bio];
+		$k = ['name','email','photo','bio','password'];
+		$v = [$name,$email,$newPhoto,$bio,$newPwd];
 		for($i = 0; $i < count($v); $i++) {
 			$this->change($iduser, $k[$i], $v[$i]);
 		}
+		setcookie('notifUser', 'Account changed', time() + 15, '/');
 		$_SESSION['admingenta']=$email;
+	}
+	public function notif() {
+		echo $_COOKIE['notifUser'];
 	}
 	public function login() {
 		$e = EMBO::pos('email');
@@ -139,13 +152,13 @@ class users extends configs {
 		$myPhoto = $this->me($id, 'photo');
 		$myName = $this->me($id, 'name');
 		$batas = 3;
-		$pos = EMBO::pos('myPos');
+		$pos = (EMBO::pos('position') != 0) ? EMBO::pos('position') + $batas - 1 : 0;
 		$q = EMBO::tabel('post')->pilih()->dimana(['iduser' => $id])->urutkan('created', 'DESC')->batas($pos, $batas)->eksekusi();
 		if(EMBO::hitung($q) == 0) {
-			echo "null";
+			echo "No more article :(";
 		}else {
 			while($r = EMBO::ambil($q)) {
-				echo "<a href='#'>".
+				echo "<a href='../".tools::convertTitle($r['title'])."'>".
 						"<div class='pos'>".
 							"<div class='bag bag-7'>".
 								"<h3>".$r['title']."</h3>".

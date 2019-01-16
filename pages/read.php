@@ -1,5 +1,5 @@
 <?php
-include 'aksi/ctrl/pages.php';
+include 'aksi/ctrl/laman.php';
 
 $title = $bag;
 $posts->hit($title);
@@ -100,7 +100,7 @@ if($titles == "") {
 		</li></a>
 		<a href="#"><li>MORE INFO &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
-				<?php $pages->show(); ?>
+				<?php $laman->show(); ?>
 			</ul>
 		</li></a>
 		<a href="https://agendakota.id" target="_blank"><button id="cta">GO TO AGENDAKOTA.ID</button></a>
@@ -261,7 +261,7 @@ if($titles == "") {
 			</div>
 			<div class="bagFoot">
 				<h3>PAGES</h3>
-				<?php $pages->show(); ?>
+				<?php $laman->show(); ?>
 			</div>
 			<div class="bagFoot">
 				<h3>TAGS</h3>

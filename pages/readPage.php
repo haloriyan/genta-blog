@@ -1,9 +1,9 @@
 <?php
-include 'aksi/ctrl/pages.php';
+include 'aksi/ctrl/laman.php';
 
 $title = $fungsi;
-$titles = $pages->read($title, "title");
-$content = $pages->read($title, "content");
+$titles = $laman->read($title, "title");
+$content = $laman->read($title, "content");
 
 if($titles == "" and $content == "") {
 	die('404');
@@ -20,7 +20,7 @@ if($titles == "" and $content == "") {
 	<meta property="og:url"                content="<?php echo $configs->getUrl(); ?>" />
 	<meta property="og:type"               content="article" />
 	<meta property="og:title"              content="<?php echo $titles; ?>" />
-	<meta property="og:description"        content="<?php echo $pages->limit($content, 50); ?>" />
+	<meta property="og:description"        content="<?php echo $laman->limit($content, 50); ?>" />
 	<meta property="og:image"              content="<?php echo $configs->baseUrl(); ?>/aset/img/AK.png" />
 	<title><?php echo $titles; ?></title>
 	<link href="../aset/fw/build/fw.css" rel="stylesheet">
@@ -68,7 +68,7 @@ if($titles == "" and $content == "") {
 		</li></a>
 		<a href="#"><li>MORE INFO &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
-				<?php $pages->show(); ?>
+				<?php $laman->show(); ?>
 			</ul>
 		</li></a>
 		<a href="https://agendakota.id" target="_blank"><button id="cta">GO TO AGENDAKOTA.ID</button></a>

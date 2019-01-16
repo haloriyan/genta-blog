@@ -1,5 +1,5 @@
 <?php
-include 'aksi/ctrl/pages.php';
+include 'aksi/ctrl/laman.php';
 
 $fbLink = $configs->get('facebook');
 $twitLink = $configs->get('twitter');
@@ -56,7 +56,7 @@ setcookie('position', '0', time() + 3555, '/');
 		</li></a>
 		<a href="#"><li>MORE INFO &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
-				<?php $pages->show(); ?>
+				<?php $laman->show(); ?>
 			</ul>
 		</li></a>
 		<a href="https://agendakota.id" target="_blank"><button id="cta">GO TO AGENDAKOTA.ID</button></a>

@@ -58,8 +58,17 @@ class posts extends subscribe {
 	public function all() {
 		$cat = $_COOKIE['catAdmin'];
 		$title = $_COOKIE['titleAdmin'];
-		$myId = users::me(users::sesi(), 'iduser');
-		$q = EMBO::query("SELECT * FROM post WHERE iduser = '$myId' AND category LIKE '%$cat%' AND title LIKE '%$title%' ORDER BY created DESC");
+		$sesi = users::sesi();
+		$myId = users::me($sesi, 'iduser');
+		$role = users::me($sesi, "role");
+
+		$batas = 5;
+		$pos = (EMBO::pos('position') != 0) ? EMBO::pos('position') + $batas - 1 : 0;
+		if($role == 1) {
+			$q = EMBO::query("SELECT * FROM post WHERE category LIKE '%$cat%' AND title LIKE '%$title%' ORDER BY created DESC LIMIT $pos,$batas");
+		}else {
+			$q = EMBO::query("SELECT * FROM post WHERE iduser = '$myId' AND category LIKE '%$cat%' AND title LIKE '%$title%' ORDER BY created DESC LIMIT $pos,$batas");
+		}
 		if(EMBO::hitung($q) == 0) {
 			echo "No article found";
 		}
@@ -130,27 +139,30 @@ class posts extends subscribe {
 		if($kw == "") {
 			echo "Keyword needed";
 			return false;
-		}
-		while($r = EMBO::ambil($q)) {
-			$authorsPhoto = $this->me($r['iduser'], 'photo');
-			$authorsName = $this->me($r['iduser'], 'name');
-			echo "<a href='./".tools::convertTitle($r['title'])."'>".
-					"<div class='pos'>".
-						"<div class='bag bag-7' style='width: 67%;'>".
-							"<h3>".$r['title']."</h3>".
-							"<p>".tools::limit($r['content'], 15)."</p>".
-							"<div class='author'>".
-								"<img src='aset/img/".$authorsPhoto."'>".
-								"<div class='name'>".$authorsName."</div>".
-								"<span id='timeStamp'> - ".tools::timeAgo($r['date_posted'])."</span>".
+		}else if(EMBO::hitung($q) == 0) {
+			echo "No result";
+		}else {
+			while($r = EMBO::ambil($q)) {
+				$authorsPhoto = $this->me($r['iduser'], 'photo');
+				$authorsName = $this->me($r['iduser'], 'name');
+				echo "<a href='./".tools::convertTitle($r['title'])."'>".
+						"<div class='pos'>".
+							"<div class='bag bag-7' style='width: 67%;'>".
+								"<h3>".$r['title']."</h3>".
+								"<p>".tools::limit($r['content'], 15)."</p>".
+								"<div class='author'>".
+									"<img src='aset/img/".$authorsPhoto."'>".
+									"<div class='name'>".$authorsName."</div>".
+									"<span id='timeStamp'> - ".tools::timeAgo($r['date_posted'])."</span>".
+								"</div>".
+							"</div>".
+							"<div class='bag bag-3' style='margin-left: 22px;'>".
+								// "<img src='aset/img/".$r['cover']."' class='cover'>".
+								"<div class='cover' style='background: url(aset/img/".$r['cover'].");background-size: cover;'></div>".
 							"</div>".
 						"</div>".
-						"<div class='bag bag-3' style='margin-left: 22px;'>".
-							// "<img src='aset/img/".$r['cover']."' class='cover'>".
-							"<div class='cover' style='background: url(aset/img/".$r['cover'].");background-size: cover;'></div>".
-						"</div>".
-					"</div>".
-				 "</a>";
+					 "</a>";
+			}
 		}
 	}
 	public function hit($title) {

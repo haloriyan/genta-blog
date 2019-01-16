@@ -98,7 +98,7 @@ $role = $users->me($sesi, "role");
 		}
 	})
 	function load() {
-		ambil('./pages/all', (res) => {
+		ambil('./laman/all', (res) => {
 			$("#load").tulis(res)
 		})
 	}
@@ -109,7 +109,7 @@ $role = $users->me($sesi, "role");
 	load()
 	submit('#formDelete', () => {
 		let del = "idpage="+$("#idpage").isi()
-		pos('./pages/delete', del, () => {
+		pos('./laman/delete', del, () => {
 			hilangPopup("#bagHapus")
 			load()
 		})

@@ -1,5 +1,5 @@
 <?php
-include 'aksi/ctrl/pages.php';
+include 'aksi/ctrl/laman.php';
 $users->sesi(1);
 
 $id = $_GET['id'];
@@ -8,9 +8,9 @@ $actionPost = 'buat';
 if($id != "") {
 	setcookie('idpage', $id, time() + 6555, '/');
 	$titlePage = 'Edit Page';
-	$title = $pages->read($id, 'title');
-	$content = $pages->read($id, 'content');
-	$category = $pages->read($id, 'category');
+	$title = $laman->read($id, 'title');
+	$content = $laman->read($id, 'content');
+	$category = $laman->read($id, 'category');
 	$catPost = explode(',', $category);
 	$actionPost = 'edit';
 }

@@ -1,7 +1,7 @@
 <?php
 include 'posts.php';
 
-class pages extends posts {
+class laman extends posts {
 	public function read($title, $kolom) {
 		$title = tools::convertTitle($title);
 		$q = EMBO::tabel('pages')->pilih($kolom)->dimana(['title' => $title], 'like')->eksekusi();
@@ -47,6 +47,9 @@ class pages extends posts {
 			echo "<a href='$baseUrl/pages/".tools::convertTitle($r['title'])."'><li>".$r['title']."</li></a>";
 		}
 	}
+	public function test() {
+		echo 'hello';
+	}
 
 	// For admin
 	public function all() {
@@ -64,6 +67,6 @@ class pages extends posts {
 	}
 }
 
-$pages = new pages();
+$laman = new laman();
 
 ?>

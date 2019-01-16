@@ -1,5 +1,5 @@
 <?php
-include 'aksi/ctrl/pages.php';
+include 'aksi/ctrl/laman.php';
 
 $kw = $_COOKIE['kw'];
 if($kw != $_GET['tentang']) {
@@ -29,32 +29,25 @@ setcookie('position', 0, time() + 1, '/');
 		<a href="#"><li>EVENTS NEWS &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
 				<a href="./cari&tentang=Arts%26Culture"><li>Arts &amp; Culture</li></a>
-				<a href="#"><li>Music</li></a>
-				<a href="#"><li>Festival</li></a>
-				<a href="#"><li>Technology</li></a>
-				<a href="#"><li>Education</li></a>
-				<a href="#"><li>Sport</li></a>
-				<a href="#"><li>Travel</li></a>
+				<a href="./cari&tentang=Music"><li>Music</li></a>
+				<a href="./cari&tentang=Festival"><li>Festival</li></a>
+				<a href="./cari&tentang=Technology"><li>Technology</li></a>
+				<a href="./cari&tentang=Education"><li>Education</li></a>
+				<a href="./cari&tentang=Sport"><li>Sport</li></a>
+				<a href="./cari&tentang=Travel"><li>Travel</li></a>
 			</ul>
 		</li></a>
-		<a href="#"><li>MICE &nbsp; <i class="fas fa-angle-down"></i>
-			<ul class="sub">
-				<a href="#"><li>Meeting</li></a>
-				<a href="#"><li>Incentive</li></a>
-				<a href="#"><li>Conference</li></a>
-				<a href="#"><li>Exhibition</li></a>
-			</ul>
-		</li></a>
+		<a href="./cari&tentang=MICE"><li>MICE</li></a>
 		<a href="#"><li>TIPS &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
-				<a href="#"><li>Event Planning &amp; Promotion</li></a>
-				<a href="#"><li>Business &amp; Professional</li></a>
-				<a href="#"><li>Marketing &amp; Communication</li></a>
+				<a href="./cari&tentang=Event Planning"><li>Event Planning &amp; Promotion</li></a>
+				<a href="./cari&tentang=Business Professional"><li>Business &amp; Professional</li></a>
+				<a href="./cari&tentang=Marketing Communication"><li>Marketing &amp; Communication</li></a>
 			</ul>
 		</li></a>
 		<a href="#"><li>MORE INFO &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
-				<?php $pages->show(); ?>
+				<?php $laman->show(); ?>
 			</ul>
 		</li></a>
 		<a href="https://agendakota.id" target="_blank"><button id="cta">GO TO AGENDAKOTA.ID</button></a>

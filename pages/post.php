@@ -84,8 +84,8 @@ setcookie('titleAdmin', '', time() + 2, '/');
 	</div>
 	<div class="bag bag-10">
 		<div class="wrap">
-			<table id="tablePosts">
-				<tbody id="load"></tbody>
+			<table id="tablePosts" class="load">
+				<!-- <span id="load"></span> -->
 			</table>
 		</div>
 	</div>
@@ -110,7 +110,7 @@ setcookie('titleAdmin', '', time() + 2, '/');
 </div>
 
 <script src="aset/js/embo.js"></script>
-<script src="aset/js/chart.min.js"></script>
+<script src="aset/js/riload.js"></script>
 <script>
 	$("#tblMenu").klik(function() {
 		let aksi = this.atribut('aksi')
@@ -133,12 +133,22 @@ setcookie('titleAdmin', '', time() + 2, '/');
 			callback()
 		})
 	}
-	function load() {
-		ambil("./posts/all", (res) => {
-			$("#load").tulis(res)
-		})
-	}
-	load()
+	// function load() {
+	// 	ambil("./posts/all", (res) => {
+	// 		$("#load").tulis(res)
+	// 	})
+	// }
+	// load()
+
+	let load = new Riload({
+		el: '.load',
+		dom: 'tbody',
+		url: './posts/all',
+		data: 'myPos=0',
+		sukses: () => {
+			//
+		}
+	})
 	function chooseCat(cat) {
 		setCookie('catAdmin', cat, () => {
 			load()

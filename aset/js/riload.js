@@ -12,7 +12,10 @@ class Riload {
 		this.documentHeight,
 		this.url = obj.url,
 		this.totalScroll,
-		this.myPos = 1
+		this.dom = obj.dom
+		if(!this.dom) {
+			this.dom = "div"
+		}
 
 		this.getDocHeight()
 		this.init()
@@ -31,9 +34,9 @@ class Riload {
 		})
 	}
 	init() {
-		let div = document.createElement('div')
+		let div = document.createElement(this.dom)
 		div.setAttribute('id', 'toLoad0')
-		pos(this.url, this.data+"&myPos=0", (res) => {
+		pos(this.url, this.data+"&position="+this.toLoad, (res) => {
 			div.innerHTML = res
 		})
 		// ambil(this.url, (res) => {
@@ -54,10 +57,8 @@ class Riload {
 			return false
 		}
 		this.generateElement()
-		pos(this.url, this.data+"&myPos="+this.myPos, (res) => {
+		pos(this.url, this.data+"&position="+this.toLoad, (res) => {
 			$('#toLoad'+this.toLoad).tulis(res)
-			this.myPos = this.myPos + 1
-			console.log(res)
 		})
 		// ambil(this.url, (res) => {
 		// 	$('#toLoad'+this.toLoad).tulis(res)
@@ -65,7 +66,7 @@ class Riload {
 		this.getDocHeight()
 	}
 	generateElement() {
-		let div = document.createElement('div')
+		let div = document.createElement(this.dom)
 		div.setAttribute('id', 'toLoad'+this.toLoad)
 		$(this.el).appendChild(div)
 	}

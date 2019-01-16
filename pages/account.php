@@ -127,6 +127,13 @@ $totArtikel = $users->totArtikel($iduser);
 				<input type="text" class="box" id="emailEdit" value="<?php echo $email; ?>" required>
 				<div>Bio :</div>
 				<textarea class="box" id="bioEdit" required><?php echo $bio; ?></textarea>
+
+				<h3>Change Password</h3>
+				<div>Old Password :</div>
+				<input type="password" class="box" id="oldPwd">
+				<div>New Password :</div>
+				<input type="password" class="box" id="newPwd">
+
 				<h3>Change Photo</h3>
 				<div>Photo :</div>
 				<input type="hidden" id="photoInput">
@@ -162,6 +169,14 @@ $totArtikel = $users->totArtikel($iduser);
 		</div>
 	</div>
 </div>
+<div class="popupWrapper" id="notif">
+	<div class="popup">
+		<div class="wrap">
+			<p id="isiNotif"></p>
+			<button class="ya" id="xNotif">Close</button>
+		</div>
+	</div>
+</div>
 
 <script src="aset/js/embo.js"></script>
 <script src="aset/js/upload.js"></script>
@@ -190,6 +205,12 @@ $totArtikel = $users->totArtikel($iduser);
 			$("#profile").tulis(res)
 		})
 	}
+	function notif() {
+		ambil('./users/notif', (res) => {
+			munculPopup('#notif', $('#notif').pengaya('top: 155px'))
+			$("#isiNotif").tulis(res)
+		})
+	}
 	load()
 	loadProfile()
 	function editProfile() {
@@ -207,10 +228,13 @@ $totArtikel = $users->totArtikel($iduser);
 		let email = $("#emailEdit").isi()
 		let photo = $("#photoInput").isi()
 		let bio = $("#bioEdit").isi()
-		let edit = "name="+name+"&email="+email+"&photo="+photo+"&bio="+bio
+		let oldPwd = $("#oldPwd").isi()
+		let newPwd = $("#newPwd").isi()
+		let edit = "name="+name+"&email="+email+"&photo="+photo+"&bio="+bio+"&oldPwd="+oldPwd+"&newPwd="+newPwd
 		pos("./users/edit", edit, () => {
-			cancelEdit()
-			loadProfile()
+			notif()
+			$("#oldPwd").isi('')
+			$("#newPwd").isi('')
 		})
 		return false
 	})
@@ -240,6 +264,15 @@ $totArtikel = $users->totArtikel($iduser);
 		let ext = re.exec(val)[1]
 		return ext
 	}
+
+	tekan('Escape', () => {
+		hilangPopup('#notif')
+	})
+	$("#xNotif").klik(() => {
+		hilangPopup("#notif")
+		cancelEdit()
+		loadProfile()
+	})
 </script>
 
 </body>

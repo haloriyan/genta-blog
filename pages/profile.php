@@ -1,5 +1,5 @@
 <?php
-include 'aksi/ctrl/pages.php';
+include 'aksi/ctrl/laman.php';
 
 $id = $_GET['bag'];
 $name = $users->me($id, 'name');
@@ -61,7 +61,7 @@ setcookie('seeUser', $id, time() + 3655, '/');
 		</li></a>
 		<a href="#"><li>MORE INFO &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
-				<?php $pages->show(); ?>
+				<?php $laman->show(); ?>
 			</ul>
 		</li></a>
 		<a href="https://agendakota.id" target="_blank"><button id="cta">GO TO AGENDAKOTA.ID</button></a>
@@ -146,12 +146,14 @@ setcookie('seeUser', $id, time() + 3655, '/');
 		}
 	})
 
+	let myPos = 0
 	let load = new Riload({
 		el: '#loadMyArticle',
 		url: '../users/myArticle',
-		data: 'yeye='+myPos,
+		data: 'myPos='+myPos,
 		sukses: () => {
 			myPos = myPos + 1
+			load
 			// setCookie('myPos', myPos)
 		}
 	})

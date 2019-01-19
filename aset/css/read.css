@@ -46,7 +46,7 @@
 .menu a {
 	text-decoration: none;
 	color: #454545;
-	font-family: OBold;
+	font-family: ProBold;
 }
 .menu li:hover {
 	color: #27ae60;
@@ -59,6 +59,21 @@
 	margin-top: -10px;
 	padding: 20px 25px;
 	background-color: #fff;
+	max-width: 800px;
+}
+.sub .cat {
+	float: left;
+	width: 160px;
+	height: 100px;
+	margin-bottom: 35px;
+}
+.sub .cat img {
+	width: 60px;
+	height: 60px;
+}
+.sub h4 {
+	margin-top: -20px;
+	line-height: 30px;
 }
 .sub li {
 	float: none;
@@ -501,5 +516,18 @@
 	}
 	.menu button {
 		margin-left: 2.5%;
+	}
+	.articleTitle {
+		width: 100%;
+		margin-left: 0%;
+	}
+	.articleTitle h1,.articleTitle .kategori,.articleTitle .profile {
+		width: 90%;
+		margin-left: 5%;
+	}
+	.articleTitle > h1 {
+		font-size: 24px;
+		font-family: ProBold;
+		line-height: 38px;
 	}
 }

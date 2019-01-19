@@ -39,6 +39,7 @@ $youtube = $configs->get('youtube');
 		<a href="./post"><li><div class="icon"><i class="fas fa-edit"></i></div> <span>Post</span></li></a>
 		<a href="./account"><li><div class="icon"><i class="fas fa-user"></i></div> <span>Account</span></li></a>
 		<?php if($role == 1) { ?>
+		<a href="./category"><li><div class="icon"><i class="fas fa-tags"></i></div> <span>Category</span></li></a>
 		<a href="./page"><li><div class="icon"><i class="fas fa-file"></i></div> <span>Pages</span></li></a>
 		<a href="./user"><li><div class="icon"><i class="fas fa-users"></i></div> <span>Users</span></li></a>
 		<a href="#"><li aktif='ya'><div class="icon"><i class="fas fa-cogs"></i></div> <span>Settings</span></li></a>

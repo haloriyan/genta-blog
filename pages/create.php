@@ -11,6 +11,7 @@ if($id != "") {
 	$title = $posts->read($id, 'title');
 	$content = $posts->read($id, 'content');
 	$category = $posts->read($id, 'category');
+	$hashtag = $posts->read($id, 'hashtag');
 	$catPost = explode(',', $category);
 	$actionPost = 'edit';
 }
@@ -84,6 +85,32 @@ if($id != "") {
 			top: 33px;right: 5%;
 			width: 35%;
 		}
+		#suggestion,#suggestCat {
+			box-shadow: 1px 1px 5px 1px #ddd;
+			color: #555;
+			display: none;
+			border-radius: 6px;
+		}
+		#suggestion button,#suggestCat button {
+			background: none;
+			border: none;
+			font-size: 16px;
+			width: 95%;
+			height: 40px;
+			transition: 0.35s;
+		}
+		#suggestion li:hover,#suggestCat li:hover, 
+		#suggestion li:hover button ,#suggestCat li:hover button { background-color: #485273;color: #fff; }
+		#suggestion li,#suggestCat li {
+			list-style: none;
+			line-height: 40px;
+			transition: 0.4s;
+		}
+		span.del:hover { color: #e74c3c;transition: 0.4s;cursor: pointer; }
+		#suggestion li:nth-child(1) button,
+		#suggestCat li:nth-child(1) button { border-top-left-radius: 6px;border-top-right-radius: 6px; }
+		#suggestion li:nth-last-child(1) button,
+		#suggestCat li:nth-last-child(1) button { border-bottom-left-radius: 6px;border-bottom-right-radius: 6px; }
 	</style>
 </head>
 <body>
@@ -113,33 +140,26 @@ if($id != "") {
 					</div>
 					<div class="bagian">
 						<h4>Category</h4>
-						<input type="hidden" id="category">
+						<input type="text" id="category" class="box" oninput="cekCat(this.value)" autocomplete="off" value="<?php echo $category; ?>">
+						<div id="suggestCat"></div>
 						<?php
-						$cat = ["Featured","Arts & Culture","Music","Festival","Technology","Education","Sport","Travel","MICE","Event Planning","Business","Marketing"];
-						foreach ($cat as $key => $value) {
-							if(in_array($value, $catPost)) {
-								$check = "checked";
-							}else {
-								$check = "";
-							}
-							echo "<label for='cat".$key."'><div class='cat primer'>".
-									"<input type='checkbox' class='category' onclick='checkCat()' name='category[]' ".$check." value='".$value."' id='cat".$key."'><div class='checkmark'></div><div class='valueCheck'>".$value."</div>".
-								 "</div></label>";
-						}
+						// $cat = ["Featured","Arts & Culture","Music","Festival","Technology","Education","Sport","Travel","MICE","Event Planning","Business","Marketing"];
+						// foreach ($cat as $key => $value) {
+						// 	if(in_array($value, $catPost)) {
+						// 		$check = "checked";
+						// 	}else {
+						// 		$check = "";
+						// 	}
+						// 	echo "<label for='cat".$key."'><div class='cat primer'>".
+						// 			"<input type='checkbox' class='category' onclick='checkCat()' name='category[]' ".$check." value='".$value."' id='cat".$key."'><div class='checkmark'></div><div class='valueCheck'>".$value."</div>".
+						// 		 "</div></label>";
+						// }
 						?>
 					</div>
 					<div class="bagian">
-						<h4>Premium Post?</h4>
-						<select class="box" id="premium">
-							<!-- <option value="1">Yes</option>
-							<option value="0" selected>No</option> -->
-							<?php
-							$optPremium = ["1" => "Yes", "0" => "No"];
-							foreach ($optPremium as $key => $value) {
-								echo "<option value='".$key."'>".$value."</option>";
-							}
-							?>
-						</select>
+						<h4>Hashtag</h4>
+						<input type="text" class="box" id="hashtag" oninput="cekHashtag(this.value)" autocomplete="off" value="<?php echo $hashtag; ?>">
+						<div id="suggestion"></div>
 					</div>
 				</div>
 			</div>
@@ -152,40 +172,6 @@ if($id != "") {
 <script src='aset/ckfinder/ckfinder.js'></script>
 <script src='aset/js/embo.js'></script>
 <script src='aset/js/upload.js'></script>
-<script>
-	function base64encode(str) {
-	    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
-	        function toSolidBytes(match, p1) {
-	            return String.fromCharCode('0x' + p1);
-	    }));
-	}
-	function base64decode(str) {
-	    // Going backwards: from bytestream, to percent-encoding, to original string.
-	    return decodeURIComponent(atob(str).split('').map(function(c) {
-	        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-	    }).join(''));
-	}
-	function post() {
-		let title = $("#title").isi()
-		let content = encodeURIComponent(base64encode(editor.getData()))
-		let cover = $("#cover").isi()
-		let category = encodeURIComponent($("#category").isi())
-		let premium = $("#premium").isi()
-		let send = "title="+title+"&content="+content+"&cover="+cover+"&category="+category+"&premium="+premium
-		pos("./posts/<?php echo $actionPost; ?>", send, () => {
-			mengarahkan("./post")
-		})
-	}
-
-	window.addEventListener('scroll', (scr) => {
-		let scroll = this.scrollY
-		if(scroll > 100) {
-			$('#kanan').pengaya('position: fixed;top: 50px;')
-		}else {
-			$('#kanan').pengaya('position: absolute;top: 33px;')
-		}
-	})
-</script>
 <script src='aset/js/script.create.js'></script>
 
 </body>

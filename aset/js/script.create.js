@@ -1,3 +1,127 @@
+function base64encode(str) {
+    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+	        function toSolidBytes(match, p1) {
+            return String.fromCharCode('0x' + p1);
+    }));
+}
+function base64decode(str) {
+    return decodeURIComponent(atob(str).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+	    }).join(''));
+}
+function post() {
+	let title = $("#title").isi()
+	let content = encodeURIComponent(base64encode(editor.getData()))
+	let cover = $("#cover").isi()
+	let category = encodeURIComponent($("#category").isi())
+	let premium = '1'
+	let hashtag = $("#hashtag").isi()
+	let send = "title="+title+"&content="+content+"&cover="+cover+"&category="+category+"&premium="+premium+"&hashtag="+hashtag
+	pos("./posts/<?php echo $actionPost; ?>", send, () => {
+		mengarahkan("./post")
+	})
+}
+function refresh(str) {
+	let p = str.split(',')
+	let tot = p.length
+	let y = p.splice(0, tot - 1)
+	return y
+}
+function getTyped(str) {
+	let p = str.split(',')
+	let tot = p.length
+	return p[tot - 1]
+}
+function cekHashtag(tags) {
+	let tag = tags
+	if(tags.split(',').length > 0) {
+		tag = getTyped(tags)
+	}
+	tag = encodeURIComponent(tag)
+	if(tag == "") {
+		$("#suggestion").hilang()
+		return false
+	}
+	pos('./posts/cekHashtag', 'tag='+tag+'&type=0', (res) => {
+		$("#suggestion").muncul()
+		$("#suggestion").tulis(res)
+	})
+}
+function cekCat(cats) {
+	let cat = cats
+	if(cats.split(',').length > 0) {
+		cat = getTyped(cats)
+	}
+	cat = encodeURIComponent(cat)
+	if(cat == "") {
+		$("#suggestCat").hilang()
+		return false
+	}
+	pos('./posts/cekHashtag', 'tag='+cat+'&type=1', (res) => {
+		$("#suggestCat").muncul()
+		$("#suggestCat").tulis(res)
+	})
+}
+function createHashtag(tags) {
+	let tag = getTyped(tags)
+	tag = encodeURIComponent(tag)
+	pos('./posts/createHashtag', 'tag='+tag, (res) => {
+		tag = decodeURIComponent(tag)
+		chooseTag(tag)
+	})
+}
+function createCat(cats) {
+	// let cat = getTyped(cats)
+	// cat = encodeURIComponent(cat)
+	// pos('./posts/createHashtag', 'tag='+cat+'&type=1', (res) => {
+	// 	cat = decodeURIComponent(cat)
+	// 	chooseCat(cat)
+	// })
+}
+function chooseTag(tag) {
+	let newIsi
+	let isi = $("#hashtag").isi()
+	if(isi.split(',').length > 1) {
+		newIsi = refresh(isi) + "," + tag + ","
+	}else {
+			newIsi = tag+','
+	}
+	$("#hashtag").isi(newIsi)
+	$("#hashtag").focus()
+	$("#suggestion").hilang()
+}
+function chooseCat(cat) {
+	let newIsi
+	let isi = $("#category").isi()
+	if(isi.split(',').length > 1) {
+		newIsi = refresh(isi) + "," + cat + ","
+	}else {
+		newIsi = cat+","
+	}
+	$("#category").isi(newIsi)
+	$("#category").focus()
+	$("#suggestCat").hilang()
+}
+function delCat(cat) {
+	cat = encodeURIComponent(cat)
+	pos('./posts/deleteHashtag', 'tag='+cat+'&type=1', (res) => {
+		cekCat($("#category").isi())
+	})
+}
+function delTag(tag) {
+	tag = encodeURIComponent(tag)
+	pos('./posts/deleteHashtag', 'tag='+tag+'&type=0', (res) => {
+		cekHashtag($("#hashtag").isi())
+	})
+}
+window.addEventListener('scroll', (scr) => {
+	let scroll = this.scrollY
+	if(scroll > 80) {
+		// $('#kanan').pengaya('position: fixed;top: 30px;')
+	}else {
+		// $('#kanan').pengaya('position: absolute;top: 33px;')
+	}
+})
 // function customUpload(editor) {
 // 	editor.plugins.get('FileRepository').createUploadAdapter =  (loader) => {
 // 		return new myUploadAdapter(loader, '../img/')
@@ -95,16 +219,16 @@ function sukses() {
 	console.log('uploaded')
 }
 
-function checkCat() {
-	let checkedValue = []
-	let checked = document.getElementsByName('category[]')
-	for(var i = 0; i < checked.length; i++) {
-		if(checked[i].checked) {
-			checkedValue.push(checked[i].value)
-		}
-	}
-	$("#category").isi(checkedValue.toString())
-}
+// function checkCat() {
+// 	let checkedValue = []
+// 	let checked = document.getElementsByName('category[]')
+// 	for(var i = 0; i < checked.length; i++) {
+// 		if(checked[i].checked) {
+// 			checkedValue.push(checked[i].value)
+// 		}
+// 	}
+// 	$("#category").isi(checkedValue.toString())
+// }
 
 submit('#formPost', () => {
 	post()
@@ -112,4 +236,5 @@ submit('#formPost', () => {
 })
 $("#post").klik(() => {
 	post()
+	return false
 })

@@ -48,6 +48,7 @@ setcookie('titleAdmin', '', time() + 2, '/');
 		<a href="#"><li aktif='ya'><div class="icon"><i class="fas fa-edit"></i></div> <span>Post</span></li></a>
 		<a href="./account"><li><div class="icon"><i class="fas fa-user"></i></div> <span>Account</span></li></a>
 		<?php if($role == 1) { ?>
+		<a href="./category"><li><div class="icon"><i class="fas fa-tags"></i></div> <span>Category</span></li></a>
 		<a href="./page"><li><div class="icon"><i class="fas fa-file"></i></div> <span>Pages</span></li></a>
 		<a href="./user"><li><div class="icon"><i class="fas fa-users"></i></div> <span>Users</span></li></a>
 		<a href="./settings"><li><div class="icon"><i class="fas fa-cogs"></i></div> <span>Settings</span></li></a>
@@ -133,22 +134,25 @@ setcookie('titleAdmin', '', time() + 2, '/');
 			callback()
 		})
 	}
-	// function load() {
-	// 	ambil("./posts/all", (res) => {
-	// 		$("#load").tulis(res)
-	// 	})
-	// }
-	// load()
+	function load() {
+		ambil("./posts/all", (res) => {
+			$(".load").tulis(res)
+		})
+	}
+	load()
 
-	let load = new Riload({
-		el: '.load',
-		dom: 'tbody',
-		url: './posts/all',
-		data: 'myPos=0',
-		sukses: () => {
-			//
-		}
-	})
+	function lazyLoad() {
+		new Riload({
+			el: '.load',
+			dom: 'tbody',
+			url: './posts/all',
+			data: 'myPos=0',
+			sukses: () => {
+				//
+			}
+		})
+	}
+	lazyLoad()
 	function chooseCat(cat) {
 		setCookie('catAdmin', cat, () => {
 			load()

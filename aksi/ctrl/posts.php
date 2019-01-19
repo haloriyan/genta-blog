@@ -96,6 +96,9 @@ class posts extends subscribe {
 		$cover = EMBO::pos('cover');
 		$datePosted = date('Y-m-d H:i:s');
 		$premium = EMBO::pos('premium');
+		$hashtag = EMBO::pos('hashtag');
+		$this->hitHashtag($hashtag);
+		$this->hitHashtag($category);
 
 		$create = EMBO::tabel('post')
 						->tambah([
@@ -122,11 +125,14 @@ class posts extends subscribe {
 		$cover = EMBO::pos('cover');
 		$category = EMBO::pos('category');
 		$premium = EMBO::pos('premium');
+		$hashtag = EMBO::pos('hashtag');
+
+		$this->hitHashtag($hashtag);
 
 		$changeCover = ($cover == '') ? $this->read($id, 'cover') : $cover;
 
-		$k = ['title','content','cover','category','premium'];
-		$v = [$title,$content,$changeCover,$category,$premium];
+		$k = ['title','content','cover','category','premium','hashtag'];
+		$v = [$title,$content,$changeCover,$category,$premium,$hashtag];
 
 		for($i = 0; $i < count($k); $i++) {
 			$this->change($id, $k[$i], $v[$i]);
@@ -135,7 +141,7 @@ class posts extends subscribe {
 	public function golek() {
 		$kw = $_COOKIE['kw'];
 		$pos = $_COOKIE['position'] == '' ? 0 : $_COOKIE['position'];
-		$q = EMBO::query("SELECT * FROM post WHERE title LIKE '%$kw%' OR content LIKE '%$kw%' OR category LIKE '%$kw%' ORDER BY created DESC");
+		$q = EMBO::query("SELECT * FROM post WHERE title LIKE '%$kw%' OR content LIKE '%$kw%' OR category LIKE '%$kw%' OR hashtag LIKE '%$kw%' ORDER BY created DESC");
 		if($kw == "") {
 			echo "Keyword needed";
 			return false;
@@ -207,6 +213,87 @@ class posts extends subscribe {
 					"</div>".
 				 "</div>".
 			 "</a>";
+	}
+
+	// HASHTAG
+	public function cekHashtag() {
+		$tag = EMBO::pos('tag');
+		$type = EMBO::pos('type');
+		$func = "createHashtag";
+		$funcChoose = "chooseTag";
+		$funcDel = "delTag";
+		$add = "Click to add";
+		if($type != 0) {
+			$func = "createCat";
+			$funcChoose = "chooseCat";
+			$funcDel = "delCat";
+			$add = "";
+		}
+		$q = EMBO::tabel('hashtag')->pilih()->dimana(['hashtag' => $tag, 'type' => $type], 'like')->urutkan('last_hit', 'DESC')->eksekusi();
+		if(EMBO::hitung($q) == 0) {
+			echo '<button type="button" onclick="'.$func.'(this.value)" value="'.$tag.'"><b>"'.$tag.'"</b> not found. '.$add.'</button>';
+		}else {
+			while($r = EMBO::ambil($q)) {
+				echo "<li><button type='button' onclick='".$funcChoose."(this.value)' value='".$r['hashtag']."'>".$r['hashtag']."</button> <span class='del' onclick='$funcDel(`".$r['hashtag']."`)'><i class='fas fa-times'></i></span></li>";
+			}
+		}
+	}
+	public function createHashtag() {
+		$tag = EMBO::pos('tag');
+		$type = EMBO::pos('type');
+		$icon = EMBO::pos('icon');
+		$q = EMBO::tabel('hashtag')
+					->tambah([
+						'idhashtag'	=> rand(1,999),
+						'hashtag'	=> $tag,
+						'type'		=> $type,
+						'icon'		=> $icon,
+						'hit'		=> 0,
+						'last_hit'	=> time()
+					])
+					->eksekusi();
+	}
+	public function hitHashtag($tag) {
+		$skrg = time();
+		$h = explode(",", $tag);
+		foreach ($h as $key => $value) {
+			EMBO::query("UPDATE hashtag SET hit = hit + 1, last_hit = '$skrg' WHERE hashtag = '$value'");
+		}
+	}
+	public function deleteHashtag() {
+		$tag = EMBO::pos('tag');
+		$type = EMBO::pos('type');
+		$del = EMBO::tabel('hashtag')->hapus()->dimana(['hashtag' => $tag, 'type' => $type])->eksekusi();
+	}
+	public function popularHashtag() {
+		$q = EMBO::tabel('hashtag')->pilih()->dimana(['type' => 0])->urutkan('hit', 'DESC')->batas(10)->eksekusi();
+		while($r = EMBO::ambil($q)) {
+			echo "<a href='./cari&tentang=".$r['hashtag']."'><div class='tag'>".$r['hashtag']."</div></a>";
+		}
+	}
+	public function allCat($url = NULL) {
+		$q = EMBO::tabel('hashtag')->pilih()->dimana(['type' => 1])->urutkan('hashtag', 'ASC')->eksekusi();
+		if(EMBO::hitung($q) == 0) {
+			echo "No any category";
+		}else {
+			while($r = EMBO::ambil($q)) {
+				if(EMBO::pos('a') != "") {
+					$tblDel = "<button onclick='hapus(this.value)' value='".$r['hashtag']."' class='tblDelete'><i class='fas fa-trash'></i></button>";
+				}
+				if($url != "") {
+					$showUrl = configs::baseUrl()."/cari&tentang=".urlencode($r['hashtag']);
+				}else {
+					$showUrl = "#";
+				}
+				echo "<a href='".$showUrl."' style='color: #454545;'>".
+						"<div class='cat'>".
+							"<img src='".configs::baseUrl()."/aset/img/icon/".$r['icon']."'>".
+							"<h4>".$r['hashtag']."</h4>".
+							$tblDel.
+					 	"</div>".
+					 "</a>";
+			}
+		}
 	}
 }
 

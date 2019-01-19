@@ -28,13 +28,9 @@ setcookie('position', 0, time() + 1, '/');
 	<nav class="menu">
 		<a href="#"><li>EVENTS NEWS &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
-				<a href="./cari&tentang=Arts%26Culture"><li>Arts &amp; Culture</li></a>
-				<a href="./cari&tentang=Music"><li>Music</li></a>
-				<a href="./cari&tentang=Festival"><li>Festival</li></a>
-				<a href="./cari&tentang=Technology"><li>Technology</li></a>
-				<a href="./cari&tentang=Education"><li>Education</li></a>
-				<a href="./cari&tentang=Sport"><li>Sport</li></a>
-				<a href="./cari&tentang=Travel"><li>Travel</li></a>
+				<?php
+				$posts->allCat(1);
+				?>
 			</ul>
 		</li></a>
 		<a href="./cari&tentang=MICE"><li>MICE</li></a>
@@ -77,6 +73,20 @@ setcookie('position', 0, time() + 1, '/');
 <script src='aset/js/embo.js'></script>
 <script src='aset/js/riload.js'></script>
 <script>
+	$("#tblMenu").klik(function() {
+		let aksi = this.atribut('aksi')
+		if(aksi == "bkMenu") {
+			$(".atas .sosmed").muncul()
+			$(".nav").muncul()
+			$(".menu").muncul()
+			this.atribut('aksi', 'xMenu')
+		}else {
+			$(".atas .sosmed").hilang()
+			$(".nav").hilang()
+			$(".menu").hilang()
+			this.atribut('aksi', 'bkMenu')
+		}
+	})
 	$('.title').klik(() => {
 		mengarahkan('./')
 	})

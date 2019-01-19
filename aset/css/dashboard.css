@@ -10,6 +10,7 @@ body {
 .popup {
 	border-radius: 6px;
 }
+.box { font-size: 17px; }
 .popup button,.bag button {
 	background: none;
 	border: none;

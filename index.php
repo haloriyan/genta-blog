@@ -1,4 +1,5 @@
 <?php
+error_reporting(1);
 include 'aksi/ctrl/laman.php';
 
 $fbLink = $configs->get('facebook');
@@ -27,6 +28,10 @@ setcookie('position', '0', time() + 3555, '/');
 		.featuredPost .kanan .covers {
 			display: block;
 		}
+		.featuredPost {
+			width: 100%;
+			margin-left: 0px;
+		}
 	</style>
 </head>
 <body>
@@ -37,13 +42,9 @@ setcookie('position', '0', time() + 3555, '/');
 	<nav class="menu">
 		<a href="#"><li>EVENTS NEWS &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
-				<a href="./cari&tentang=Arts%26Culture"><li>Arts &amp; Culture</li></a>
-				<a href="./cari&tentang=Music"><li>Music</li></a>
-				<a href="./cari&tentang=Festival"><li>Festival</li></a>
-				<a href="./cari&tentang=Technology"><li>Technology</li></a>
-				<a href="./cari&tentang=Education"><li>Education</li></a>
-				<a href="./cari&tentang=Sport"><li>Sport</li></a>
-				<a href="./cari&tentang=Travel"><li>Travel</li></a>
+				<?php
+				$posts->allCat(1);
+				?>
 			</ul>
 		</li></a>
 		<a href="#"><li>MICE</li></a>

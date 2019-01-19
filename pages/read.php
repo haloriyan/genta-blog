@@ -81,13 +81,9 @@ if($titles == "") {
 	<nav class="menu">
 		<a href="#"><li>EVENT NEWS &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
-				<a href="./cari&tentang=Arts%26Culture"><li>Arts &amp; Culture</li></a>
-				<a href="./cari&tentang=Music"><li>Music</li></a>
-				<a href="./cari&tentang=Festival"><li>Festival</li></a>
-				<a href="./cari&tentang=Technology"><li>Technology</li></a>
-				<a href="./cari&tentang=Education"><li>Education</li></a>
-				<a href="./cari&tentang=Sport"><li>Sport</li></a>
-				<a href="./cari&tentang=Travel"><li>Travel</li></a>
+				<?php
+				$posts->allCat(1);
+				?>
 			</ul>
 		</li></a>
 		<a href="#"><li>MICE</li></a>
@@ -265,13 +261,7 @@ if($titles == "") {
 			</div>
 			<div class="bagFoot">
 				<h3>TAGS</h3>
-				<a href="./cari&tentang=Arts%26Culture"><div class="tag">Arts &amp; Culture</div></a>
-				<a href="./cari&tentang=Music"><div class="tag">Music</div></a>
-				<a href="./cari&tentang=Festival"><div class="tag">Festival</div></a>
-				<a href="./cari&tentang=Technology"><div class="tag">Technology</div></a>
-				<a href="./cari&tentang=Education"><div class="tag">Education</div></a>
-				<a href="./cari&tentang=Sport"><div class="tag">Sport</div></a>
-				<a href="./cari&tentang=Travel"><div class="tag">Travel</div></a>
+				<?php $posts->popularHashtag(); ?>
 			</div>
 		</div>
 	</div>

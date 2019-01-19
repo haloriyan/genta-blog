@@ -107,7 +107,7 @@ function ambil(url, sukses) {
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState == XMLHttpRequest.DONE) {
 			var respon = parseScript(xhr.responseText);
-			return sukses(respon);
+			sukses(respon);
 		}else {
 			// console.log("gagal mengambil data");
 		}
@@ -123,7 +123,7 @@ function ambilJSON(url, sukses) {
 	xhr.onload = function() {
 		if(xhr.status >= 200 && xhr.status < 400) {
 			var data = JSON.parse(xhr.responseText)
-			return sukses(data)
+			sukses(data)
 		}else {
 			console.log("gagal mengambil json")
 		}

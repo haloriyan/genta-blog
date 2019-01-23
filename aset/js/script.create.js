@@ -9,18 +9,6 @@ function base64decode(str) {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
 	    }).join(''));
 }
-function post() {
-	let title = $("#title").isi()
-	let content = encodeURIComponent(base64encode(editor.getData()))
-	let cover = $("#cover").isi()
-	let category = encodeURIComponent($("#category").isi())
-	let premium = '1'
-	let hashtag = $("#hashtag").isi()
-	let send = "title="+title+"&content="+content+"&cover="+cover+"&category="+category+"&premium="+premium+"&hashtag="+hashtag
-	pos("./posts/<?php echo $actionPost; ?>", send, () => {
-		mengarahkan("./post")
-	})
-}
 function refresh(str) {
 	let p = str.split(',')
 	let tot = p.length

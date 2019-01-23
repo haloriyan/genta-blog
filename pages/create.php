@@ -172,6 +172,20 @@ if($id != "") {
 <script src='aset/ckfinder/ckfinder.js'></script>
 <script src='aset/js/embo.js'></script>
 <script src='aset/js/upload.js'></script>
+<script>
+	function post() {
+		let title = $("#title").isi()
+		let content = encodeURIComponent(base64encode(editor.getData()))
+		let cover = $("#cover").isi()
+		let category = encodeURIComponent($("#category").isi())
+		let premium = '1'
+		let hashtag = $("#hashtag").isi()
+		let send = "title="+title+"&content="+content+"&cover="+cover+"&category="+category+"&premium="+premium+"&hashtag="+hashtag
+		pos("./posts/<?php echo $actionPost; ?>", send, () => {
+			mengarahkan("./post")
+		})
+	}
+</script>
 <script src='aset/js/script.create.js'></script>
 
 </body>

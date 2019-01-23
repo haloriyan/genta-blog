@@ -1,6 +1,8 @@
 <?php
 include 'aksi/ctrl/laman.php';
 
+$stats->visit();
+
 $title = $bag;
 $posts->hit($title);
 $idpost = $posts->read($title, "idpost");

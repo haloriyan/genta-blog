@@ -1,6 +1,8 @@
 <?php
 include 'aksi/ctrl/laman.php';
 
+$stats->visit();
+
 $id = $_GET['bag'];
 $name = $users->me($id, 'name');
 $photo = $users->me($id, 'photo');

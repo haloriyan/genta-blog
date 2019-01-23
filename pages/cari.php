@@ -1,6 +1,8 @@
 <?php
 include 'aksi/ctrl/laman.php';
 
+$stats->visit();
+
 $kw = $_COOKIE['kw'];
 if($kw != $_GET['tentang']) {
 	setcookie('kw', $_GET['tentang'], time() + 3655, '/');

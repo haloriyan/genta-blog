@@ -2,6 +2,28 @@
 include 'aksi/ctrl/users.php';
 $sesi = $users->sesi(1);
 $role = $users->me($sesi, "role");
+
+function showTgl() {
+	return '"2018-01-20", "2018-01-21", "2018-01-22", "2018-01-23"';
+}
+
+$y = $stats->ye();
+$val;
+$i = 0;
+foreach ($y as $r) {
+	$h = $stats->getHint($r['tgl']);
+	$tot = count($y) - 1;
+	if($i++ == $tot) {
+		$tgl 	.= '"'.$r['tgl'].'"';
+		$hint 	.= $h['SUM(hint)'];
+		$uv 	.= $stats->uv($r['tgl']);
+	}else {
+		$tgl 	.= '"'.$r['tgl'].'", ';
+		$hint 	.= $h['SUM(hint)'].', ';
+		$uv 	.= $stats->uv($r['tgl']).', ';
+	}
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -51,7 +73,7 @@ $role = $users->me($sesi, "role");
 				<div class="icon"><i class="fas fa-eye"></i></div>
 			</div>
 			<div class="bag bag-7">
-				<h3>155 read</h3>
+				<h3><?php echo $stats->pvThisMonth(); ?> Page View</h3>
 				<p>This month</p>
 			</div>
 		</div>
@@ -62,7 +84,7 @@ $role = $users->me($sesi, "role");
 				<div class="icon"><i class="fas fa-eye"></i></div>
 			</div>
 			<div class="bag bag-7">
-				<h3>155 read</h3>
+				<h3><?php echo $stats->uvThisMonth(); ?> Visitor</h3>
 				<p>This month</p>
 			</div>
 		</div>
@@ -73,14 +95,21 @@ $role = $users->me($sesi, "role");
 				<div class="icon"><i class="fas fa-eye"></i></div>
 			</div>
 			<div class="bag bag-7">
-				<h3>155 read</h3>
+				<h3><?php echo $stats->articleThisMonth(); ?> Posted</h3>
 				<p>This month</p>
 			</div>
 		</div>
 	</div>
-	<div class="bag bag-10">
+	<div class="bag bag-5">
 		<div class="wrap">
+			<h3>Page View</h3>
 			<canvas id="myChart"></canvas>
+		</div>
+	</div>
+	<div class="bag bag-5" style="margin-left: 12px;">
+		<div class="wrap">
+			<h3>Unique Visitor</h3>
+			<canvas id="myCharts"></canvas>
 		</div>
 	</div>
 </div>
@@ -104,13 +133,14 @@ $role = $users->me($sesi, "role");
 	})
 
 	let canvas = $("#myChart")
+	let canvass = $("#myCharts")
 	let myChart = new Chart(canvas, {
 		type: 'line',
 		data: {
-	        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+	        labels: [<?php echo $tgl; ?>],
 	        datasets: [{
-	            label: '# of Votes',
-	            data: [12, 19, 3, 5, 2, 3],
+	            label: 'Page Views',
+	            data: [<?php echo $hint; ?>],
 	            backgroundColor: [
 	                '#3498db65',
 	            ],
@@ -119,7 +149,34 @@ $role = $users->me($sesi, "role");
 	            ],
 	            borderWidth: 1
 	        }]
+	    },
+	    options: {
+	    	legend: {
+	    		display: false
+	    	}
 	    }
+	})
+	let myCharts = new Chart(canvass, {
+		type: 'line',
+		data: {
+			labels: [<?php echo $tgl; ?>],
+			datasets: [{
+				label: 'Unique Visitor',
+				data: [<?php echo $uv; ?>],
+				backgroundColor: [
+	                '#3498db65',
+	            ],
+	            borderColor: [
+	                '#2980b9',
+	            ],
+	            borderWidth: 1
+			}]
+		},
+		options: {
+			legend: {
+				display: false
+			}
+		}
 	})
 </script>
 

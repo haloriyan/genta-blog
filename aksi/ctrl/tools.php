@@ -1,7 +1,7 @@
 <?php
-include 'controller.php';
+include 'stats.php';
 
-class tools extends EMBO {
+class tools extends stats {
 	public function timeAgo($datetime, $full = false) {
 	    $now = new DateTime;
 	    $ago = new DateTime($datetime);

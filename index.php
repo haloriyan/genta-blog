@@ -2,6 +2,8 @@
 error_reporting(1);
 include 'aksi/ctrl/laman.php';
 
+$stats->visit();
+
 $fbLink = $configs->get('facebook');
 $twitLink = $configs->get('twitter');
 $igLink = $configs->get('instagram');

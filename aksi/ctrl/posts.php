@@ -113,7 +113,7 @@ class posts extends subscribe {
 							'created'		=> time()
 						])
 						->eksekusi();
-		subscribe::blast($title, $content, $cover);
+		// subscribe::blast($title, $content, $cover);
 	}
 	public function change($id, $kolom, $value) {
 		return EMBO::tabel('post')->ubah([$kolom => $value])->dimana(['idpost' => $id])->eksekusi();

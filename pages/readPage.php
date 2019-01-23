@@ -1,6 +1,8 @@
 <?php
 include 'aksi/ctrl/laman.php';
 
+$stats->visit();
+
 $title = $fungsi;
 $titles = $laman->read($title, "title");
 $content = $laman->read($title, "content");

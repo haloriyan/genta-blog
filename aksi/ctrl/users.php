@@ -36,6 +36,13 @@ class users extends configs {
 	public function change($id, $kolom, $value) {
 		return EMBO::tabel('user')->ubah([$kolom => $value])->dimana(['iduser' => $id])->eksekusi();
 	}
+	public function cok() {
+		$r = EMBO::curl()
+					->setUrl('http://cekhoax.herokuapp.com/api.php')
+					->pos(['keyword' => 'prabowo presiden'])
+					->eksekusi();
+		echo $r;
+	}
 	public function edit() {
 		$sesi = $this->sesi();
 		$iduser = $this->me($sesi, 'iduser');

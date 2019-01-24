@@ -151,20 +151,20 @@ class posts extends subscribe {
 			while($r = EMBO::ambil($q)) {
 				$authorsPhoto = $this->me($r['iduser'], 'photo');
 				$authorsName = $this->me($r['iduser'], 'name');
-				echo "<a href='./".tools::convertTitle($r['title'])."'>".
+				echo "<a href='../".tools::convertTitle($r['title'])."'>".
 						"<div class='pos'>".
 							"<div class='bag bag-7' style='width: 67%;'>".
 								"<h3>".$r['title']."</h3>".
 								"<p>".tools::limit($r['content'], 15)."</p>".
 								"<div class='author'>".
-									"<img src='aset/img/".$authorsPhoto."'>".
+									"<img src='../aset/img/".$authorsPhoto."'>".
 									"<div class='name'>".$authorsName."</div>".
 									"<span id='timeStamp'> - ".tools::timeAgo($r['date_posted'])."</span>".
 								"</div>".
 							"</div>".
 							"<div class='bag bag-3' style='margin-left: 22px;'>".
 								// "<img src='aset/img/".$r['cover']."' class='cover'>".
-								"<div class='cover' style='background: url(aset/img/".$r['cover'].");background-size: cover;'></div>".
+								"<div class='cover' style='background: url(../aset/img/".$r['cover'].");background-size: cover;'></div>".
 							"</div>".
 						"</div>".
 					 "</a>";
@@ -203,7 +203,7 @@ class posts extends subscribe {
 		$r = EMBO::ambil($q);
 		echo "<a href='./".tools::convertTitle($r['title'])."'>".
 				 "<div class='pos'>".
-					"<img src='aset/img/".$r['cover']."'>".
+					"<img src='aset/img/".$r['cover']."' alt='".$r['title']."'>".
 				 	"<div class='covers' style='background: url(aset/img/".$r['cover'].");background-size: cover;'></div>".
 					"<div class='ket'>".
 						"<div class='wrap'>".
@@ -268,7 +268,7 @@ class posts extends subscribe {
 	public function popularHashtag() {
 		$q = EMBO::tabel('hashtag')->pilih()->dimana(['type' => 0])->urutkan('hit', 'DESC')->batas(10)->eksekusi();
 		while($r = EMBO::ambil($q)) {
-			echo "<a href='./cari&tentang=".$r['hashtag']."'><div class='tag'>".$r['hashtag']."</div></a>";
+			echo "<a href='./cari/".$r['hashtag']."'><div class='tag'>".$r['hashtag']."</div></a>";
 		}
 	}
 	public function allCat($url = NULL) {
@@ -281,7 +281,7 @@ class posts extends subscribe {
 					$tblDel = "<button onclick='hapus(this.value)' value='".$r['hashtag']."' class='tblDelete'><i class='fas fa-trash'></i></button>";
 				}
 				if($url != "") {
-					$showUrl = configs::baseUrl()."/cari&tentang=".urlencode($r['hashtag']);
+					$showUrl = configs::baseUrl()."/cari/".urlencode($r['hashtag']);
 				}else {
 					$showUrl = "#";
 				}

@@ -43,6 +43,9 @@ if($role == "" and $bag == "") {
 			include 'pages/readPage.php';
 		}else if($role == "profile"){
 			include 'pages/profile.php';
+		}else if($role == "cari") {
+			$tentang = $bag;
+			include 'pages/cari.php';
 		}else {
 			if(file_exists($controller.".php")) {
 				include $controller.".php";

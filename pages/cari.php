@@ -4,9 +4,9 @@ include 'aksi/ctrl/laman.php';
 $stats->visit();
 
 $kw = $_COOKIE['kw'];
-if($kw != $_GET['tentang']) {
-	setcookie('kw', $_GET['tentang'], time() + 3655, '/');
-	header("location: ./cari&tentang=".$_GET['tentang']);
+if($kw != $tentang) {
+	setcookie('kw', $tentang, time() + 3655, '/');
+	header("location: ../cari/".$tentang);
 }
 setcookie('position', 0, time() + 1, '/');
 ?>
@@ -16,16 +16,16 @@ setcookie('position', 0, time() + 1, '/');
 	<meta charset='UTF-8'>
 	<meta name='viewport' content='width=device-width, initial-scale = 1'>
 	<title>Mencari <?php echo $kw; ?> | Agendakota Blog</title>
-	<link href='aset/fw/build/fw.css' rel='stylesheet'>
-	<link href='aset/fw/build/fontawesome-all.min.css' rel='stylesheet'>
-	<link href='aset/css/style.css' rel='stylesheet'>
-	<link href='aset/css/style.cari.css' rel='stylesheet'>
-	<link href="aset/img/favicon.ico" rel="icon">
+	<link href='../aset/fw/build/fw.css' rel='stylesheet'>
+	<link href='../aset/fw/build/fontawesome-all.min.css' rel='stylesheet'>
+	<link href='../aset/css/style.min.css' rel='stylesheet'>
+	<link href='../aset/css/style.cari.min.css' rel='stylesheet'>
+	<link href="../aset/img/favicon.ico" rel="icon">
 </head>
 <body>
 
 <div class="atas">
-	<h1 class="title"><img src="aset/img/AK.png"></h1>
+	<h1 class="title"><img src="../aset/img/AK.png"></h1>
 	<div id="tblMenu" aksi="bkMenu"><i class="fas fa-bars"></i></div>
 	<nav class="menu">
 		<a href="#"><li>EVENTS NEWS &nbsp; <i class="fas fa-angle-down"></i>
@@ -35,12 +35,12 @@ setcookie('position', 0, time() + 1, '/');
 				?>
 			</ul>
 		</li></a>
-		<a href="./cari&tentang=MICE"><li>MICE</li></a>
+		<a href="../cari/MICE"><li>MICE</li></a>
 		<a href="#"><li>TIPS &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
-				<a href="./cari&tentang=Event Planning"><li>Event Planning &amp; Promotion</li></a>
-				<a href="./cari&tentang=Business Professional"><li>Business &amp; Professional</li></a>
-				<a href="./cari&tentang=Marketing Communication"><li>Marketing &amp; Communication</li></a>
+				<a href="../cari/Event Planning"><li>Event Planning &amp; Promotion</li></a>
+				<a href="../cari/Business Professional"><li>Business &amp; Professional</li></a>
+				<a href="../cari/Marketing Communication"><li>Marketing &amp; Communication</li></a>
 			</ul>
 		</li></a>
 		<a href="#"><li>MORE INFO &nbsp; <i class="fas fa-angle-down"></i>
@@ -72,8 +72,8 @@ setcookie('position', 0, time() + 1, '/');
 	</div>
 </div>
 
-<script src='aset/js/embo.js'></script>
-<script src='aset/js/riload.js'></script>
+<script src='../aset/js/embo.js'></script>
+<script src='../aset/js/riload.js'></script>
 <script>
 	$("#tblMenu").klik(function() {
 		let aksi = this.atribut('aksi')
@@ -90,17 +90,17 @@ setcookie('position', 0, time() + 1, '/');
 		}
 	})
 	$('.title').klik(() => {
-		mengarahkan('./')
+		mengarahkan('../')
 	})
 	
 	function setCookie(name, value) {
 		let set = "namakuki="+name+"&value="+value+"&durasi=3666"
-		pos('./aksi/setCookie.php', set, (res) => {
+		pos('../aksi/setCookie.php', set, (res) => {
 			console.log(res)
 		})
 	}
 	function load() {
-		ambil('./posts/golek', (res) => {
+		ambil('../posts/golek', (res) => {
 			$("#result").tulis(res)
 		})
 	}
@@ -114,10 +114,10 @@ setcookie('position', 0, time() + 1, '/');
 	// })
 	function search(val) {
 		let set = 'namakuki=kw&value='+val+'&durasi=3655'
-		pos('./aksi/setCookie.php', set, () => {
+		pos('../aksi/setCookie.php', set, () => {
 			load()
 			$("#kw").tulis(val)
-			history.replaceState("s", "pageExplore", "./cari&tentang="+encodeURIComponent(val))
+			history.replaceState("s", "pageExplore", "../cari/"+encodeURIComponent(val))
 		})
 	}
 	function blinkSearchBox() {

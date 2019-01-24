@@ -32,8 +32,8 @@ setcookie('seeUser', $id, time() + 3655, '/');
 	<title><?php echo $name; ?> | Agendakota Blog</title>
 	<link href="../aset/fw/build/fw.css" rel="stylesheet">
 	<link href="../aset/fw/build/fontawesome-all.min.css" rel="stylesheet">
-	<link href="../aset/css/style.css" rel="stylesheet">
-	<link href="../aset/css/style.profile.css" rel="stylesheet">
+	<link href="../aset/css/style.min.css" rel="stylesheet">
+	<link href="../aset/css/style.profile.min.css" rel="stylesheet">
 	<link href="../aset/img/favicon.ico" rel="icon">
 </head>
 <body>
@@ -49,12 +49,12 @@ setcookie('seeUser', $id, time() + 3655, '/');
 				?>
 			</ul>
 		</li></a>
-		<a href="../cari&tentang=MICE"><li>MICE</li></a>
+		<a href="../cari/MICE"><li>MICE</li></a>
 		<a href="#"><li>TIPS &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
-				<a href="../cari&tentang=Event Planning"><li>Event Planning &amp; Promotion</li></a>
-				<a href="../cari&tentang=Business Professional"><li>Business &amp; Professional</li></a>
-				<a href="../cari&tentang=Marketing Communication"><li>Marketing &amp; Communication</li></a>
+				<a href="../cari/Event Planning"><li>Event Planning &amp; Promotion</li></a>
+				<a href="../cari/Business Professional"><li>Business &amp; Professional</li></a>
+				<a href="../cari/Marketing Communication"><li>Marketing &amp; Communication</li></a>
 			</ul>
 		</li></a>
 		<a href="#"><li>MORE INFO &nbsp; <i class="fas fa-angle-down"></i>
@@ -125,7 +125,7 @@ setcookie('seeUser', $id, time() + 3655, '/');
 	submit('#formCari', () => {
 		let kw = $("#kw").isi()
 		pos("./aksi/setCookie.php", kw, () => {
-			mengarahkan('../cari&tentang='+kw)
+			mengarahkan('../cari/'+kw)
 		})
 		return false;
 	})

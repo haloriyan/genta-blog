@@ -27,7 +27,7 @@ if($titles == "" and $content == "") {
 	<title><?php echo $titles; ?></title>
 	<link href="../aset/fw/build/fw.css" rel="stylesheet">
 	<link href="../aset/fw/build/fontawesome-all.min.css" rel="stylesheet">
-	<link href="../aset/css/read.css" rel="stylesheet">
+	<link href="../aset/css/read.min.css" rel="stylesheet">
 	<link href="../aset/img/favicon.ico" rel="icon">
 	<style>
 		.container {
@@ -59,9 +59,9 @@ if($titles == "" and $content == "") {
 		<a href="#"><li>MICE</li></a>
 		<a href="#"><li>TIPS &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
-				<a href="../cari&tentang=Event Planning"><li>Event Planning &amp; Promotion</li></a>
-				<a href="../cari&tentang=Business Professional"><li>Business &amp; Professional</li></a>
-				<a href="../cari&tentang=Marketing Communication"><li>Marketing &amp; Communication</li></a>
+				<a href="../cari/Event Planning"><li>Event Planning &amp; Promotion</li></a>
+				<a href="../cari/Business Professional"><li>Business &amp; Professional</li></a>
+				<a href="../cari/Marketing Communication"><li>Marketing &amp; Communication</li></a>
 			</ul>
 		</li></a>
 		<a href="#"><li>MORE INFO &nbsp; <i class="fas fa-angle-down"></i>

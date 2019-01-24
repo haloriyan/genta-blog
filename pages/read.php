@@ -47,32 +47,7 @@ if($titles == "") {
 	<title><?php echo $titles; ?></title>
 	<link href="aset/fw/build/fw.css" rel="stylesheet">
 	<link href="aset/fw/build/fontawesome-all.min.css" rel="stylesheet">
-	<link href="aset/css/read.css" rel="stylesheet">
-	<style>
-		.cawang {
-			width: 100px;
-			line-height: 100px;
-			display: inline-block;
-			background-color: rgba(13,196,175,1);
-			color: #fff;
-			border-radius: 125px;
-			font-size: 35px;
-		}
-		.popup { border-radius: 6px; }
-		.popup button {
-			padding: 15px 40px;
-			font-size: 17px;
-			background: none;
-			border: none;
-			font-family: OBold;
-			cursor: pointer;
-			transition: 0.4s;
-		}
-		.tblClose {
-			color: rgba(13,196,175,1);
-		}
-		.tblClose:hover { background: rgba(13,196,175,0.2); }
-	</style>
+	<link href="aset/css/read.min.css" rel="stylesheet">
 	<link href="aset/img/favicon.ico" rel="icon">
 </head>
 <body>
@@ -91,9 +66,9 @@ if($titles == "") {
 		<a href="#"><li>MICE</li></a>
 		<a href="#"><li>TIPS &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
-				<a href="./cari&tentang=Event Planning"><li>Event Planning &amp; Promotion</li></a>
-				<a href="./cari&tentang=Business Professional"><li>Business &amp; Professional</li></a>
-				<a href="./cari&tentang=Marketing Communication"><li>Marketing &amp; Communication</li></a>
+				<a href="./cari/Event Planning"><li>Event Planning &amp; Promotion</li></a>
+				<a href="./cari/Business Professional"><li>Business &amp; Professional</li></a>
+				<a href="./cari/Marketing Communication"><li>Marketing &amp; Communication</li></a>
 			</ul>
 		</li></a>
 		<a href="#"><li>MORE INFO &nbsp; <i class="fas fa-angle-down"></i>
@@ -120,7 +95,7 @@ if($titles == "") {
 			<div class="info">
 				<?php
 				foreach (explode(",", $category) as $key => $value) {
-					echo "<div class='cat'><a href='./cari&tentang=".$value."'>".$value."</a></div>";
+					echo "<div class='cat'><a href='./cari/".$value."'>".$value."</a></div>";
 				}
 				?>
 				<div class="time"><?php echo $timeAgo; ?></div>
@@ -137,7 +112,7 @@ if($titles == "") {
 		<div class="kategori">
 			<?php
 			foreach (explode(",", $category) as $key => $value) {
-				echo "<div class='cat'><a href='./cari&tentang=".$value."'>".$value."</a></div>";
+				echo "<div class='cat'><a href='./cari/".$value."'>".$value."</a></div>";
 			}
 			?>
 		</div>
@@ -165,7 +140,7 @@ if($titles == "") {
 				}else {
 					$queryForRecent .= "category LIKE '%".$value."%' OR ";
 				}
-				echo "<div class='tag'><a href='./cari&tentang=".$value."'>".$value."</a></div>";
+				echo "<div class='tag'><a href='./cari/".$value."'>".$value."</a></div>";
 			}
 			$queryForRecent .= " AND title != '$titles' LIMIT 3";
 			?>
@@ -243,19 +218,19 @@ if($titles == "") {
 		<div class="wrap">
 			<div class="bagFoot">
 				<h3>EVENT NEWS</h3>
-				<a href="./cari&tentang=Arts%26Culture"><li>Arts &amp; Culture</li></a>
-				<a href="./cari&tentang=Music"><li>Music</li></a>
-				<a href="./cari&tentang=Festival"><li>Festival</li></a>
-				<a href="./cari&tentang=Technology"><li>Technology</li></a>
-				<a href="./cari&tentang=Education"><li>Education</li></a>
-				<a href="./cari&tentang=Sport"><li>Sport</li></a>
-				<a href="./cari&tentang=Travel"><li>Travel</li></a>
+				<a href="./cari/Arts%26Culture"><li>Arts &amp; Culture</li></a>
+				<a href="./cari/Music"><li>Music</li></a>
+				<a href="./cari/Festival"><li>Festival</li></a>
+				<a href="./cari/Technology"><li>Technology</li></a>
+				<a href="./cari/Education"><li>Education</li></a>
+				<a href="./cari/Sport"><li>Sport</li></a>
+				<a href="./cari/Travel"><li>Travel</li></a>
 			</div>
 			<div class="bagFoot">
 				<h3>TIPS</h3>
-				<a href="./cari&tentang=Event Planning"><li>Event Planning &amp; Promotion</li></a>
-				<a href="./cari&tentang=Business Professional"><li>Business &amp; Professional</li></a>
-				<a href="./cari&tentang=Marketing Communication"><li>Marketing &amp; Communication</li></a>
+				<a href="./cari/Event Planning"><li>Event Planning &amp; Promotion</li></a>
+				<a href="./cari/Business Professional"><li>Business &amp; Professional</li></a>
+				<a href="./cari/Marketing Communication"><li>Marketing &amp; Communication</li></a>
 			</div>
 			<div class="bagFoot">
 				<h3>PAGES</h3>
@@ -308,17 +283,17 @@ if($titles == "") {
 		munculPopup("#bagSearch")
 	}
 	
-	// var disqus_config = function () {
-	// this.page.url = '<?php echo $linkNow; ?>';  // Replace PAGE_URL with your page's canonical URL variable
-	// this.page.identifier = '<?php echo $title; ?>'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-	// };
+	var disqus_config = function () {
+	this.page.url = '<?php echo $linkNow; ?>';  // Replace PAGE_URL with your page's canonical URL variable
+	this.page.identifier = '<?php echo $title; ?>'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	};
 
-	// (function() { // DON'T EDIT BELOW THIS LINE
-	// var d = document, s = d.createElement('script');
-	// s.src = 'https://agendakota-1.disqus.com/embed.js';
-	// s.setAttribute('data-timestamp', +new Date());
-	// (d.head || d.body).appendChild(s);
-	// })();
+	(function() { // DON'T EDIT BELOW THIS LINE
+	var d = document, s = d.createElement('script');
+	s.src = 'https://agendakota-1.disqus.com/embed.js';
+	s.setAttribute('data-timestamp', +new Date());
+	(d.head || d.body).appendChild(s);
+	})();
 
 	tekan('Escape', () => {
 		hilangPopup("#bagSearch")
@@ -343,7 +318,7 @@ if($titles == "") {
 	})
 	submit('#formCari', () => {
 		let q = $("#q").isi()
-		mengarahkan('./cari&tentang='+q)
+		mengarahkan('./cari/'+q)
 		return false
 	})
 	submit('#formSubscribe', () => {

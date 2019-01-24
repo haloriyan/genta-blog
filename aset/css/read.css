@@ -531,3 +531,27 @@
 		line-height: 38px;
 	}
 }
+
+.cawang {
+	width: 100px;
+	line-height: 100px;
+	display: inline-block;
+	background-color: rgba(13,196,175,1);
+	color: #fff;
+	border-radius: 125px;
+	font-size: 35px;
+}
+.popup { border-radius: 6px; }
+.popup button {
+	padding: 15px 40px;
+	font-size: 17px;
+	background: none;
+	border: none;
+	font-family: OBold;
+	cursor: pointer;
+	transition: 0.4s;
+}
+.tblClose {
+	color: rgba(13,196,175,1);
+}
+.tblClose:hover { background: rgba(13,196,175,0.2); }

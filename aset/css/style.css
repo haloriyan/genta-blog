@@ -535,6 +535,7 @@
 		position: static;
 		padding: 0;
 		box-shadow: none;
+		display: none;
 	}
 	.container {
 		display: block;
@@ -583,5 +584,14 @@
 		border-top: 1px solid #ddd;
 		padding-top: 15px;
 		margin-top: 15px;
+	}
+	.sub .cat {
+		width: 33.2%;
+		float: none;
+		display: inline-block;
+		margin: -2px;
+		vertical-align: top;
+		height: 160px;
+		text-align: center;
 	}
 }

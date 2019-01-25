@@ -131,8 +131,8 @@ $role = $users->me($sesi, 'role');
 				<div class="section">
 					<select class="box" id="roleAdd">
 						<option value="">Select Role...</option>
-						<option value="1">Superadmin</option>
-						<option value="0">Admin</option>
+						<option value="1">Admin</option>
+						<option value="0">User</option>
 					</select>
 					<label class="isi">Role</label>
 				</div>
@@ -171,8 +171,8 @@ $role = $users->me($sesi, 'role');
 			<form id="formEdit">
 				<select class="box" id="perm">
 					<option value="">Select role...</option>
-					<option value="1">Superadmin</option>
-					<option value="0">Admin</option>
+					<option value="1">Admin</option>
+					<option value="0">User</option>
 				</select>
 				<button class="ya">Yes</button>
 				<button class="tidak" type="button" id="noSet">No</button>

@@ -135,7 +135,7 @@ class users extends configs {
 		}else {
 			while($r = EMBO::ambil($q)) {
 				$role = $r['role'];
-				$roles = ($role == 1) ? 'Super' : 'Admin';
+				$roles = ($role == 1) ? 'Admin' : 'User';
 				echo "<tr>".
 						"<td>".$r['name']."</td>".
 						"<td>".$r['email']."</td>".

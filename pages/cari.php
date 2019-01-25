@@ -15,6 +15,14 @@ setcookie('position', 0, time() + 1, '/');
 <head>
 	<meta charset='UTF-8'>
 	<meta name='viewport' content='width=device-width, initial-scale = 1'>
+	<meta name="description" content="<?php echo $configs->get('description'); ?>">
+	<meta name="keyword" content="<?php echo $configs->get('keyword'); ?>">
+	<meta name="robots" content="index follow">
+	<meta property="og:url"                content="<?php echo $configs->getUrl(); ?>" />
+	<meta property="og:type"               content="article" />
+	<meta property="og:title"              content="<?php echo $kw; ?>" />
+	<meta property="og:description"        content="Mencari <?php echo $kw; ?> di Blog Agendakota" />
+	<meta property="og:image"              content="<?php echo $configs->baseUrl(); ?>/aset/img/AK.png" />
 	<title>Mencari <?php echo $kw; ?> | Agendakota Blog</title>
 	<link href='../aset/fw/build/fw.css' rel='stylesheet'>
 	<link href='../aset/fw/build/fontawesome-all.min.css' rel='stylesheet'>

@@ -20,10 +20,9 @@ function kompres($source, $destination, $quality) {
 	return $destination;
 }
 
-// if(move_uploaded_file($tmp, $dir.$berkas)) {
-// 	if(kompres($dir.$berkas, $dir.$berkas, 50)) {
-// 		chmod($dir.$berkas, 777);
-// 	}
-// }
-// kompres($dir.$berkas, $dir.$berkas, 50);
-move_uploaded_file($tmp, $dir.$berkas);
+if(move_uploaded_file($tmp, $dir.$berkas)) {
+	if(kompres($dir.$berkas, $dir.$berkas, 50)) {
+		// chmod($dir.$berkas, 777);
+	}
+}
+kompres($dir.$berkas, $dir.$berkas, 50);

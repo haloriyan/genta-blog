@@ -184,6 +184,19 @@ class users extends configs {
 			}
 		}
 	}
+	public function forgotPassword() {
+		$mail = new PHPMailer(true);
+		$e = EMBO::pos('email');
+		$cek = $this->me($e, "name");
+		if($cek == "") {
+			$msg = "Account not found";
+		}else {
+			$msg = "Your password is : ".$this->me($e, "password");
+		}
+
+		// email
+		mailer::kirim($e, $cek, "Password Reminder", $msg);
+	}
 }
 
 $users = new users();

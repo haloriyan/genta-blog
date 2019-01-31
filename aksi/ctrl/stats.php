@@ -1,7 +1,7 @@
 <?php
-include 'controller.php';
+include 'mailer.php';
 
-class stats extends EMBO {
+class stats extends mailer {
 	public function random() {
 		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     	$charactersLength = strlen($characters);

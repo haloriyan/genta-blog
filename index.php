@@ -17,6 +17,9 @@ setcookie('position', '0', time() + 3555, '/');
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale = 1">
+	<meta name="description" content="<?php echo $configs->get('description'); ?>">
+	<meta name="keyword" content="<?php echo $configs->get('keyword'); ?>">
+	<meta name="robots" content="index follow">
 	<title>Agendakota Blog</title>
 	<link href="aset/fw/build/fw.css" rel="stylesheet">
 	<link href="aset/fw/build/fontawesome-all.min.css" rel="stylesheet">

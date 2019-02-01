@@ -185,7 +185,6 @@ class users extends configs {
 		}
 	}
 	public function forgotPassword() {
-		$mail = new PHPMailer(true);
 		$e = EMBO::pos('email');
 		$cek = $this->me($e, "name");
 		if($cek == "") {
@@ -195,7 +194,15 @@ class users extends configs {
 		}
 
 		// email
-		mailer::kirim($e, $cek, "Password Reminder", $msg);
+		echo EMBO::curl()
+			->setUrl(configs::baseUrl()."/mailer/kirim")
+			->pos([
+				"to"		=> $e,
+				"name"		=> $cek,
+				"subjek"	=> "Password Reminder",
+				"message"	=> $msg
+			])
+			->eksekusi();
 	}
 }
 

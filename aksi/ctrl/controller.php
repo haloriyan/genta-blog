@@ -167,7 +167,7 @@ class EMBO {
 	public function eksekusi() {
 		global $query;
 		global $ch;
-		if(!$query) {
+		if($ch != "") {
 			$res = curl_exec($ch);
 			curl_close($ch);
 			return $res;

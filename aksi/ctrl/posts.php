@@ -287,13 +287,18 @@ class posts extends subscribe {
 				}
 				echo "<a href='".$showUrl."' style='color: #454545;'>".
 						"<div class='cat'>".
-							"<img src='".configs::baseUrl()."/aset/img/icon/".$r['icon']."'>".
+							"<img src='".configs::baseUrl()."/aset/img/icon/".$r['icon']."' onclick='ubah(`".$r['hashtag']."`)'>".
 							"<h4>".$r['hashtag']."</h4>".
 							$tblDel.
 					 	"</div>".
 					 "</a>";
 			}
 		}
+	}
+	public function editCat() {
+		$cat = EMBO::pos('cat');
+		$toEdit = EMBO::pos('toEdit');
+		return EMBO::tabel('hashtag')->ubah(['hashtag' => $toEdit])->dimana(['hashtag' => $cat, 'type' => '1'])->eksekusi();
 	}
 }
 

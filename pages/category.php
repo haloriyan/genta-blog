@@ -132,6 +132,19 @@ $images = ["art.png","attraction.png","business.png","conference.png","entertain
 		</div>
 	</div>
 </div>
+<div class="popupWrapper" id="bagEdit">
+	<div class="popup">
+		<div class="wrap">
+			<h3>Change Category
+				<div class="ke-kanan" id="xEdit"><i class="fas fa-times"></i></div>
+			</h3>
+			<form id="editCat">
+				<input type="hidden" id="cat">
+				<input type="text" class="box" id="toEdit">
+			</form>
+		</div>
+	</div>
+</div>
 
 <script src="aset/js/embo.js"></script>
 <script>
@@ -165,6 +178,11 @@ $images = ["art.png","attraction.png","business.png","conference.png","entertain
 		$("#showCat").tulis(val)
 		munculPopup("#bagDel", $("#bagDel").pengaya("top: 125px"))
 	}
+	function ubah(val) {
+		munculPopup("#bagEdit", $("#bagEdit").pengaya("top: 125px"))
+		$("#cat").isi(val)
+		$("#toEdit").isi(val)
+	}
 
 	submit('#newCat', () => {
 		let tag = encodeURIComponent($("#tag").isi())
@@ -183,21 +201,34 @@ $images = ["art.png","attraction.png","business.png","conference.png","entertain
 		})
 		return false
 	})
+	submit('#editCat', () => {
+		let cat = $("#cat").isi()
+		let toEdit = $("#toEdit").isi()
+		let cats = "cat="+cat+"&toEdit="+toEdit
+		pos('./posts/editCat', cats, () => {
+			hilangPopup("#bagEdit")
+			load()
+		})
+		return false
+	})
 
 	$("#tblNew").klik(() => {
 		munculPopup("#bagNew", $("#bagNew").pengaya("top: 5px"))
 	})
-	// munculPopup("#bagNew", $("#bagNew").pengaya("top: 5px"))
 
 	tekan('Escape', () => {
 		hilangPopup("#bagNew")
 		hilangPopup("#bagDel")
+		hilangPopup("#bagEdit")
 	})
 	$("#xNewCat").klik(() => {
 		hilangPopup("#bagNew")
 	})
 	$("#xDel").klik(() => {
 		hilangPopup("#bagDel")
+	})
+	$("#xEdit").klik(() => {
+		hilangPopup("#bagEdit")	
 	})
 </script>
 

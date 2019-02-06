@@ -89,12 +89,18 @@ class posts extends subscribe {
 		}
 	}
 	public function create() {
-		$iduser = users::me(users::sesi(), 'iduser');
+		$iduser = EMBO::pos('iduser');
+		if($iduser == "") {
+			$iduser = users::me(users::sesi(), 'iduser');
+		}
 		$title = EMBO::pos('title');
 		$content = base64_decode(EMBO::pos('content'));
 		$category = EMBO::pos('category');
 		$cover = EMBO::pos('cover');
-		$datePosted = date('Y-m-d H:i:s');
+		$datePosted = EMBO::pos('datePosted');
+		if($datePosted == "") {
+			$datePosted = date('Y-m-d H:i:s');
+		}
 		$premium = EMBO::pos('premium');
 		$hashtag = EMBO::pos('hashtag');
 		$this->hitHashtag($hashtag);
@@ -102,9 +108,10 @@ class posts extends subscribe {
 
 		$create = EMBO::tabel('post')
 						->tambah([
-							'idpost'		=> rand(1, 999),
+							'idpost'		=> null,
 							'iduser'		=> $iduser,
 							'category'		=> $category,
+							'hashtag'		=> $hashtag,
 							'title'			=> $title,
 							'content'		=> $content,
 							'cover'			=> $cover,

@@ -74,7 +74,7 @@ foreach ($y as $r) {
 			</div>
 			<div class="bag bag-7">
 				<h3><?php echo $stats->pvThisMonth(); ?> Page View</h3>
-				<p>This month</p>
+				<p>Last 30 days</p>
 			</div>
 		</div>
 	</div>
@@ -85,7 +85,7 @@ foreach ($y as $r) {
 			</div>
 			<div class="bag bag-7">
 				<h3><?php echo $stats->uvThisMonth(); ?> Visitor</h3>
-				<p>This month</p>
+				<p>Last 30 days</p>
 			</div>
 		</div>
 	</div>
@@ -96,7 +96,7 @@ foreach ($y as $r) {
 			</div>
 			<div class="bag bag-7">
 				<h3><?php echo $stats->articleThisMonth(); ?> Posted</h3>
-				<p>This month</p>
+				<p>Last 30 days</p>
 			</div>
 		</div>
 	</div>

@@ -169,7 +169,6 @@ if($id != "") {
 </div>
 
 <script src='aset/ckeditor/ckeditor.js'></script>
-<script src='aset/ckfinder/ckfinder.js'></script>
 <script src='aset/js/embo.js'></script>
 <script src='aset/js/upload.js'></script>
 <script>

@@ -1,7 +1,13 @@
 <?php
+include '../database/config.php';
+global $baseUrl;
 
 $berkas = $_FILES['file']['name'];
 $tmp = $_FILES['file']['tmp_name'];
+if(!$berkas) {
+	$berkas = $_FILES['upload']['name'];
+	$tmp = $_FILES['upload']['tmp_name'];
+}
 setcookie('berkas', $berkas, time() + 20, '/');
 
 $dir = "../aset/img/";
@@ -26,3 +32,9 @@ if(move_uploaded_file($tmp, $dir.$berkas)) {
 	}
 }
 kompres($dir.$berkas, $dir.$berkas, 50);
+$res = [
+	"status" => 200,
+	"url"	 => $baseUrl."/aset/img/".$berkas
+];
+
+echo json_encode($res);

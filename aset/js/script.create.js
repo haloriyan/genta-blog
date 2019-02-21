@@ -110,76 +110,80 @@ window.addEventListener('scroll', (scr) => {
 		// $('#kanan').pengaya('position: absolute;top: 33px;')
 	}
 })
-// function customUpload(editor) {
-// 	editor.plugins.get('FileRepository').createUploadAdapter =  (loader) => {
-// 		return new myUploadAdapter(loader, '../img/')
-// 	}
-// }
 
-// class myUploadAdapter {
-// 	constructor(loader, url) {
-// 		this.loader = loader
-// 		this.url = url
-// 	}
-// 	upload() {
-// 		return new Promise((resolve, reject) => {
-// 			this._initRequest()
-// 			this._initListeners(resolve, reject)
-// 			this._sendRequest()
-// 		})
-// 	}
-// 	abort() {
-// 		if(this.xhr) {
-// 			this.xhr.abort()
-// 		}
-// 	}
-// 	_initRequest() {
-// 		const xhr = this.xhr = new XMLHttpRequest()
-// 		xhr.open('POST', this.url, true)
-// 	}
-// 	_initListeners(resolve, reject) {
-// 		const xhr = this.xhr
-// 		const loader = this.loader
-// 		const errorText = "Cant upload";
+class MyUploadAdapter {
+	constructor(loader) {
+		this.loader = loader
+	}
+	upload() {
+		return new Promise((resolve, reject) => {
+			this._initRequest()
+			this._initListeners(resolve, reject)
+			this._sendRequest()
+		})
+	}
+	abort() {
+		if(this.xhr) {
+			this.xhr.abort()
+		}
+	}
 
-// 		xhr.addEventListener('error', () => reject(errorText))
-// 		xhr.addEventListener('abort', () => reject())
-// 		xhr.addEventListener('load', () => {
-// 			const res = xhr.response
-// 			if(!res || res.error) {
-// 				return reject(res.error)
-// 			}
-// 			resolve({
-// 				default: res.url
-// 			})
-// 		})
-// 		if(xhr.upload) {
-// 			xhr.upload.addEventListener('progress', evt => {
-// 				if(evt.lengthComputable) {
-// 					loader.uploadTotal = evt.total
-// 					loader.uploaded = evt.loaded
-// 				}
-// 			})
-// 		}
-// 	}
-// 	_sendRequest() {
-// 		const data = new FormData()
-// 		data.append('upload', this.loader.file)
-// 		this.xhr.send(data)
-// 	}
-// }
+	_initRequest() {
+		const xhr = this.xhr = new XMLHttpRequest()
+		xhr.open('POST', './aksi/unggah.php', true)
+		xhr.responseType = 'json'
+	}
+	_initListeners(resolve, reject) {
+		const xhr = this.xhr
+		const loader = this.loader
+		const genericErrorText = "Cant upload file"
+
+		xhr.addEventListener('error', () => reject(genericErrorText))
+		xhr.addEventListener('abort', () => reject())
+		xhr.addEventListener('load', () => {
+			const response = xhr.response
+			if(!response || response.error) {
+				return reject(response && response.error ? response.error.message : genericErrorText)
+			}
+			resolve( {
+                default: response.url
+            } );
+		})
+
+		if(xhr.upload) {
+			xhr.upload.addEventListener('progress', evt => {
+				if(evt.lengthComputable) {
+					loader.uploadTotal = evt.total
+					loader.uploaded = evt.loaded
+				}
+			})
+		}
+	}
+	_sendRequest() {
+		const data = new FormData()
+		data.append('file', this.loader.file)
+		this.xhr.send(data)
+	}
+}
+
+function MyCustomUploadAdapterPlugin( editor ) {
+    editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
+        // Configure the URL to the upload script in your back-end here!
+        return new MyUploadAdapter( loader );
+    };
+}
 
 let editor
-ClassicEditor.create($("#content")).then(myEditor => {
-	// console.log(editor)
-	editor = myEditor
-	// extraPlugins: [customUpload]
-	// ckfinder: {
-	// 	uploadUrl: '../../aksi/unggah.php'
-	// }
-}).catch(error => {
-	// console.log(error)
-})
+ClassicEditor
+	.create($("#content"), {
+		extraPlugins: [MyCustomUploadAdapterPlugin]
+	})
+	.then(myEditor => {
+		editor = myEditor
+	})
+	.catch(error => {
+		console.log(error)
+	})
 
 function getExt(val) {
 	let re =/(?:\.([^.]+))?$/

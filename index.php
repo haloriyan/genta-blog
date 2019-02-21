@@ -151,6 +151,7 @@ setcookie('position', '0', time() + 3555, '/');
 		})
 		console.log('loaded')
 	}
+	loadPost()
 
 // documentHeight = 4738
 	getDocHeight()
@@ -188,7 +189,6 @@ setcookie('position', '0', time() + 3555, '/');
 		div.setAttribute('id', 'toLoad'+toLoad)
 		$('.recentPost').appendChild(div)
 	}
-	loadPost()
 	tekan('Escape', () => {
 		hilangPopup("#bagSearch")
 	})

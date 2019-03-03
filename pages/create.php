@@ -5,6 +5,7 @@ $users->sesi(1);
 $id = $_GET['id'];
 $titlePage = 'Create New Post';
 $actionPost = 'create';
+$isDraft = '';
 if($id != "") {
 	setcookie('idpost', $id, time() + 4555, '/');
 	$titlePage = 'Edit Post';
@@ -14,6 +15,7 @@ if($id != "") {
 	$hashtag = $posts->read($id, 'hashtag');
 	$catPost = explode(',', $category);
 	$actionPost = 'edit';
+	$isDraft = ($posts->read($id, 'posted') == 0) ? 'Draft' : 'Published';
 }
 
 ?>
@@ -111,6 +113,7 @@ if($id != "") {
 		#suggestCat li:nth-child(1) button { border-top-left-radius: 6px;border-top-right-radius: 6px; }
 		#suggestion li:nth-last-child(1) button,
 		#suggestCat li:nth-last-child(1) button { border-bottom-left-radius: 6px;border-bottom-right-radius: 6px; }
+		.popup { border-radius: 6px; }
 	</style>
 </head>
 <body>
@@ -118,6 +121,9 @@ if($id != "") {
 <div class="atas">
 	<div id="tblBack" style="cursor: pointer;" onclick="history.back(-1)" class="ke-kiri"><i class="fas fa-angle-left"></i></div>
 	<h1 class="title"><?php echo $titlePage; ?></h1>
+	<div class="ke-kanan" style="margin-right: 5%;">
+		<h3 style="margin: 0;font-family: ProBold;"><?php echo $isDraft; ?></h3>
+	</div>
 </div>
 
 <div class="container">
@@ -140,20 +146,20 @@ if($id != "") {
 					</div>
 					<div class="bagian">
 						<h4>Category</h4>
-						<input type="text" id="category" class="box" oninput="cekCat(this.value)" autocomplete="off" value="<?php echo $category; ?>">
+						<input type="hidden" id="category" class="box" autocomplete="off" value="<?php echo $category; ?>">
 						<div id="suggestCat"></div>
 						<?php
-						// $cat = ["Featured","Arts & Culture","Music","Festival","Technology","Education","Sport","Travel","MICE","Event Planning","Business","Marketing"];
-						// foreach ($cat as $key => $value) {
-						// 	if(in_array($value, $catPost)) {
-						// 		$check = "checked";
-						// 	}else {
-						// 		$check = "";
-						// 	}
-						// 	echo "<label for='cat".$key."'><div class='cat primer'>".
-						// 			"<input type='checkbox' class='category' onclick='checkCat()' name='category[]' ".$check." value='".$value."' id='cat".$key."'><div class='checkmark'></div><div class='valueCheck'>".$value."</div>".
-						// 		 "</div></label>";
-						// }
+						$cat = ["Featured","Arts & Culture","Music","Festival","Technology","Education","Sport","Travel","MICE","Event Planning","Business","Marketing"];
+						foreach ($cat as $key => $value) {
+							if(in_array($value, $catPost)) {
+								$check = "checked";
+							}else {
+								$check = "";
+							}
+							echo "<label for='cat".$key."'><div class='cat primer'>".
+									"<input type='checkbox' class='category' onclick='checkCat()' name='category[]' ".$check." value='".$value."' id='cat".$key."'><div class='checkmark'></div><div class='valueCheck'>".$value."</div>".
+								 "</div></label>";
+						}
 						?>
 					</div>
 					<div class="bagian">
@@ -168,6 +174,23 @@ if($id != "") {
 	</div>
 </div>
 
+<div class="bg"></div>
+<div class="popupWrapper" id="ready">
+	<div class="popup">
+		<div class="wrap">
+			<h3>Ready to Post?</h3>
+			<form id="readyToPost">
+				<select class="box" id="readyPost" style="width: 100%;">
+					<option value="1">Yes, publish this post</option>
+					<option value="0">No, make it draft</option>
+				</select>
+				<button class="ya">Submit</button>
+				<button type="button" onclick="hilangPopup('#ready')" class="tidak">No, I want edit again</button>
+			</form>
+		</div>
+	</div>
+</div>
+
 <script src='aset/ckeditor/ckeditor.js'></script>
 <script src='aset/js/embo.js'></script>
 <script src='aset/js/upload.js'></script>
@@ -179,7 +202,8 @@ if($id != "") {
 		let category = encodeURIComponent($("#category").isi())
 		let premium = '1'
 		let hashtag = $("#hashtag").isi()
-		let send = "title="+title+"&content="+content+"&cover="+cover+"&category="+category+"&premium="+premium+"&hashtag="+hashtag
+		let posted = $("#readyPost").isi()
+		let send = "title="+title+"&content="+content+"&cover="+cover+"&category="+category+"&premium="+premium+"&hashtag="+hashtag+"&posted="+posted
 		pos("./posts/<?php echo $actionPost; ?>", send, () => {
 			mengarahkan("./post")
 		})

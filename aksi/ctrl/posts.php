@@ -25,7 +25,7 @@ class posts extends subscribe {
 		// $q = EMBO::tabel('post')->pilih()->urutkan('created', 'DESC')->eksekusi();
 		$pos = $_COOKIE['position'] == '' ? 0 : $_COOKIE['position'];
 		$batas = 5;
-		$q = EMBO::query("SELECT * FROM post ORDER BY created DESC LIMIT $pos,$batas");
+		$q = EMBO::query("SELECT * FROM post WHERE posted = '1' ORDER BY created DESC LIMIT $pos,$batas");
 		if(EMBO::hitung($q) == 0) {
 			echo "No more article :(";
 		}else {
@@ -56,8 +56,13 @@ class posts extends subscribe {
 
 	// For admin
 	public function all() {
-		$cat = $_COOKIE['catAdmin'];
-		$title = $_COOKIE['titleAdmin'];
+		$cat 	= $_COOKIE['catAdmin'];
+		$title 	= $_COOKIE['titleAdmin'];
+		$posted = $_COOKIE['postedStatus'];
+		if($posted == "") {
+			$posted = 1;
+		}
+
 		$sesi = users::sesi();
 		$myId = users::me($sesi, 'iduser');
 		$role = users::me($sesi, "role");
@@ -65,9 +70,9 @@ class posts extends subscribe {
 		$batas = 5;
 		$pos = (EMBO::pos('position') != 0) ? EMBO::pos('position') + $batas - 1 : 0;
 		if($role == 1) {
-			$q = EMBO::query("SELECT * FROM post WHERE category LIKE '%$cat%' AND title LIKE '%$title%' ORDER BY created DESC LIMIT $pos,$batas");
+			$q = EMBO::query("SELECT * FROM post WHERE category LIKE '%$cat%' AND title LIKE '%$title%' AND posted = '$posted' ORDER BY created DESC LIMIT $pos,$batas");
 		}else {
-			$q = EMBO::query("SELECT * FROM post WHERE iduser = '$myId' AND category LIKE '%$cat%' AND title LIKE '%$title%' ORDER BY created DESC LIMIT $pos,$batas");
+			$q = EMBO::query("SELECT * FROM post WHERE iduser = '$myId' AND category LIKE '%$cat%' AND title LIKE '%$title%' AND posted = '$posted' ORDER BY created DESC LIMIT $pos,$batas");
 		}
 		if(EMBO::hitung($q) == 0) {
 			echo "No article found";
@@ -103,6 +108,7 @@ class posts extends subscribe {
 		}
 		$premium = EMBO::pos('premium');
 		$hashtag = EMBO::pos('hashtag');
+		$posted  = EMBO::pos('posted');
 		$this->hitHashtag($hashtag);
 		$this->hitHashtag($category);
 
@@ -117,6 +123,7 @@ class posts extends subscribe {
 							'cover'			=> $cover,
 							'date_posted'	=> $datePosted,
 							'premium'		=> $premium,
+							'posted'		=> $posted,
 							'created'		=> time()
 						])
 						->eksekusi();
@@ -148,7 +155,7 @@ class posts extends subscribe {
 	public function golek() {
 		$kw = $_COOKIE['kw'];
 		$pos = $_COOKIE['position'] == '' ? 0 : $_COOKIE['position'];
-		$q = EMBO::query("SELECT * FROM post WHERE title LIKE '%$kw%' OR content LIKE '%$kw%' OR category LIKE '%$kw%' OR hashtag LIKE '%$kw%' ORDER BY created DESC");
+		$q = EMBO::query("SELECT * FROM post WHERE posted = '1' AND title LIKE '%$kw%' OR content LIKE '%$kw%' OR category LIKE '%$kw%' OR hashtag LIKE '%$kw%' ORDER BY created DESC");
 		if($kw == "") {
 			echo "Keyword needed";
 			return false;

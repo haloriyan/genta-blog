@@ -1,6 +1,28 @@
 body {
 	background-color: #efefef;
 }
+.popup button,.bag button {
+	background: none;
+	border: none;
+	font-family: ProBold;
+	font-size: 18px;
+	padding: 15px 25px;
+	transition: 0.55s;
+	cursor: pointer;
+	outline: none;
+}
+button.ya {
+	color: rgba(13,196,175,1);
+}
+button.ya:hover {
+	background-color: rgba(13,196,175, 0.1);
+}
+.popup .tidak {
+	color: #485273;
+}
+.popup .tidak:hover {
+	background-color: #252c4115;
+}
 .atas {
 	position: absolute;
 	top: 0px;left: 0px;right: 0px;

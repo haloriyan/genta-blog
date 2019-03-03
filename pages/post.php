@@ -8,6 +8,7 @@ $allCat = ["Arts & Culture","Music","Festival","Technology","Education","Sport",
 // clear cookie
 setcookie('catAdmin', '', time() + 2, '/');
 setcookie('titleAdmin', '', time() + 2, '/');
+setcookie('postedStatus', '1', time() + 2, '/');
 
 ?>
 <!DOCTYPE html>
@@ -63,7 +64,7 @@ setcookie('titleAdmin', '', time() + 2, '/');
 
 <div class="container">
 	<div class="bag bag-10">
-		<div class="bag bag-5">
+		<div class="bag bag-3">
 			<div class="wrap">
 				Sort by category :
 				<select class="box" id="cat" onchange="chooseCat(this.value)">
@@ -76,7 +77,16 @@ setcookie('titleAdmin', '', time() + 2, '/');
 				</select>
 			</div>
 		</div>
-		<div class="bag bag-5">
+		<div class="bag bag-3">
+			<div class="wrap">
+				Status :
+				<select class="box" id="postedStatus" onchange="postedStatus(this.value)">
+					<option value="1">Posted</option>
+					<option value="0">Draft</option>
+				</select>
+			</div>
+		</div>
+		<div class="bag bag-4">
 			<div class="wrap">
 				Search title :
 				<input type="text" class="box" id="searcPost" oninput="searchInput(this.value)">
@@ -160,6 +170,11 @@ setcookie('titleAdmin', '', time() + 2, '/');
 	}
 	function searchInput(val) {
 		setCookie('titleAdmin', val, () => {
+			load()
+		})
+	}
+	function postedStatus(status) {
+		setCookie('postedStatus', status, () => {
 			load()
 		})
 	}

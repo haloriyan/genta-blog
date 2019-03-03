@@ -211,22 +211,30 @@ function sukses() {
 	console.log('uploaded')
 }
 
-// function checkCat() {
-// 	let checkedValue = []
-// 	let checked = document.getElementsByName('category[]')
-// 	for(var i = 0; i < checked.length; i++) {
-// 		if(checked[i].checked) {
-// 			checkedValue.push(checked[i].value)
-// 		}
-// 	}
-// 	$("#category").isi(checkedValue.toString())
-// }
+function checkCat() {
+	let checkedValue = []
+	let checked = document.getElementsByName('category[]')
+	for(var i = 0; i < checked.length; i++) {
+		if(checked[i].checked) {
+			checkedValue.push(checked[i].value)
+		}
+	}
+	$("#category").isi(checkedValue.toString())
+}
 
 submit('#formPost', () => {
-	post()
+	munculPopup("#ready", $("#ready").pengaya("top: 200px"))
 	return false
 })
 $("#post").klik(() => {
+	munculPopup("#ready", $("#ready").pengaya("top: 200px"))
+	return false
+})
+submit('#readyToPost', () => {
 	post()
 	return false
+})
+
+tekan('Escape', () => {
+	hilangPopup("#ready")
 })

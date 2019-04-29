@@ -10,7 +10,6 @@ if($id != "") {
 	$titlePage = 'Edit Page';
 	$title = $laman->read($id, 'title');
 	$content = $laman->read($id, 'content');
-	$category = $laman->read($id, 'category');
 	$catPost = explode(',', $category);
 	$actionPost = 'edit';
 }
@@ -41,50 +40,6 @@ if($id != "") {
 			cursor: pointer;
 		}
 		#post:hover { background-color: #252c41; }
-		.cat {
-			padding: 10px 20px;
-			margin: 5px;
-			border-radius: 35px;
-			display: inline-block;
-			color: #fff;
-			position: relative;
-			background-color: #485273;
-		}
-		.cat .category {
-			position: absolute;
-			width: 17px;
-			height: 17px;
-			position: absolute;
-			z-index: 2;
-			left: 0px;
-			opacity: 0;
-		}
-		.cat .checkmark {
-			transition: 0.4s;
-			width: 15px;
-			height: 15px;
-			margin-right: 10px;
-			margin-top: 3px;
-			background-color: #485273;
-			position: absolute;
-			top: -4px;left: 0px;
-			width: 100%;
-			height: 43px;
-			border-radius: 90px;
-			float: left;
-		}
-		.cat .valueCheck {
-			position: relative;
-		}
-		.category:checked ~ .checkmark {
-			background-color: rgba(13,196,175,1);;
-			border-radius: 90px;
-		}
-		#kanan {
-			position: absolute;
-			top: 33px;right: 5%;
-			width: 35%;
-		}
 	</style>
 </head>
 <body>
@@ -111,10 +66,70 @@ if($id != "") {
 </div>
 
 <script src='../aset/ckeditor/ckeditor.js'></script>
-<script src='../aset/ckfinder/ckfinder.js'></script>
 <script src='../aset/js/embo.js'></script>
 <script src='../aset/js/upload.js'></script>
 <script>
+class MyUploadAdapter {
+	constructor(loader) {
+		this.loader = loader
+	}
+	upload() {
+		return new Promise((resolve, reject) => {
+			this._initRequest()
+			this._initListeners(resolve, reject)
+			this._sendRequest()
+		})
+	}
+	abort() {
+		if(this.xhr) {
+			this.xhr.abort()
+		}
+	}
+
+	_initRequest() {
+		const xhr = this.xhr = new XMLHttpRequest()
+		xhr.open('POST', '../aksi/unggah.php', true)
+		xhr.responseType = 'json'
+	}
+	_initListeners(resolve, reject) {
+		const xhr = this.xhr
+		const loader = this.loader
+		const genericErrorText = "Cant upload file"
+
+		xhr.addEventListener('error', () => reject(genericErrorText))
+		xhr.addEventListener('abort', () => reject())
+		xhr.addEventListener('load', () => {
+			const response = xhr.response
+			if(!response || response.error) {
+				return reject(response && response.error ? response.error.message : genericErrorText)
+			}
+			resolve( {
+                default: response.url
+            } );
+		})
+
+		if(xhr.upload) {
+			xhr.upload.addEventListener('progress', evt => {
+				if(evt.lengthComputable) {
+					loader.uploadTotal = evt.total
+					loader.uploaded = evt.loaded
+				}
+			})
+		}
+	}
+	_sendRequest() {
+		const data = new FormData()
+		data.append('file', this.loader.file)
+		this.xhr.send(data)
+	}
+}
+
+function MyCustomUploadAdapterPlugin( editor ) {
+    editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
+        // Configure the URL to the upload script in your back-end here!
+        return new MyUploadAdapter( loader );
+    };
+}
 	function base64encode(str) {
 	    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
 	        function toSolidBytes(match, p1) {
@@ -131,24 +146,18 @@ if($id != "") {
 		let title = $("#title").isi()
 		let content = encodeURIComponent(base64encode(editor.getData()))
 		let send = "title="+title+"&content="+content
-		pos("./<?php echo $actionPost; ?>", send, () => {
+		console.log(send)
+		pos("../laman/<?php echo $actionPost; ?>", send, () => {
 			mengarahkan("../page")
 		})
 	}
-
-	window.addEventListener('scroll', (scr) => {
-		let scroll = this.scrollY
-		if(scroll > 100) {
-			$('#kanan').pengaya('position: fixed;top: 50px;')
-		}else {
-			$('#kanan').pengaya('position: absolute;top: 33px;')
-		}
-	})
 </script>
 <!-- <script src='../aset/js/script.create.js'></script> -->
 <script>
 	let editor
-	ClassicEditor.create($("#content")).then(myEditor => {
+	ClassicEditor.create($("#content"), {
+		extraPlugins: [MyCustomUploadAdapterPlugin]
+	}).then(myEditor => {
 		// console.log(editor)
 		editor = myEditor
 		// extraPlugins: [customUpload]

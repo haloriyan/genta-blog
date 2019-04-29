@@ -257,7 +257,7 @@
 	margin: 35px 0px 35px 0px;
 }
 .recentPost .pos:nth-child(2n) { margin-right: 0px; }
-.recentPost .pos .cover {
+.recentPost .pos .coverPostingan {
 	width: 100%;
 	height: 150px;
 }

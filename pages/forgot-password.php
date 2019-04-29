@@ -51,6 +51,7 @@ $kuki = $_COOKIE['kukiLogin'];
 		let email = $("#email").isi()
 		let forgot = "email="+email
 		pos("./users/forgotPassword", forgot, () => {
+			console.log('hoo')
 			setNotif("Your password has been sent via email")
 		})
 		return false

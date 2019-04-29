@@ -126,6 +126,16 @@ class api extends posts {
 			}
 		}
 	}
+	public function testo() {
+		echo EMBO::curl()
+				->setUrl('http://localhost:8000/api/user/add')
+				->pos([
+					'nama'	=> 'riyan',
+					'email'	=> 'riyansa@gmail.com',
+					'alamat'=> 'di rumah saya'
+				])
+				->eksekusi();
+	}
 }
 
 $api = new api();

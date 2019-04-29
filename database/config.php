@@ -1,15 +1,20 @@
 <?php
 global $dbHost,$dbUsername,$dbPassword,$dbName,$baseUrl;
 
-// $dbHost 	= "spectre.beon.co.id";
-// $dbUsername = "imajingg_genta";
-// $dbPassword = "inikatasandi";
-// $dbName 	= "imajingg_genta";
+$isOnline = 0;
 
-$dbHost 	= "localhost";
-$dbUsername = "root";
-$dbPassword = "";
-$dbName 	= "genta";
-$baseUrl 	= "http://localhost/genta";
+if($isOnline == 0) {
+    $dbHost 	= "localhost";
+    $dbUsername = "root";
+    $dbPassword = "";
+    $dbName 	= "genta";
+    $baseUrl 	= "http://localhost/genta";
+}else {
+    $dbHost 	= "localhost";
+    $dbUsername = "root";
+    $dbPassword = "wJoN7S79crkEEi";
+    $dbName 	= "blog";
+    $baseUrl = "https://blog.agendakota.id";
+}
 
 ?>

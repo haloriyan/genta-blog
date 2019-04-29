@@ -11,6 +11,9 @@ $kuki = $_COOKIE['kukiLogin'];
 	<link href='aset/fw/build/fontawesome-all.min.css' rel='stylesheet'>
 	<link href='aset/css/style.auth.css' rel='stylesheet'>
 	<link href="aset/img/favicon.ico" rel="icon">
+	<style>
+		a { color: #485273; }
+	</style>
 	<script src='aset/js/embo.js'></script>
 </head>
 <body>
@@ -31,6 +34,9 @@ $kuki = $_COOKIE['kukiLogin'];
 			</div>
 			<div class="bag-tombol">
 				<button>LOGIN</button>
+			</div>
+			<div class="rata-tengah" style="margin-top: 25px;">
+				<a href="./forgot-password">Lupa kata sandi?</a>
 			</div>
 		</form>
 	</div>

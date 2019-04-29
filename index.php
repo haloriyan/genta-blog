@@ -23,7 +23,7 @@ setcookie('position', '0', time() + 3555, '/');
 	<title>Agendakota Blog</title>
 	<link href="aset/fw/build/fw.css" rel="stylesheet">
 	<link href="aset/fw/build/fontawesome-all.min.css" rel="stylesheet">
-	<link href="aset/css/style.min.css" rel="stylesheet">
+	<link href="aset/css/style.css" rel="stylesheet">
 	<link href="aset/img/favicon.ico" rel="icon">
 	<style>
 		body { background-color: #efefef; }

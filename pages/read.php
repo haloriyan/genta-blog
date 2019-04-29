@@ -9,6 +9,7 @@ $idpost = $posts->read($title, "idpost");
 $titles = $posts->read($title, "title");
 $content = $posts->read($title, "content");
 $category = $posts->read($title, "category");
+$hashtag = $posts->read($title, "hashtag");
 $cover = $posts->read($title, "cover");
 $date = $posts->read($title, "date_posted");
 $timeAgo = $tools->timeAgo($date);
@@ -132,6 +133,13 @@ if($titles == "") {
 			</p>
 			Tags :
 			<?php
+			$explodeHashtag = explode(",", $hashtag);
+			foreach($explodeHashtag as $key => $value) {
+				if($value != "") {
+					echo "<div class='tag'><a href='./cari/".urlencode($value)."'>".$value."</a></div>";
+				}
+			}
+
 			$queryForRecent = "SELECT * FROM post WHERE ";
 			$i = 0;
 			foreach (explode(",", $category) as $key => $value) {
@@ -140,7 +148,6 @@ if($titles == "") {
 				}else {
 					$queryForRecent .= "category LIKE '%".$value."%' OR ";
 				}
-				echo "<div class='tag'><a href='./cari/".$value."'>".$value."</a></div>";
 			}
 			$queryForRecent .= " AND title != '$titles' LIMIT 3";
 			?>
@@ -164,7 +171,6 @@ if($titles == "") {
 			<div id="bagKomen">
 				<h2>Comments</h2>
 				<hr size="2" color="#ddd">
-				<!-- <div id="loadComment"></div> -->
 				<div id="disqus_thread"></div>
 			</div>
 			<div class="navPost">

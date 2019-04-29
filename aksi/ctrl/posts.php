@@ -46,7 +46,7 @@ class posts extends subscribe {
 							"</div>".
 							"<div class='bag bag-3' style='margin-left: 22px;'>".
 								// "<img src='aset/img/".$r['cover']."' class='cover'>".
-								"<div class='cover' style='background: url(aset/img/".$r['cover'].");background-size: cover;'></div>".
+								"<div class='coverPostingan' style='background: url(aset/img/".$r['cover'].");background-size: cover;'><img src='aset/img/".$r['cover']."' style='width: 100%;'></div>".
 							"</div>".
 						"</div>".
 					 "</a>";
@@ -210,8 +210,10 @@ class posts extends subscribe {
 		$c = explode(",", $newCat);
 		return $c[0];
 	}
-	public function fitur() {
-		$pos = EMBO::pos('pos');
+	public function fitur($pos = NULL) {
+		if($pos == "") {
+			$pos = EMBO::pos('pos');
+		}
 		$batas = 1;
 		$q = EMBO::query("SELECT * FROM post WHERE category LIKE '%featured%' ORDER BY created DESC LIMIT $pos,$batas");
 		$r = EMBO::ambil($q);

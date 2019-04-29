@@ -27,6 +27,7 @@ $role = $users->me($sesi, "role");
 			cursor: pointer;
 		}
 		#createPost:hover { background-color: #252c41; }
+		a { color: #444;text-decoration: none; }
 	</style>
 </head>
 <body>

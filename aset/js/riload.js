@@ -13,6 +13,8 @@ class Riload {
 		this.url = obj.url,
 		this.totalScroll,
 		this.dom = obj.dom
+		this.result = ''
+
 		if(!this.dom) {
 			this.dom = "div"
 		}
@@ -28,7 +30,9 @@ class Riload {
 		window.addEventListener('scroll', (scr) => {
 			let scroll = window.pageYOffset
 			if(scroll + 650 >= this.documentHeight) {
-				this.loadMore()
+				if(this.result != "No article found") {
+					this.loadMore()
+				}
 				obj.sukses()
 			}
 		})
@@ -59,6 +63,7 @@ class Riload {
 		this.generateElement()
 		pos(this.url, this.data+"&position="+this.toLoad, (res) => {
 			$('#toLoad'+this.toLoad).tulis(res)
+			this.result = res
 		})
 		// ambil(this.url, (res) => {
 		// 	$('#toLoad'+this.toLoad).tulis(res)

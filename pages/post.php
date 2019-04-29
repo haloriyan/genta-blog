@@ -157,8 +157,8 @@ setcookie('postedStatus', '1', time() + 2, '/');
 			dom: 'tbody',
 			url: './posts/all',
 			data: 'myPos=0',
-			sukses: () => {
-				//
+			sukses: (res) => {
+				// console.log(res)
 			}
 		})
 	}

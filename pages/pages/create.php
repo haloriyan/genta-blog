@@ -150,18 +150,23 @@ function MyCustomUploadAdapterPlugin( editor ) {
 		let title = $("#title").isi()
 		let content = encodeURIComponent(base64encode(editor.getData()))
 		let cover = $("#image").files[0]
-		if(!inArray(cover.type, allowedExtension)) {
-			alert('Image extension not supported')
-			return false
-		}
-		let send = "title="+title+"&content="+content+"&cover="+cover.name
-		pos("../laman/<?php echo $actionPost; ?>", send, () => {
+		let coverName
+		if(cover !== undefined) {
+			coverName = cover.name
+			if(!inArray(cover.type, allowedExtension)) {
+				alert('Image extension not supported')
+				return false
+			}
 			var upload = new Upload(cover, "../aksi/unggah.php");
 			upload.doUpload();
+		}
+		let send = "title="+title+"&content="+content+"&cover="+coverName
+		pos("../laman/<?php echo $actionPost; ?>", send, () => {
+			mengarahkan("../page")
 		})
 	}
 	function sukses() {
-		mengarahkan("../page")
+		console.log('uploaded')
 	}
 </script>
 <!-- <script src='../aset/js/script.create.js'></script> -->

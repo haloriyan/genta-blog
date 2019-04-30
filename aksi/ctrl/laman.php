@@ -37,10 +37,15 @@ class laman extends posts {
 	public function edit() {
 		$id = $_COOKIE['idpage'];
 		$title = EMBO::pos('title');
+		$image = EMBO::pos('cover');
+		if($image == "undefined" or $image == "") {
+			$image = $this->read($id, "image");
+		}
 		$content = base64_decode(EMBO::pos('content'));
 
 		$this->change($id, 'title', $title);
 		$this->change($id, 'content', $content);
+		$this->change($id, 'image', $image);
 	}
 	public function show() {
 		$q = EMBO::tabel('pages')->pilih()->eksekusi();

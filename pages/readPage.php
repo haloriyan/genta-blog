@@ -5,6 +5,7 @@ $stats->visit();
 
 $title = $fungsi;
 $titles = $laman->read($title, "title");
+$cover = $laman->read($title, "image");
 $content = $laman->read($title, "content");
 
 if($titles == "" and $content == "") {
@@ -34,6 +35,7 @@ if($titles == "" and $content == "") {
 			color: #454545;
 			left: 20%;right: 20%;
 			top: 125px;
+			margin-bottom: 70px;
 		}
 		.container .content {
 			font-size: 22px;
@@ -41,6 +43,13 @@ if($titles == "" and $content == "") {
 			line-height: 35px;
 		}
 		.container h1 { font-family: ProBold; }
+		.container img { width: 100%; }
+		@media (max-width: 480px) {
+			.container {
+				left: 5%;right: 5%;
+			}
+			.container .wrap { margin: 5%; }
+		}
 	</style>
 </head>
 <body>
@@ -84,6 +93,7 @@ if($titles == "" and $content == "") {
 <div class="container">
 	<div class="wrap">
 		<h1><?php echo $titles; ?></h1>
+		<img src='../aset/img/<?php echo $cover; ?>' />
 		<div class="content"><?php echo $content; ?></div>
 	</div>
 </div>

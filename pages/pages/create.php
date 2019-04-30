@@ -40,6 +40,7 @@ if($id != "") {
 			cursor: pointer;
 		}
 		#post:hover { background-color: #252c41; }
+		.box { width: 95%; }
 	</style>
 </head>
 <body>
@@ -56,6 +57,8 @@ if($id != "") {
 				<div class="wrap">
 					<div class="isi">Title :</div>
 					<input type="text" class="box" id="title" value="<?php echo $title; ?>">
+					<div class="isi">Cover :</div>
+					<input type="file" id="image" class="box">
 					<div class="isi">Content :</div>
 					<textarea id="content"><?php echo $content; ?></textarea>
 				</div>
@@ -130,6 +133,7 @@ function MyCustomUploadAdapterPlugin( editor ) {
         return new MyUploadAdapter( loader );
     };
 }
+	let allowedExtension = ['image/png','image/jpg','image/jpeg','image/gif']
 	function base64encode(str) {
 	    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
 	        function toSolidBytes(match, p1) {
@@ -145,11 +149,19 @@ function MyCustomUploadAdapterPlugin( editor ) {
 	function post() {
 		let title = $("#title").isi()
 		let content = encodeURIComponent(base64encode(editor.getData()))
-		let send = "title="+title+"&content="+content
-		console.log(send)
+		let cover = $("#image").files[0]
+		if(!inArray(cover.type, allowedExtension)) {
+			alert('Image extension not supported')
+			return false
+		}
+		let send = "title="+title+"&content="+content+"&cover="+cover.name
 		pos("../laman/<?php echo $actionPost; ?>", send, () => {
-			mengarahkan("../page")
+			var upload = new Upload(cover, "../aksi/unggah.php");
+			upload.doUpload();
 		})
+	}
+	function sukses() {
+		mengarahkan("../page")
 	}
 </script>
 <!-- <script src='../aset/js/script.create.js'></script> -->

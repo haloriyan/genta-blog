@@ -1,5 +1,9 @@
-var Upload = function(file) {
+var Upload = function(file, url = 0) {
 	this.file = file
+	this.url = url // url to upload
+	if(this.url == 0) {
+		this.url = "./aksi/unggah.php"
+	}
 }
 
 Upload.prototype.getType = function() {
@@ -21,7 +25,7 @@ Upload.prototype.doUpload = function(form) {
 	// errore nang append
 	formData.append("file", this.file, this.file.name)
 	formData.append("upload_file", true)
-	pos("./aksi/unggah.php", formData, () => {
+	pos(this.url, formData, () => {
 		sukses()
 	}, 'isFile')
 }

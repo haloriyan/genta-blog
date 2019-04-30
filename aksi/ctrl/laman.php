@@ -13,12 +13,14 @@ class laman extends posts {
 	}
 	public function buat() {
 		$title = EMBO::pos('title');
+		$image = EMBO::pos('cover');
 		$content = base64_decode(EMBO::pos('content'));
 
 		$create = EMBO::tabel('pages')
 						->tambah([
 							'idpage'		=> rand(1, 500),
 							'title'			=> $title,
+							'image'			=> $image,
 							'content'		=> $content,
 							'updated_at'	=> time(),
 							'posted_at'		=> time()

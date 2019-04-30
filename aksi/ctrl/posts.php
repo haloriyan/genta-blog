@@ -22,10 +22,16 @@ class posts extends subscribe {
 	}
 
 	public function index() {
-		// $q = EMBO::tabel('post')->pilih()->urutkan('created', 'DESC')->eksekusi();
 		$pos = $_COOKIE['position'] == '' ? 0 : $_COOKIE['position'];
 		$batas = 5;
+		
+		$posisi = $pos / $batas;
+		// get article
 		$q = EMBO::query("SELECT * FROM post WHERE posted = '1' ORDER BY created DESC LIMIT $pos,$batas");
+
+		// get page
+		$getPage = EMBO::query("SELECT * FROM pages ORDER BY updated_at DESC LIMIT $posisi,1");
+
 		if(EMBO::hitung($q) == 0) {
 			echo "No more article :(";
 		}else {
@@ -46,10 +52,30 @@ class posts extends subscribe {
 							"</div>".
 							"<div class='bag bag-3' style='margin-left: 22px;'>".
 								// "<img src='aset/img/".$r['cover']."' class='cover'>".
-								"<div class='coverPostingan' style='background: url(aset/img/".$r['cover'].");background-size: cover;'><img src='aset/img/".$r['cover']."' style='width: 100%;'></div>".
+								"<div class='coverPostingan' style='background: url(aset/img/".$r['cover'].") no-repeat center center;background-size: cover;'><img src='aset/img/".$r['cover']."' style='width: 100%;'></div>".
 							"</div>".
 						"</div>".
 					 "</a>";
+			}
+
+			if(EMBO::hitung($getPage) != 0) {
+				while($r = EMBO::ambil($getPage)) {
+					echo "<div class='pos spesial'>".
+							"<div class='bag bag-3'>".
+								"<div class='wrap' style='background: url(aset/img/".$r['image'].") center center;background-size: cover;'>".
+									// "<img src='aset/img/".$r['image']."'>".
+								"</div>".
+							"</div>".
+							"<div class='bag bag-7'>".
+								"<div class='wrap'>".
+									"<h3>".$r['title']."</h3>".
+									"<a href='./pages/".tools::convertTitle($r['title'])."'>".
+										"<button class='cta'>Cari Tahu Selengkapnya</button>".
+									"</a>".
+								"</div>".
+							"</div>".
+						 "</div>";
+				}
 			}
 		}
 	}
@@ -224,7 +250,7 @@ class posts extends subscribe {
 					"<div class='ket'>".
 						"<div class='wrap'>".
 							"<div class='tag'>".$this->showCat($r['category'], $pos)."</div>".
-							"<h3>".tools::limit($r['title'], 7)."</h3>".
+							"<h3>".$r['title']."</h3>".
 						"</div>".
 					"</div>".
 				 "</div>".

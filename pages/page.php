@@ -64,7 +64,7 @@ $role = $users->me($sesi, "role");
 	</div>
 </div>
 
-<div id="createPost" onclick="mengarahkan('./pages/create')"><i class="fas fa-pencil-alt"></i></div>
+<div id="createPost" onclick="mengarahkan('./pages/create&id=0')"><i class="fas fa-pencil-alt"></i></div>
 
 <div class="bg"></div>
 <div class="popupWrapper" id="bagHapus">

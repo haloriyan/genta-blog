@@ -5,7 +5,7 @@ $users->sesi(1);
 $id = $_GET['id'];
 $titlePage = 'Create New Page';
 $actionPost = 'buat';
-if($id != "") {
+if($id != "" && $id != 0) {
 	setcookie('idpage', $id, time() + 6555, '/');
 	$titlePage = 'Edit Page';
 	$title = $laman->read($id, 'title');

@@ -46,6 +46,7 @@ class laman extends posts {
 		$this->change($id, 'title', $title);
 		$this->change($id, 'content', $content);
 		$this->change($id, 'image', $image);
+		$this->change($id, 'updated_at', time());
 	}
 	public function show() {
 		$q = EMBO::tabel('pages')->pilih()->eksekusi();
@@ -60,7 +61,7 @@ class laman extends posts {
 
 	// For admin
 	public function all() {
-		$q = EMBO::tabel('pages')->pilih()->eksekusi();
+		$q = EMBO::tabel('pages')->pilih()->urutkan('updated_at', 'DESC')->eksekusi();
 		while($r = EMBO::ambil($q)) {
 			echo "<tr>".
 					"<td><a href='./pages/".tools::convertTitle($r['title'])."'>".$r['title']."</a>".

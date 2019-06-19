@@ -1,5 +1,7 @@
 RewriteEngine On
 
+RewriteCond %{HTTP_HOST} ^www\. [NC] RewriteRule (.*) http://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
 RewriteRule ^(aksi|database|aset)($|/) - [L]
 RewriteRule ^error/(.*?)$ pages/error/$1.php [L]
 

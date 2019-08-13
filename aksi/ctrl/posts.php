@@ -140,7 +140,7 @@ class posts extends subscribe {
 
 		$create = EMBO::tabel('post')
 						->tambah([
-							'idpost'		=> null,
+							'idpost'		=> rand(1, 999999),
 							'iduser'		=> $iduser,
 							'category'		=> $category,
 							'hashtag'		=> $hashtag,
@@ -148,6 +148,7 @@ class posts extends subscribe {
 							'content'		=> $content,
 							'cover'			=> $cover,
 							'date_posted'	=> $datePosted,
+							'hit' => 0,
 							'premium'		=> $premium,
 							'posted'		=> $posted,
 							'created'		=> time()

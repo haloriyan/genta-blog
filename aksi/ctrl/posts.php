@@ -79,6 +79,7 @@ class posts extends subscribe {
 			}
 		}
 	}
+	// Biar bisa commit
 
 	// For admin
 	public function all() {

@@ -74,9 +74,9 @@ class EMBO {
 		$a = 0;
 		foreach ($kolom as $key => $value) {
 			if($a++ == count($kolom) - 1) {
-				$query .= "'".$value."'";
+				$query .= "'".mysqli_real_escape_string($this->konek, $value)."'";
 			}else {
-				$query .= "'".$value."', ";
+				$query .= "'".mysqli_real_escape_string($this->konek, $value)."', ";
 			}
 		}
 
@@ -94,15 +94,15 @@ class EMBO {
 		}
 		$totKey = count($opt);
 		if($totKey == 1) {
-			$query .= " SET $key = '".$val."'";
+			$query .= " SET $key = '".mysqli_real_escape_string($this->konek, $val)."'";
 		}else {
 			$query .= " SET ";
 			$a = 0;
 			foreach ($opt as $key => $value) {
 				if($a++ == count($opt) - 1) {
-					$query .= $key . " = '".$value."'";
+					$query .= $key . " = '".mysqli_real_escape_string($this->konek,$value)."'";
 				}else {
-					$query .= $key . " = '".$value."', ";
+					$query .= $key . " = '".mysqli_real_escape_string($this->konek, $value)."', ";
 				}
 			}
 		}
@@ -121,7 +121,7 @@ class EMBO {
 			$totKey = count($opt);
 			if($totKey == 1) {
 				if($like == "" or $like == "=") {
-					$query .= " WHERE $key = '$val'";
+					$query .= " WHERE $key = '".mysqli_real_escape_string($this->konek, $val)."'";
 				}else if($like == "like") {
 					$query .= " WHERE $key LIKE '%$val%'";
 				}else {
@@ -137,7 +137,7 @@ class EMBO {
 						$and = "AND";
 					}
 					if($like == "") {
-						$query .= $key . " = '" . $value. "' ".$and." ";
+						$query .= $key . " = '" . mysqli_real_escape_string($this->konek, $value). "' ".$and." ";
 					}else {
 						$query .= $key . " LIKE '%" . $value. "%' ".$and." ";
 					}

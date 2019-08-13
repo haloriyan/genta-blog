@@ -5,9 +5,9 @@ date_default_timezone_set('Asia/Jakarta');
 class posts extends subscribe {
 	public function read($title, $kolom) {
 		$title = tools::convertTitle($title);
-		$q = EMBO::tabel('post')->pilih($kolom)->dimana(['title' => $title], 'like')->eksekusi();
+		$q = EMBO::tabel('post')->pilih($kolom)->dimana(['idpost' => $title])->eksekusi();
 		if(EMBO::hitung($q) == 0) {
-			$q = EMBO::tabel('post')->pilih($kolom)->dimana(['idpost' => $title])->eksekusi();
+			$q = EMBO::tabel('post')->pilih($kolom)->dimana(['title' => $title], 'like')->eksekusi();
 		}
 		$r = EMBO::ambil($q);
 		return $r[$kolom];
@@ -79,6 +79,7 @@ class posts extends subscribe {
 			}
 		}
 	}
+	// Biar bisa commit
 
 	// For admin
 	public function all() {
@@ -125,7 +126,7 @@ class posts extends subscribe {
 			$iduser = users::me(users::sesi(), 'iduser');
 		}
 		$title = EMBO::pos('title');
-		$content = base64_decode(EMBO::pos('content'));
+		$content = base64_encode(EMBO::pos('content'));
 		$category = EMBO::pos('category');
 		$cover = EMBO::pos('cover');
 		$datePosted = EMBO::pos('datePosted');

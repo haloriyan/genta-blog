@@ -79,7 +79,6 @@ class posts extends subscribe {
 			}
 		}
 	}
-	// Biar bisa commit
 
 	// For admin
 	public function all() {
@@ -126,7 +125,7 @@ class posts extends subscribe {
 			$iduser = users::me(users::sesi(), 'iduser');
 		}
 		$title = EMBO::pos('title');
-		$content = base64_encode(EMBO::pos('content'));
+		$content = base64_decode(EMBO::pos('content'));
 		$category = EMBO::pos('category');
 		$cover = EMBO::pos('cover');
 		$datePosted = EMBO::pos('datePosted');

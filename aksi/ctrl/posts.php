@@ -4,13 +4,22 @@ include 'subscribe.php';
 date_default_timezone_set('Asia/Jakarta');
 class posts extends subscribe {
 	public function read($title, $kolom) {
-		$title = tools::convertTitle($title);
 		$q = EMBO::tabel('post')->pilih($kolom)->dimana(['idpost' => $title])->eksekusi();
 		if(EMBO::hitung($q) == 0) {
-			$q = EMBO::tabel('post')->pilih($kolom)->dimana(['title' => $title], 'like')->eksekusi();
+			$q = EMBO::tabel('post')->pilih($kolom)->dimana(['slug' => $title])->eksekusi();
 		}
 		$r = EMBO::ambil($q);
 		return $r[$kolom];
+	}
+	public function setSlug() {
+		$allPosts = EMBO::tabel('post')->pilih()->eksekusi();
+		while($r = EMBO::ambil($allPosts)) {
+			$convertedTitle = tools::convertTitle($r['title']);
+			$updateSlug = EMBO::tabel('post')->ubah(['slug' => $convertedTitle])->dimana(['idpost' => $r['idpost']])->eksekusi();
+			if($updateSlug) {
+				echo $r['idpost']." updated <br />";
+			}
+		}
 	}
 	public function delete() {
 		$id = EMBO::pos('idpost');

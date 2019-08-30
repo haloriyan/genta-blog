@@ -4,9 +4,9 @@ include 'subscribe.php';
 date_default_timezone_set('Asia/Jakarta');
 class posts extends subscribe {
 	public function read($title, $kolom) {
-		$q = EMBO::tabel('post')->pilih($kolom)->dimana(['idpost' => $title])->eksekusi();
+		$q = EMBO::tabel('post')->pilih($kolom)->dimana(['slug' => $title])->eksekusi();
 		if(EMBO::hitung($q) == 0) {
-			$q = EMBO::tabel('post')->pilih($kolom)->dimana(['slug' => $title])->eksekusi();
+			$q = EMBO::tabel('post')->pilih($kolom)->dimana(['idpost' => $title])->eksekusi();
 		}
 		$r = EMBO::ambil($q);
 		return $r[$kolom];

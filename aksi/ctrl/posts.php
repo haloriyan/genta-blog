@@ -120,7 +120,7 @@ class posts extends subscribe {
 							"<h4>".$r['title']."</h4>".
 						"</div>".
 						"<div class='nav ke-kiri'>".
-							"<a href='./".tools::convertTitle($r['title'])."' target='_blank'><button class='tblView'><i class='fas fa-eye'></i></button></a>".
+							"<a href='./".$r['slug']."' target='_blank'><button class='tblView'><i class='fas fa-eye'></i></button></a>".
 							"<a href='./create&id=".$r['idpost']."'><button class='tblEdit'><i class='fas fa-edit'></i></button></a>".
 							"<button class='tblDelete' onclick='hapus(this.value)' value='".$r['idpost']."'><i class='fas fa-times'></i></button>".
 						"</div>".
@@ -154,6 +154,7 @@ class posts extends subscribe {
 							'category'		=> $category,
 							'hashtag'		=> $hashtag,
 							'title'			=> $title,
+							'slug'			=> tools::convertTitle($title),
 							'content'		=> $content,
 							'cover'			=> $cover,
 							'date_posted'	=> $datePosted,

@@ -82,18 +82,18 @@ setcookie('position', '0', time() + 3555, '/');
 		<div class="featuredPost">
 			<div class="list">
 				<div class="kiri bag bag-5">
-					<div id="fiturPos0"></div>
+					<div id="fiturPos0"><?php echo $posts->fitur(0); ?></div>
 				</div>
 				<div class="kanan bag bag-5">
-					<div id="fiturPos1"></div>
-					<div id="fiturPos2"></div>
+					<div id="fiturPos1"><?php echo $posts->fitur(1); ?></div>
+					<div id="fiturPos2"><?php echo $posts->fitur(2); ?></div>
 				</div>
 				<div class="kanan bag bag-5" style="margin-left: 0px;margin-right: 25px;">
-					<div id="fiturPos3"></div>
-					<div id="fiturPos4"></div>
+					<div id="fiturPos3"><?php echo $posts->fitur(3); ?></div>
+					<div id="fiturPos4"><?php echo $posts->fitur(4); ?></div>
 				</div>
 				<div class="kiri bag bag-5">
-					<div id="fiturPos5"></div>
+					<div id="fiturPos5"><?php echo $posts->fitur(5); ?></div>
 				</div>
 				<div id="loadFeatured"></div>
 			</div>
@@ -103,7 +103,7 @@ setcookie('position', '0', time() + 3555, '/');
 				<div class="bagian" id="recentPost">
 					<div class="wrap">
 						<div class="recentPost">
-							<div id="loadPost"></div>
+							<div id="loadPost"><?php echo $posts->index(); ?></div>
 							<div id="toLoad0"></div>
 						</div>
 					</div>

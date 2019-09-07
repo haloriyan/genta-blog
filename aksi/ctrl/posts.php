@@ -251,7 +251,7 @@ class posts extends subscribe {
 		if($pos == "") {
 			$pos = EMBO::pos('pos');
 		}
-		$batas = 1;
+		$batas = 15;
 		$q = EMBO::query("SELECT * FROM post WHERE category LIKE '%featured%' ORDER BY created DESC LIMIT $pos,$batas");
 		$r = EMBO::ambil($q);
 		echo "<a href='./".tools::convertTitle($r['title'])."'>".

@@ -82,7 +82,7 @@ setcookie('position', '0', time() + 3555, '/');
 		<div class="featuredPost">
 			<div class="list">
 				<div class="kiri bag bag-5">
-					<div id="fiturPos0"><?php echo $posts->fitur(0); ?></div>
+					<div id="fiturPos0"><?php echo $posts->fitur("0"); ?></div>
 				</div>
 				<div class="kanan bag bag-5">
 					<div id="fiturPos1"><?php echo $posts->fitur(1); ?></div>
@@ -128,11 +128,13 @@ setcookie('position', '0', time() + 3555, '/');
 
 <script src="aset/js/embo.js"></script>
 <script>
-	let toLoad = 0
-	let posisi = 0
-	let allowLoad = 1
 	let documentHeight
 	let totalScroll
+	let config = {
+		toLoad: 0,
+		posisi: 0,
+		allowLoad: 1,
+	}
 	
 	function tblSearch() {
 		munculPopup("#bagSearch")
@@ -140,9 +142,6 @@ setcookie('position', '0', time() + 3555, '/');
 	function getDocHeight() {
 		var body = document.body,
 		    html = document.documentElement;
-
-		// documentHeight = Math.max( body.scrollHeight, body.offsetHeight, 
-		//                        html.clientHeight, html.scrollHeight, html.offsetHeight );
 		documentHeight = html.offsetHeight + html.scrollHeight
 	}
 	function loadPost() {
@@ -158,26 +157,26 @@ setcookie('position', '0', time() + 3555, '/');
 	window.addEventListener('scroll', (scr) => {
 		let scroll = this.pageYOffset
 		// totalScroll = parseInt(window.innerHeight) + parseInt(window.pageYOffset)
-		if(scroll >= documentHeight) {
+		if(scroll >= (documentHeight - 691)) {
 			loadMore()
 		}
 	})
 	function loadMore(that) {
-		toLoad = parseInt(toLoad) + 1
-		posisi = parseInt(posisi) + 5
-		if(allowLoad == 1) {
+		config.toLoad = parseInt(config.toLoad) + 1
+		config.posisi = parseInt(config.posisi) + 5
+		if(config.allowLoad == 1) {
 			magicElement()
 		}else {
 			return false
 		}
-		pos('./aksi/setCookie.php', 'namakuki=position&value='+posisi+'&durasi=3666', () => {
+		pos('./aksi/setCookie.php', 'namakuki=position&value='+config.posisi+'&durasi=3666', () => {
 			ambil('./posts/index', (res) => {
 				if(res == 'habis') {
-					$("#toLoad"+toLoad).tulis('No more article :(')
-					$("#toLoad"+toLoad).pengaya("text-align: center;color: #666;")
-					allowLoad = 0
+					$("#toLoad"+config.toLoad).tulis('No more article :(')
+					$("#toLoad"+config.toLoad).pengaya("text-align: center;color: #666;")
+					config.allowLoad = 0
 				}else {
-					$("#toLoad"+toLoad).tulis(res)
+					$("#toLoad"+config.toLoad).tulis(res)
 				}
 			})
 		})
@@ -186,7 +185,7 @@ setcookie('position', '0', time() + 3555, '/');
 	}
 	function magicElement() {
 		let div = document.createElement('div')
-		div.setAttribute('id', 'toLoad'+toLoad)
+		div.setAttribute('id', 'toLoad'+config.toLoad)
 		$('.recentPost').appendChild(div)
 	}
 	tekan('Escape', () => {

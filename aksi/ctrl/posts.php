@@ -158,6 +158,7 @@ class posts extends subscribe {
 							'content'		=> $content,
 							'cover'			=> $cover,
 							'date_posted'	=> $datePosted,
+							'hit' => 0,
 							'premium'		=> $premium,
 							'posted'		=> $posted,
 							'created'		=> time()

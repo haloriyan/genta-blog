@@ -1,7 +1,7 @@
 <?php
 global $dbHost,$dbUsername,$dbPassword,$dbName,$baseUrl;
 
-$isOnline = 0;
+$isOnline = 1;
 
 if($isOnline == 0) {
     $dbHost 	= "localhost";

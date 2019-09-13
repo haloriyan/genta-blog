@@ -52,7 +52,7 @@ setcookie('position', '0', time() + 3555, '/');
 				?>
 			</ul>
 		</li></a>
-		<a href="#"><li>MICE</li></a>
+		<a href="./cari/vendor"><li>Vendor</li></a>
 		<a href="#"><li>TIPS &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
 				<a href="./cari/Event Planning"><li>Event Planning &amp; Promotion</li></a>

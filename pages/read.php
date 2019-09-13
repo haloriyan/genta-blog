@@ -57,14 +57,14 @@ if($titles == "") {
 	<h1 class="title"><img src="aset/img/AK.png"></h1>
 	<div id="tblMenu" aksi="bkMenu"><i class="fas fa-bars"></i></div>
 	<nav class="menu">
-		<a href="#"><li>EVENT NEWS &nbsp; <i class="fas fa-angle-down"></i>
+		<a href="#"><li>EVENTS NEWS &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
 				<?php
 				$posts->allCat(1);
 				?>
 			</ul>
 		</li></a>
-		<a href="#"><li>MICE</li></a>
+		<a href="./cari/vendor"><li>Vendor</li></a>
 		<a href="#"><li>TIPS &nbsp; <i class="fas fa-angle-down"></i>
 			<ul class="sub">
 				<a href="./cari/Event Planning"><li>Event Planning &amp; Promotion</li></a>

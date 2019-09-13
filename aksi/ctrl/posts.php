@@ -352,6 +352,37 @@ class posts extends subscribe {
 		$toEdit = EMBO::pos('toEdit');
 		return EMBO::tabel('hashtag')->ubah(['hashtag' => $toEdit])->dimana(['hashtag' => $cat, 'type' => '1'])->eksekusi();
 	}
+	function arrayToXml( $data, &$xml_data ) {
+		foreach( $data as $key => $value ) {
+			if( is_numeric($key) ){
+				$key = 'item'.$key; //dealing with <0/>..<n/> issues
+			}
+			if( is_array($value) ) {
+				$subnode = $xml_data->addChild($key);
+				array_to_xml($value, $subnode);
+			} else {
+				$xml_data->addChild("$key",htmlspecialchars("$value"));
+			}
+		 }
+	}
+	public function sitemap() {
+		error_reporting(E_ALL);
+		$q = EMBO::tabel('post')->pilih()->urutkan('created', 'DESC')->batas(20)->eksekusi();
+		$ret = [];
+		while($r = EMBO::ambil($q)) {
+			$ret[] = ['url' => configs::baseUrl()."/".$r['slug']];
+		}
+
+		$yeye = [
+			'foo' => 'bar'
+		];
+		$xml = new SimpleXMLElement('<root></root>');
+		// array_walk_recursive($yeye, [$xml, 'addChild']);
+		$this->arrayToXml($yeye, $xml);
+		// echo htmlentities(json_encode($ret));
+		print $xml->asXML();
+		// echo htmlentities(json_encode($pos), ENT_QUOTES, "UTF-8");
+	}
 }
 
 $posts = new posts();

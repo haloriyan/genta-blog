@@ -15,3 +15,5 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 RewriteRule ^([^/]+)$ routes.php?bag=$1 [L]
 RewriteRule ^([^/]+)/([^/]+)$ routes.php?role=$1&bag=$2 [L]
+
+ErrorDocument 404 http://localhost/genta/error/404

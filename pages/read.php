@@ -37,7 +37,7 @@ if($titles == "") {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale = 1">
-	<meta name="description" content="<?php echo $configs->get('description'); ?>">
+	<meta name="description" content="<?php echo $tools->limit($content, 50); ?>">
 	<meta name="keyword" content="<?php echo $configs->get('keyword'); ?>">
 	<meta name="robots" content="index follow">
 	<meta property="og:url"                content="<?php echo $configs->getUrl(); ?>" />
@@ -50,6 +50,7 @@ if($titles == "") {
 	<link href="aset/fw/build/fontawesome-all.min.css" rel="stylesheet">
 	<link href="aset/css/read.min.css" rel="stylesheet">
 	<link href="aset/img/favicon.ico" rel="icon">
+	<link rel="canonical" href="<?php echo $linkNow; ?>">
 </head>
 <body>
 

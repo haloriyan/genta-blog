@@ -2,6 +2,9 @@
 include 'subscribe.php';
 
 date_default_timezone_set('Asia/Jakarta');
+
+use XMLParser\XMLParser;
+
 class posts extends subscribe {
 	public function read($title, $kolom) {
 		$q = EMBO::tabel('post')->pilih($kolom)->dimana(['slug' => $title])->eksekusi();
@@ -367,22 +370,22 @@ class posts extends subscribe {
 		 }
 	}
 	public function sitemap() {
+		header("Content-type: text/xml");
 		error_reporting(E_ALL);
 		$q = EMBO::tabel('post')->pilih()->urutkan('created', 'DESC')->batas(20)->eksekusi();
-		$ret = [];
 		while($r = EMBO::ambil($q)) {
-			$ret[] = ['url' => configs::baseUrl()."/".$r['slug']];
+			$res[] = [
+				'loc' => configs::baseUrl()."/".$r['slug'] ,
+				'lastmod' => $r['created'],
+			];
 		}
-
-		$yeye = [
-			'foo' => 'bar'
+		$ret = [
+			'attr:xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9',
 		];
-		$xml = new SimpleXMLElement('<root></root>');
-		// array_walk_recursive($yeye, [$xml, 'addChild']);
-		$this->arrayToXml($yeye, $xml);
-		// echo htmlentities(json_encode($ret));
-		print $xml->asXML();
-		// echo htmlentities(json_encode($pos), ENT_QUOTES, "UTF-8");
+		$ret = $ret + $res;
+
+		$show = XMLParser::encode($ret, 'urlset');
+		echo $show->asXML();
 	}
 }
 

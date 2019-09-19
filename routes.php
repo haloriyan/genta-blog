@@ -5,9 +5,10 @@
 	* Created by Riyan Satria - (c) 2018
 */
 
-error_reporting(1); // Comment this if you are in development mode and please dont edit this
+// error_reporting(1); // Comment this if you are in development mode and please dont edit this
 $role = $_GET['role'];
 $bag = $_GET['bag'];
+include './vendor/autoload.php';
 
 if($role == "" and $bag == "") {
 	include 'index.php';

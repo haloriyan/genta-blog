@@ -23,6 +23,7 @@ class users extends configs {
 						'name'			=> $name,
 						'email'			=> $email,
 						'password'		=> $pwd,
+						'bio'			=> 'My Awesome Profile',
 						'role'			=> $role,
 						'photo'			=> $photo,
 						'registered'	=> time()

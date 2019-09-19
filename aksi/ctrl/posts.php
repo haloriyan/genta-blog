@@ -376,7 +376,7 @@ class posts extends subscribe {
 		while($r = EMBO::ambil($q)) {
 			$res[] = [
 				'loc' => configs::baseUrl()."/".$r['slug'] ,
-				'lastmod' => $r['created'],
+				'lastmod' => date('Y-m-d', $r['created']),
 			];
 		}
 		$ret = [

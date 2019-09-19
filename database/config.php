@@ -14,7 +14,7 @@ if($isOnline == 0) {
     $dbUsername = "root";
     $dbPassword = "wJoN7S79crkEEi";
     $dbName 	= "blog";
-    $baseUrl = "https://blog.agendakota.id";
+    $baseUrl = "https://www.blog.agendakota.id";
 }
 
 ?>

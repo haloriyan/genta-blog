@@ -1,0 +1,5 @@
+{
+    "require": {
+        "jtrumbull/xml-parser": "^1.0"
+    }
+}

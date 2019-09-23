@@ -372,7 +372,7 @@ class posts extends subscribe {
 	public function sitemap() {
 		header("Content-type: text/xml");
 		error_reporting(E_ALL);
-		$q = EMBO::tabel('post')->pilih()->urutkan('created', 'DESC')->batas(20)->eksekusi();
+		$q = EMBO::tabel('post')->pilih()->urutkan('created', 'DESC')->batas(100)->eksekusi();
 		while($r = EMBO::ambil($q)) {
 			$res[] = [
 				'loc' => configs::baseUrl()."/".$r['slug'] ,

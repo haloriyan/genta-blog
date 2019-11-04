@@ -61,3 +61,15 @@ if($role == "" and $bag == "") {
 		}
 	}
 }
+?>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-107986295-2"></script>
+<script>
+window.dataLayer = window.dataLayer || []
+function gtag() { 
+	dataLayer.push(arguments)
+}
+
+gtag('js', new Date())
+gtag('config', 'UA-107986295-2')
+console.log('google anal tracked')
+</script>

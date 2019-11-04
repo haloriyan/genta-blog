@@ -15,5 +15,3 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 RewriteRule ^([^/]+)$ routes.php?bag=$1 [L]
 RewriteRule ^([^/]+)/([^/]+)$ routes.php?role=$1&bag=$2 [L]
-
-ErrorDocument 404 /error/404
